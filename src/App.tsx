@@ -10,12 +10,16 @@ function App() {
     return (await fetch(MOCK_PATH)).json();
   }
 
-  function setRuntimeRequestHandler(i: string = "RUNTIME OVERRIDE") {
+  function setRuntimeRequestHandler(
+    body: Record<string, unknown>,
+    path: string = MOCK_PATH,
+    method: string = "get"
+  ) {
     const { worker, rest } = window.msw;
 
     worker.use(
-      rest.get(MOCK_PATH, (req: any, res: any, ctx: any) => {
-        return res.once(ctx.json({ title: i }));
+      rest[method](path, (req: any, res: any, ctx: any) => {
+        return res.once(ctx.json(body));
       })
     );
   }
@@ -85,7 +89,7 @@ function App() {
                 }
 
                 e.preventDefault();
-                setRuntimeRequestHandler(input);
+                setRuntimeRequestHandler({ title: input });
                 handleReset();
                 setToggleUI(false);
               }}

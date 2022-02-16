@@ -18,7 +18,16 @@ function App() {
   const { worker, rest, handlers } = _msw ?? {};
 
   if (!worker || !rest || !handlers) {
-    return <div>Error</div>;
+    return (
+      <div>
+        Error in connecting to MSW. Please ensure your app is saving a{" "}
+        <code>msw</code> object to <code>window</code>. Such object should be
+        shaped according to this type:
+        <pre>
+          <code>`TODO MSWglobalExports `</code>
+        </pre>
+      </div>
+    );
   }
 
   return (

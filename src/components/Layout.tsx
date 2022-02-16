@@ -16,32 +16,32 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { MSWglobalExports } from "../types/app";
+import Body from "./Body";
+import { RestHandler } from "msw";
 
 export default function Layout({
   worker,
   rest,
   handlers,
 }: PropsWithChildren<MSWglobalExports>): JSX.Element {
-  const [input, setInput] = useState<string>("");
-  const [toggleUI, setToggleUI] = useState<boolean>(false);
-
   const [opened, setOpened] = useState(false);
+  const [sidebarItem, setSidebarItem] = useState<RestHandler>();
   const theme = useMantineTheme();
 
   function setRuntimeRequestHandler(
-    body: Record<string, unknown>,
+    body: string,
     path: string,
     method: string = "get"
   ) {
     worker.use(
       rest[method](path, (req: any, res: any, ctx: any) => {
-        return res.once(ctx.json(body));
+        return res.once(ctx.json(JSON.parse(body)));
       })
     );
   }
 
-  function handleReset() {
-    setInput("");
+  function handleCurrentSidebarItem(item: RestHandler) {
+    setSidebarItem(item);
   }
 
   return (
@@ -58,9 +58,10 @@ export default function Layout({
           position={{ top: 0, left: 0 }}
         >
           {handlers?.length
-            ? handlers.map((handler: any, i: number) => (
+            ? handlers.map((handler: RestHandler, i: number) => (
                 <Box
                   key={i}
+                  onClick={() => handleCurrentSidebarItem(handler)}
                   sx={(theme) => ({
                     backgroundColor:
                       theme.colorScheme === "dark"
@@ -101,86 +102,30 @@ export default function Layout({
               />
             </MediaQuery>
 
-            <Text>Module</Text>
+            <Text>App</Text>
+
+            <button
+              type="button"
+              onClick={() => {
+                worker?.start?.();
+              }}
+            >
+              Start worker
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                worker?.stop?.();
+              }}
+            >
+              Stop worker
+            </button>
           </div>
         </Header>
       }
     >
-      <div>
-        <section
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: ".5rem",
-          }}
-        >
-          <Button
-            type="button"
-            onClick={() => {
-              setToggleUI((ui) => !ui);
-            }}
-          >
-            Set runtime request handler
-          </Button>
-
-          {toggleUI && (
-            <form
-              action="#"
-              onSubmit={(e) => {
-                if (!input) {
-                  window.alert("Please provide a value.");
-                  return;
-                }
-
-                e.preventDefault();
-                setRuntimeRequestHandler({ title: input }, "");
-                handleReset();
-                setToggleUI(false);
-              }}
-            >
-              <input
-                type="text"
-                placeholder={"insert runtime response override..."}
-                onChange={(event) => setInput(event.target.value)}
-                value={input}
-              />
-
-              <button type="submit">Submit</button>
-            </form>
-          )}
-        </section>
-
-        <section
-          style={{
-            display: "flex",
-            padding: ".5rem",
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              handleReset();
-              window.msw?.worker?.start?.();
-            }}
-          >
-            Start worker
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              handleReset();
-              window.msw?.worker?.stop?.();
-            }}
-          >
-            Stop worker
-          </button>
-
-          <button type="button" onClick={handleReset}>
-            Reset response
-          </button>
-        </section>
-      </div>
+      <Body currentItem={sidebarItem} onSubmit={setRuntimeRequestHandler} />
     </AppShell>
   );
 }

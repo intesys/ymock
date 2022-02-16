@@ -10,7 +10,19 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Button } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Paper,
+  Title,
+  Text,
+  Badge,
+  Group,
+  Code,
+  JsonInput,
+} from "@mantine/core";
 import { RestHandler } from "msw";
 
 type OwnProps = {
@@ -53,35 +65,64 @@ export default function Body({
     }
   }, [currentItem]);
 
-  return !info ? (
-    <span>Please select an item from the sidebar.</span>
-  ) : (
-    <div>
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: ".5rem",
-        }}
-      >
-        <h6>Request</h6>
-        <h1>
-          <span>{info.method}</span> | {info.path}
-        </h1>
+  return (
+    <Container>
+      {!info ? (
+        <span>Please select an item from the sidebar.</span>
+      ) : (
+        <Box component={"main"}>
+          <header>
+            <Title order={1} style={{ marginBottom: 30 }}>
+              Request info
+            </Title>
+          </header>
 
-        <h3>Set runtime request handler</h3>
+          <Paper padding="lg" shadow="xs" withBorder mb={40}>
+            <Title order={3}>
+              <Group spacing="md">
+                <Badge color={"green"} component={"span"}>
+                  {info.method}
+                </Badge>
 
-        <form action="#" onSubmit={handleSubmit}>
-          <textarea
-            style={{ width: "100%", height: 200, padding: "1rem" }}
-            placeholder={`insert runtime response override for the path: "${info.path}"...`}
-            onChange={(event) => setInput(event.target.value)}
-            value={input}
+                <Code>{info.path}</Code>
+              </Group>
+            </Title>
+          </Paper>
+
+          <Divider
+            my="xs"
+            label={<Title order={4}>Override response</Title>}
+            labelPosition="left"
           />
 
-          <Button type="submit">Submit</Button>
-        </form>
-      </section>
-    </div>
+          <Box component={"section"} style={{ padding: "20px 0" }}>
+            <Text mb={40}>
+              Klingons die with understanding at the brave moon! Wind at the
+              saucer section was the life of powerdrain, controlled to a
+              collective girl. Ferengi of a cold shield, lower the sonic shower.
+            </Text>
+
+            <form action="#" onSubmit={handleSubmit}>
+              <JsonInput
+                placeholder={`insert runtime response override for the path: "${info.path}"...`}
+                variant="filled"
+                validationError="Invalid json"
+                formatOnBlur
+                autosize
+                minRows={10}
+                onChange={setInput}
+                value={input}
+              />
+
+              <Group position="right">
+                <Button size="sm" uppercase type="submit" mt={20}>
+                  Submit
+                </Button>
+              </Group>
+            </form>
+          </Box>
+        </Box>
+      )}
+    </Container>
   );
 }

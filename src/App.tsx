@@ -12,6 +12,7 @@ import {
   RestHandler,
   SetupWorkerApi,
 } from "msw";
+import { Box, Code, Container } from "@mantine/core";
 
 function App() {
   const { msw } = window;
@@ -19,14 +20,14 @@ function App() {
 
   if (!worker || !rest || !handlers) {
     return (
-      <div>
-        Error in connecting to MSW. Please ensure your app is saving a{" "}
-        <code>msw</code> object to <code>window</code>. Such object should be
-        shaped according to this type:
-        <pre>
-          <code>`TODO MSWglobalExports `</code>
-        </pre>
-      </div>
+      <Container size={"sm"}>
+        <Box>
+          Error in connecting to MSW. Please ensure your app is saving a{" "}
+          <code>msw</code> object to <code>window</code>. Such object should be
+          shaped according to this type:
+          <Code block>`TODO;`</Code>
+        </Box>
+      </Container>
     );
   }
 

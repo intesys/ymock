@@ -30,6 +30,19 @@ function App() {
     );
   }
 
+  useEffect(() => {
+    if (worker?.events) {
+      const events = ["request:start", "request:unhandled", "response:bypass"];
+      const listener = (ev: string) => () => console.log(ev);
+
+      events.forEach((ev) => worker.events.on(ev, listener(ev)));
+    }
+
+    return () => {
+      worker.events.removeAllListeners();
+    };
+  }, [worker]);
+
   return (
     <div className="App">
       <Layout

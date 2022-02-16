@@ -17,6 +17,7 @@ import {
   MediaQuery,
   Navbar,
   Text,
+  UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
 import { MSWglobalExports } from "../types/app";
@@ -61,42 +62,72 @@ export default function Layout({
           fixed
           position={{ top: 0, left: 0 }}
         >
-          {handlers?.length
-            ? handlers.map((handler: RestHandler, i: number) => (
-                <Box
-                  key={i}
-                  onClick={() => handleCurrentSidebarItem(handler)}
-                  sx={(theme) => ({
-                    backgroundColor:
-                      theme.colorScheme === "dark"
-                        ? theme.colors.dark[6]
-                        : theme.colors.gray[0],
-                    padding: theme.spacing.md,
-                    borderRadius: theme.radius.sm,
-                    cursor: "pointer",
-                    fontSize: theme.fontSizes.sm,
-                    marginTop: i !== 0 ? theme.spacing.md : 0,
-
-                    "&:hover": {
+          <Navbar.Section grow mt={10}>
+            {handlers?.length
+              ? handlers.map((handler: RestHandler, i: number) => (
+                  <Box
+                    key={i}
+                    onClick={() => handleCurrentSidebarItem(handler)}
+                    sx={(theme) => ({
                       backgroundColor:
                         theme.colorScheme === "dark"
-                          ? theme.colors.dark[5]
-                          : theme.colors.gray[1],
-                    },
-                  })}
-                >
-                  <Group spacing="md" noWrap>
-                    <Badge color={"green"} component={"span"}>
-                      {handler.info?.method}
-                    </Badge>
+                          ? theme.colors.dark[6]
+                          : theme.colors.gray[0],
+                      padding: theme.spacing.md,
+                      borderRadius: theme.radius.sm,
+                      cursor: "pointer",
+                      fontSize: theme.fontSizes.sm,
+                      marginTop: i !== 0 ? theme.spacing.md : 0,
 
-                    <Text size={"sm"}>
-                      {handler.info?.path?.replace?.(/http[s]?:\/\//, "")}
-                    </Text>
-                  </Group>
-                </Box>
-              ))
-            : null}
+                      "&:hover": {
+                        backgroundColor:
+                          theme.colorScheme === "dark"
+                            ? theme.colors.dark[5]
+                            : theme.colors.gray[1],
+                      },
+                    })}
+                  >
+                    <Group spacing="md" noWrap>
+                      <Badge color={"green"} component={"span"}>
+                        {handler.info?.method}
+                      </Badge>
+
+                      <Text size={"sm"}>
+                        {handler.info?.path?.replace?.(/http[s]?:\/\//, "")}
+                      </Text>
+                    </Group>
+                  </Box>
+                ))
+              : null}
+          </Navbar.Section>
+
+          <Navbar.Section>
+            <Divider />
+
+            <Group
+              position={"left"}
+              spacing={"sm"}
+              style={{ padding: "20px 0 10px" }}
+            >
+              <UnstyledButton
+                type="button"
+                onClick={() => {
+                  worker?.start?.();
+                }}
+              >
+                <Badge variant="dot">Start worker</Badge>
+              </UnstyledButton>
+
+              <UnstyledButton
+                type="button"
+                onClick={() => {
+                  worker?.stop?.();
+                }}
+              >
+                <Badge variant="dot">Stop worker</Badge>
+              </UnstyledButton>
+            </Group>
+          </Navbar.Section>
         </Navbar>
       }
       header={
@@ -114,25 +145,9 @@ export default function Layout({
               />
             </MediaQuery>
 
-            <Text>App</Text>
-
-            <button
-              type="button"
-              onClick={() => {
-                worker?.start?.();
-              }}
-            >
-              Start worker
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                worker?.stop?.();
-              }}
-            >
-              Stop worker
-            </button>
+            <Text size={"sm"} weight={700} transform="uppercase">
+              {`MSW Admin UI`}
+            </Text>
           </div>
         </Header>
       }

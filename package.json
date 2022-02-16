@@ -7,7 +7,8 @@
     "clean": "rimraf ./dist && rimraf ./.parcel-cache",
     "dev": "yarn run clean && parcel",
     "build": "yarn run clean && parcel build",
-    "serve": "serve ./dist"
+    "serve": "serve ./dist",
+    "export": "yarn run clean && parcel build --dist-dir dist/admin"
   },
   "eslintConfig": {
     "extends": [

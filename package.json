@@ -7,7 +7,7 @@
     "clean": "rimraf ./dist && rimraf ./.parcel-cache",
     "dev": "yarn run clean && parcel",
     "build": "yarn run clean && parcel build",
-    "serve": "npx serve ./build"
+    "serve": "serve ./dist"
   },
   "eslintConfig": {
     "extends": [

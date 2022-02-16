@@ -8,7 +8,7 @@
     "dev": "yarn run clean && parcel",
     "build": "yarn run clean && parcel build",
     "serve": "serve ./dist",
-    "export": "yarn run clean && parcel build --dist-dir dist/admin"
+    "export": "yarn run clean && parcel build --no-source-maps --dist-dir dist/admin"
   },
   "eslintConfig": {
     "extends": [

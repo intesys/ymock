@@ -1,17 +1,8 @@
-import {
-  DefaultRequestBody,
-  MockedRequest,
-  RestHandler,
-  SetupWorkerApi,
-} from "msw";
+import { MSWglobalExports } from "./types";
 
 declare global {
   interface Window {
-    msw: {
-      worker: SetupWorkerApi;
-      rest: any;
-      handlers: RestHandler<MockedRequest<DefaultRequestBody>>[];
-    };
+    msw: MSWglobalExports;
   }
 }
 

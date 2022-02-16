@@ -3,7 +3,13 @@ Body
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren, ReactElement, useEffect, useState } from "react";
+import {
+  FormEvent,
+  PropsWithChildren,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { Button } from "@mantine/core";
 import { RestHandler } from "msw";
 
@@ -17,14 +23,13 @@ export default function Body({
   onSubmit,
 }: PropsWithChildren<OwnProps>): ReactElement {
   const [input, setInput] = useState<string>("");
-  const [toggleUI, setToggleUI] = useState<boolean>(false);
   const { info } = currentItem ?? {};
 
   function handleReset() {
     setInput("");
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!input) {
@@ -33,6 +38,7 @@ export default function Body({
     }
 
     if (!info?.path) {
+      window.alert("No path provided");
       return;
     }
 

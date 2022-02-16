@@ -6,9 +6,13 @@ import * as React from "react";
 import { PropsWithChildren, useState } from "react";
 import {
   AppShell,
+  Badge,
   Box,
   Burger,
   Button,
+  Code,
+  Divider,
+  Group,
   Header,
   MediaQuery,
   Navbar,
@@ -81,7 +85,15 @@ export default function Layout({
                     },
                   })}
                 >
-                  {`${handler.info?.method} | ${handler.info?.path}`}
+                  <Group spacing="md" noWrap>
+                    <Badge color={"green"} component={"span"}>
+                      {handler.info?.method}
+                    </Badge>
+
+                    <Text size={"sm"}>
+                      {handler.info?.path?.replace?.(/http[s]?:\/\//, "")}
+                    </Text>
+                  </Group>
                 </Box>
               ))
             : null}

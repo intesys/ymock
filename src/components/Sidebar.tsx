@@ -13,6 +13,7 @@ import {
   NavbarProps,
   Text,
   UnstyledButton,
+  useMantineTheme,
 } from "@mantine/core";
 import { RestHandler } from "msw";
 import { MSWglobalExports } from "../types";
@@ -31,6 +32,7 @@ export default function Sidebar({
   ...navbarProps
 }: PropsWithChildren<OwnProps>): ReactElement | null {
   const [currentItem, setCurrentItem] = useState<RestHandler>();
+  const theme = useMantineTheme();
 
   function handleItemClick(item: RestHandler) {
     setCurrentItem(item);
@@ -39,55 +41,62 @@ export default function Sidebar({
 
   return (
     <Navbar {...navbarProps}>
-      <Navbar.Section
-        grow
-        mt={10}
-        sx={(t) => ({
-          padding: t.spacing.md,
-        })}
-      >
+      <Navbar.Section grow mt={theme.spacing.xl}>
         {handlers?.length
-          ? handlers.map((handler: RestHandler, i: number) => {
+          ? handlers.map((handler: RestHandler, i: number, arr) => {
               const isSelected =
                 handler?.info?.path === currentItem?.info?.path;
 
               return (
-                <Box
-                  key={i}
-                  onClick={() => handleItemClick(handler)}
-                  sx={(t) => ({
-                    backgroundColor: isSelected
-                      ? t.colorScheme === "dark"
-                        ? t.colors.blue[9]
-                        : t.colors.indigo[0]
-                      : t.colorScheme === "dark"
-                      ? t.colors.dark[6]
-                      : t.colors.gray[0],
-                    padding: t.spacing.md,
-                    borderRadius: t.radius.sm,
-                    cursor: "pointer",
-                    fontSize: t.fontSizes.sm,
-                    marginTop: i !== 0 ? t.spacing.sm : 0,
-
-                    "&:hover": {
+                <>
+                  <Divider
+                    sx={{
+                      borderColor: "#2C2E33", // TODO color not in theme
+                    }}
+                  />
+                  <Box
+                    key={i}
+                    onClick={() => handleItemClick(handler)}
+                    sx={(t) => ({
                       backgroundColor: isSelected
                         ? t.colorScheme === "dark"
-                          ? t.colors.blue[8]
-                          : t.colors.gray[1]
-                        : t.colorScheme === "dark"
-                        ? t.colors.dark[5]
-                        : t.colors.gray[1],
-                    },
-                  })}
-                >
-                  <Group spacing="md" noWrap>
-                    <Badge color={"green"} component={"span"}>
-                      {handler.info?.method}
-                    </Badge>
+                          ? t.colors.blue[9]
+                          : t.colors.indigo[9]
+                        : "none",
+                      padding: t.spacing.md,
+                      cursor: "pointer",
+                      fontSize: t.fontSizes.sm,
 
-                    <Text size={"sm"}>{stripBasePath(handler.info?.path)}</Text>
-                  </Group>
-                </Box>
+                      "&:hover": {
+                        backgroundColor: isSelected
+                          ? t.colorScheme === "dark"
+                            ? t.colors.blue[8]
+                            : t.colors.gray[1]
+                          : t.colorScheme === "dark"
+                          ? t.colors.dark[5]
+                          : t.colors.gray[1],
+                      },
+                    })}
+                  >
+                    <Group spacing="md" noWrap>
+                      <Badge color={"green"} component={"span"}>
+                        {handler.info?.method}
+                      </Badge>
+
+                      <Text size={"sm"}>
+                        {stripBasePath(handler.info?.path)}
+                      </Text>
+                    </Group>
+                  </Box>
+
+                  {i === arr.length - 1 && (
+                    <Divider
+                      sx={{
+                        borderColor: "#2C2E33", // TODO color not in theme
+                      }}
+                    />
+                  )}
+                </>
               );
             })
           : null}
@@ -95,7 +104,11 @@ export default function Sidebar({
 
       {children && <Navbar.Section>{children}</Navbar.Section>}
 
-      <Divider />
+      <Divider
+        sx={{
+          borderColor: "#2C2E33", // TODO color not in theme
+        }}
+      />
 
       <Navbar.Section
         sx={(t) => ({

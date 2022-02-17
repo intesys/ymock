@@ -10,7 +10,7 @@ import { Box, Code, Container } from "@mantine/core";
 
 function App() {
   const { msw } = window;
-  const { worker, rest, handlers } = _msw ?? {};
+  const { worker, rest, handlers } = msw ?? {};
 
   if ([worker, rest, handlers].some((el) => !el)) {
     return (

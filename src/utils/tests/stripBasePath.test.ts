@@ -20,6 +20,16 @@ test("Tests stripBasePath utility with more path levels", () => {
   ).toBe("/x/y/z/todos/100?x=y&y=z");
 });
 
+test("Tests stripBasePath utility without slashes", () => {
+  expect(stripBasePath("jsonplaceholder.typicode.com")).toBe(
+    "jsonplaceholder.typicode.com"
+  );
+});
+
+test("Tests stripBasePath utility without protocol", () => {
+  expect(stripBasePath("jsonplaceholder.typicode.com/xyz")).toBe("/xyz");
+});
+
 test("Tests stripBasePath utility with falsy value", () => {
   expect(stripBasePath(undefined)).toBe("");
 });

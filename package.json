@@ -8,7 +8,8 @@
     "dev": "yarn run clean && parcel",
     "build": "yarn run clean && parcel build",
     "serve": "serve ./dist",
-    "export": "yarn run clean && parcel build --no-source-maps --dist-dir dist/admin"
+    "export": "yarn run clean && parcel build --no-source-maps --dist-dir dist/admin",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -39,13 +40,19 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.4",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
     "@parcel/packager-ts": "2.3.1",
     "@parcel/transformer-typescript-types": "2.3.1",
     "@parcel/transformer-webmanifest": "2.3.1",
+    "@types/jest": "^27.4.0",
     "@types/node": "^16.11.24",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
+    "jest": "^27.5.1",
     "msw": "^0.36.8",
     "parcel": "^2.3.1",
     "prettier": "^2.5.1",

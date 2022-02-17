@@ -45,12 +45,11 @@ export default function Layout({
       fixed
       navbar={
         <Sidebar
-          padding="md"
-          hiddenBreakpoint="sm"
-          hidden={!showSidebar}
-          width={{ sm: 300, lg: 400 }}
           fixed
           position={{ top: 0, left: 0 }}
+          hiddenBreakpoint="sm"
+          hidden={!showSidebar}
+          width={{ sm: 300, lg: 440 }}
           onItemClick={handleCurrentSidebarItem}
           {...{
             worker,
@@ -59,7 +58,7 @@ export default function Layout({
         />
       }
       header={
-        <Header height={70} padding="md">
+        <Header height={50} padding="md">
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >

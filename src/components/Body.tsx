@@ -73,26 +73,38 @@ export default function Body({
         <Box component={"main"}>
           <header>
             {/* TODO use sx, not style, use theme values not arbitrary values */}
-            <Title order={1} style={{ marginBottom: 30 }}>
+            <Title order={2} style={{ marginBottom: 30 }}>
               Request info
             </Title>
           </header>
 
-          <Paper padding="lg" shadow="xs" withBorder mb={40}>
-            <Group spacing="md">
-              <Text size={"xs"} transform={"uppercase"}>
-                Method
-              </Text>
-              <Badge color={"green"} component={"span"}>
-                {info.method}
-              </Badge>
+          <Paper shadow="xs" withBorder mb={40}>
+            <Group noWrap>
+              <Group sx={(t) => ({ padding: t.spacing.lg })}>
+                <Text size={"xs"} transform={"uppercase"}>
+                  Method:
+                </Text>
+                <Badge color={"green"} component={"span"}>
+                  {info.method}
+                </Badge>
+              </Group>
 
-              <Divider orientation={"vertical"} />
+              <Box
+                component={"span"}
+                sx={{
+                  display: "inline-block",
+                  width: 1,
+                  height: 60,
+                  background: "#2C2E33", // TODO color not in theme
+                }}
+              />
 
-              <Text size={"xs"} transform={"uppercase"}>
-                Path
-              </Text>
-              <Code>{info.path}</Code>
+              <Group sx={(t) => ({ padding: t.spacing.lg })}>
+                <Text size={"xs"} transform={"uppercase"}>
+                  Path:
+                </Text>
+                <Code>{info.path}</Code>
+              </Group>
             </Group>
           </Paper>
 

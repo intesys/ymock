@@ -6,18 +6,10 @@ import * as React from "react";
 import { PropsWithChildren, useState } from "react";
 import {
   AppShell,
-  Badge,
-  Box,
   Burger,
-  Button,
-  Code,
-  Divider,
-  Group,
   Header,
   MediaQuery,
-  Navbar,
   Text,
-  UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
 import { MSWglobalExports } from "../types";

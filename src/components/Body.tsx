@@ -116,9 +116,10 @@ export default function Body({
 
           <Box component={"section"} style={{ padding: "20px 0" }}>
             <Text mb={40}>
-              Klingons die with understanding at the brave moon! Wind at the
-              saucer section was the life of powerdrain, controlled to a
-              collective girl. Ferengi of a cold shield, lower the sonic shower.
+              Enter a value in the following field to override the mocked
+              response served by the service worker. The field accepts JSON, and
+              will validate & format your input. Please note the override will
+              run just once, then the previous response will be in effect.
             </Text>
 
             <form action="#" onSubmit={handleSubmit}>

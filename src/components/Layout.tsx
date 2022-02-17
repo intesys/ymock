@@ -20,30 +20,20 @@ import {
   UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
-import { MSWglobalExports } from "../types/app";
+import { MSWglobalExports } from "../types";
 import Body from "./Body";
 import { RestHandler } from "msw";
+import Sidebar from "./Sidebar";
+import { setRuntimeRequestHandler } from "../lib";
 
 export default function Layout({
   worker,
   rest,
   handlers,
 }: PropsWithChildren<MSWglobalExports>): JSX.Element {
-  const [opened, setOpened] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<RestHandler>();
   const theme = useMantineTheme();
-
-  function setRuntimeRequestHandler(
-    body: string,
-    path: string,
-    method: string = "get"
-  ) {
-    worker.use(
-      rest[method](path, (req: any, res: any, ctx: any) => {
-        return res.once(ctx.json(JSON.parse(body)));
-      })
-    );
-  }
 
   function handleCurrentSidebarItem(item: RestHandler) {
     setSidebarItem(item);
@@ -54,81 +44,19 @@ export default function Layout({
       navbarOffsetBreakpoint="sm"
       fixed
       navbar={
-        <Navbar
+        <Sidebar
           padding="md"
           hiddenBreakpoint="sm"
-          hidden={!opened}
+          hidden={!showSidebar}
           width={{ sm: 300, lg: 400 }}
           fixed
           position={{ top: 0, left: 0 }}
-        >
-          <Navbar.Section grow mt={10}>
-            {handlers?.length
-              ? handlers.map((handler: RestHandler, i: number) => (
-                  <Box
-                    key={i}
-                    onClick={() => handleCurrentSidebarItem(handler)}
-                    sx={(theme) => ({
-                      backgroundColor:
-                        theme.colorScheme === "dark"
-                          ? theme.colors.dark[6]
-                          : theme.colors.gray[0],
-                      padding: theme.spacing.md,
-                      borderRadius: theme.radius.sm,
-                      cursor: "pointer",
-                      fontSize: theme.fontSizes.sm,
-                      marginTop: i !== 0 ? theme.spacing.md : 0,
-
-                      "&:hover": {
-                        backgroundColor:
-                          theme.colorScheme === "dark"
-                            ? theme.colors.dark[5]
-                            : theme.colors.gray[1],
-                      },
-                    })}
-                  >
-                    <Group spacing="md" noWrap>
-                      <Badge color={"green"} component={"span"}>
-                        {handler.info?.method}
-                      </Badge>
-
-                      <Text size={"sm"}>
-                        {handler.info?.path?.replace?.(/http[s]?:\/\//, "")}
-                      </Text>
-                    </Group>
-                  </Box>
-                ))
-              : null}
-          </Navbar.Section>
-
-          <Navbar.Section>
-            <Divider />
-
-            <Group
-              position={"left"}
-              spacing={"sm"}
-              style={{ padding: "20px 0 10px" }}
-            >
-              <UnstyledButton
-                type="button"
-                onClick={() => {
-                  worker?.start?.();
-                }}
-              >
-                <Badge variant="dot">Start worker</Badge>
-              </UnstyledButton>
-
-              <UnstyledButton
-                type="button"
-                onClick={() => {
-                  worker?.stop?.();
-                }}
-              >
-                <Badge variant="dot">Stop worker</Badge>
-              </UnstyledButton>
-            </Group>
-          </Navbar.Section>
-        </Navbar>
+          onItemClick={handleCurrentSidebarItem}
+          {...{
+            worker,
+            handlers,
+          }}
+        />
       }
       header={
         <Header height={70} padding="md">
@@ -137,8 +65,8 @@ export default function Layout({
           >
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
+                opened={showSidebar}
+                onClick={() => setShowSidebar((o) => !o)}
                 size="sm"
                 color={theme.colors.gray[6]}
                 mr="xl"
@@ -152,7 +80,10 @@ export default function Layout({
         </Header>
       }
     >
-      <Body currentItem={sidebarItem} onSubmit={setRuntimeRequestHandler} />
+      <Body
+        currentItem={sidebarItem}
+        onSubmit={setRuntimeRequestHandler(worker, rest)}
+      />
     </AppShell>
   );
 }

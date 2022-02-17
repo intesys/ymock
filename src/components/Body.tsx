@@ -78,15 +78,21 @@ export default function Body({
           </header>
 
           <Paper padding="lg" shadow="xs" withBorder mb={40}>
-            <Title order={3}>
-              <Group spacing="md">
-                <Badge color={"green"} component={"span"}>
-                  {info.method}
-                </Badge>
+            <Group spacing="md">
+              <Text size={"xs"} transform={"uppercase"}>
+                Method
+              </Text>
+              <Badge color={"green"} component={"span"}>
+                {info.method}
+              </Badge>
 
-                <Code>{info.path}</Code>
-              </Group>
-            </Title>
+              <Divider orientation={"vertical"} />
+
+              <Text size={"xs"} transform={"uppercase"}>
+                Path
+              </Text>
+              <Code>{info.path}</Code>
+            </Group>
           </Paper>
 
           <Divider

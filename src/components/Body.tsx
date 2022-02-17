@@ -115,7 +115,13 @@ export default function Body({
               />
 
               <Group position="right">
-                <Button size="sm" uppercase type="submit" mt={20}>
+                <Button
+                  size="sm"
+                  uppercase
+                  type="submit"
+                  disabled={!input}
+                  mt={20}
+                >
                   Submit
                 </Button>
               </Group>

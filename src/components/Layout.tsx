@@ -50,7 +50,11 @@ export default function Layout({
         />
       }
       header={
-        <Header height={50} padding="md">
+        <Header
+          height={50}
+          padding="md"
+          sx={(t) => ({ backgroundColor: t.colors.dark[6] })}
+        >
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >

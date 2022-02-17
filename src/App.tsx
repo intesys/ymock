@@ -6,19 +6,13 @@ import React, { useEffect } from "react";
 import Layout from "./components/Layout";
 import _msw from "./mocks/msw";
 import { MSWglobalExports } from "./types";
-import {
-  DefaultRequestBody,
-  MockedRequest,
-  RestHandler,
-  SetupWorkerApi,
-} from "msw";
 import { Box, Code, Container } from "@mantine/core";
 
 function App() {
   const { msw } = window;
   const { worker, rest, handlers } = _msw ?? {};
 
-  if (!worker || !rest || !handlers) {
+  if ([worker, rest, handlers].some((el) => !el)) {
     return (
       <Container size={"sm"}>
         <Box>

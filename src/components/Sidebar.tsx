@@ -7,6 +7,7 @@ import { PropsWithChildren, ReactElement, useState } from "react";
 import {
   Badge,
   Box,
+  Button,
   Divider,
   Group,
   Navbar,
@@ -116,23 +117,30 @@ export default function Sidebar({
         })}
       >
         <Group position={"left"} spacing={"sm"}>
-          <UnstyledButton
-            type="button"
+          {/* TODO alternate based on MSW status (get it via global object?) */}
+          <Button
+            size="xs"
+            variant="outline"
+            compact
+            uppercase
             onClick={() => {
               worker?.start?.();
             }}
           >
-            <Badge variant="dot">Start worker</Badge>
-          </UnstyledButton>
+            Start MSW
+          </Button>
 
-          <UnstyledButton
-            type="button"
+          <Button
+            size="xs"
+            variant="outline"
+            compact
+            uppercase
             onClick={() => {
               worker?.stop?.();
             }}
           >
-            <Badge variant="dot">Stop worker</Badge>
-          </UnstyledButton>
+            Stop MSW
+          </Button>
         </Group>
       </Navbar.Section>
     </Navbar>

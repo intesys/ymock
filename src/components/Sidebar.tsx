@@ -3,7 +3,7 @@ Nav
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren, ReactElement } from "react";
+import { PropsWithChildren, ReactElement, useState } from "react";
 import {
   Badge,
   Box,
@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import { RestHandler } from "msw";
 import { MSWglobalExports } from "../types";
+import { stripBasePath } from "../utils";
 
 type OwnProps = Omit<NavbarProps, "children"> &
   Pick<MSWglobalExports, "handlers" | "worker"> & {
@@ -29,57 +30,79 @@ export default function Sidebar({
   children,
   ...navbarProps
 }: PropsWithChildren<OwnProps>): ReactElement | null {
+  const [currentItem, setCurrentItem] = useState<RestHandler>();
+
+  function handleItemClick(item: RestHandler) {
+    setCurrentItem(item);
+    onItemClick && onItemClick(item);
+  }
+
   return (
     <Navbar {...navbarProps}>
-      <Navbar.Section grow mt={10}>
+      <Navbar.Section
+        grow
+        mt={10}
+        sx={(t) => ({
+          padding: t.spacing.md,
+        })}
+      >
         {handlers?.length
-          ? handlers.map((handler: RestHandler, i: number) => (
-              <Box
-                key={i}
-                onClick={() => onItemClick(handler)}
-                sx={(theme) => ({
-                  backgroundColor:
-                    theme.colorScheme === "dark"
-                      ? theme.colors.dark[6]
-                      : theme.colors.gray[0],
-                  padding: theme.spacing.md,
-                  borderRadius: theme.radius.sm,
-                  cursor: "pointer",
-                  fontSize: theme.fontSizes.sm,
-                  marginTop: i !== 0 ? theme.spacing.md : 0,
+          ? handlers.map((handler: RestHandler, i: number) => {
+              const isSelected =
+                handler?.info?.path === currentItem?.info?.path;
 
-                  "&:hover": {
-                    backgroundColor:
-                      theme.colorScheme === "dark"
-                        ? theme.colors.dark[5]
-                        : theme.colors.gray[1],
-                  },
-                })}
-              >
-                <Group spacing="md" noWrap>
-                  <Badge color={"green"} component={"span"}>
-                    {handler.info?.method}
-                  </Badge>
+              return (
+                <Box
+                  key={i}
+                  onClick={() => handleItemClick(handler)}
+                  sx={(t) => ({
+                    backgroundColor: isSelected
+                      ? t.colorScheme === "dark"
+                        ? t.colors.blue[9]
+                        : t.colors.indigo[0]
+                      : t.colorScheme === "dark"
+                      ? t.colors.dark[6]
+                      : t.colors.gray[0],
+                    padding: t.spacing.md,
+                    borderRadius: t.radius.sm,
+                    cursor: "pointer",
+                    fontSize: t.fontSizes.sm,
+                    marginTop: i !== 0 ? t.spacing.sm : 0,
 
-                  <Text size={"sm"}>
-                    {handler.info?.path?.replace?.(/http[s]?:\/\//, "")}
-                  </Text>
-                </Group>
-              </Box>
-            ))
+                    "&:hover": {
+                      backgroundColor: isSelected
+                        ? t.colorScheme === "dark"
+                          ? t.colors.blue[8]
+                          : t.colors.gray[1]
+                        : t.colorScheme === "dark"
+                        ? t.colors.dark[5]
+                        : t.colors.gray[1],
+                    },
+                  })}
+                >
+                  <Group spacing="md" noWrap>
+                    <Badge color={"green"} component={"span"}>
+                      {handler.info?.method}
+                    </Badge>
+
+                    <Text size={"sm"}>{stripBasePath(handler.info?.path)}</Text>
+                  </Group>
+                </Box>
+              );
+            })
           : null}
       </Navbar.Section>
 
       {children && <Navbar.Section>{children}</Navbar.Section>}
 
-      <Navbar.Section>
-        <Divider />
+      <Divider />
 
-        <Group
-          position={"left"}
-          spacing={"sm"}
-          style={{ padding: "20px 0 10px" }}
-        >
+      <Navbar.Section
+        sx={(t) => ({
+          padding: t.spacing.md,
+        })}
+      >
+        <Group position={"left"} spacing={"sm"}>
           <UnstyledButton
             type="button"
             onClick={() => {

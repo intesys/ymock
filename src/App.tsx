@@ -6,7 +6,15 @@ import React, { useEffect } from "react";
 import Layout from "./components/Layout";
 import _msw from "./mocks/msw";
 import { MSWglobalExports } from "./types";
-import { Box, Code, Container } from "@mantine/core";
+import {
+  Alert,
+  Box,
+  Center,
+  Code,
+  Container,
+  Space,
+  Text,
+} from "@mantine/core";
 
 function App() {
   const { msw } = window;
@@ -14,13 +22,25 @@ function App() {
 
   if ([worker, rest, handlers].some((el) => !el)) {
     return (
-      <Container size={"sm"}>
-        <Box>
-          Error in connecting to MSW. Please ensure your app is saving a{" "}
-          <code>msw</code> object to <code>window</code>. Such object should be
-          shaped according to this type:
-          <Code block>`TODO;`</Code>
-        </Box>
+      <Container size={"md"} sx={{ height: "100vh" }}>
+        <Center sx={{ height: "100%" }}>
+          <Box>
+            <Alert
+              title="Error in connecting to MSW"
+              color="red"
+              variant="filled"
+            >
+              Please ensure your app is saving a <code>msw</code> object to{" "}
+              <code>window</code>.
+            </Alert>
+
+            <Text mt={"xl"}>
+              Such object should be shaped according to this type:
+              <Space h={"xl"} />
+              <Code block>`TODO;`</Code>
+            </Text>
+          </Box>
+        </Center>
       </Container>
     );
   }

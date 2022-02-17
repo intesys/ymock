@@ -49,7 +49,7 @@ export default function Layout({
           position={{ top: 0, left: 0 }}
           hiddenBreakpoint="sm"
           hidden={!showSidebar}
-          width={{ sm: 300, lg: 440 }}
+          width={{ sm: 300, lg: 400 }}
           onItemClick={handleCurrentSidebarItem}
           {...{
             worker,

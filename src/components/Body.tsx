@@ -72,6 +72,7 @@ export default function Body({
       ) : (
         <Box component={"main"}>
           <header>
+            {/* TODO use sx, not style, use theme values not arbitrary values */}
             <Title order={1} style={{ marginBottom: 30 }}>
               Request info
             </Title>

@@ -4,6 +4,7 @@ lib
 
 import { SetupWorkerApi } from "msw";
 
+// TODO types, error handling...
 export function setRuntimeRequestHandler(
   worker: SetupWorkerApi,
   rest: {

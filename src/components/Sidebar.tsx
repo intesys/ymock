@@ -85,9 +85,9 @@ export default function Sidebar({
           </Title>
 
           <Divider
-            sx={{
-              borderColor: "#2C2E33", // TODO color not in theme
-            }}
+            sx={(t) => ({
+              borderColor: t.colors.dark[5],
+            })}
           />
         </header>
 
@@ -124,9 +124,9 @@ export default function Sidebar({
                 return (
                   <>
                     <Divider
-                      sx={{
-                        borderColor: "#2C2E33", // TODO color not in theme
-                      }}
+                      sx={(t) => ({
+                        borderColor: t.colors.dark[5],
+                      })}
                     />
                     <Box
                       key={i}
@@ -165,9 +165,9 @@ export default function Sidebar({
 
                     {i === arr.length - 1 && (
                       <Divider
-                        sx={{
-                          borderColor: "#2C2E33", // TODO color not in theme
-                        }}
+                        sx={(t) => ({
+                          borderColor: t.colors.dark[5],
+                        })}
                       />
                     )}
                   </>
@@ -179,9 +179,9 @@ export default function Sidebar({
       {children && <Navbar.Section>{children}</Navbar.Section>}
 
       <Divider
-        sx={{
-          borderColor: "#2C2E33", // TODO color not in theme
-        }}
+        sx={(t) => ({
+          borderColor: t.colors.dark[5],
+        })}
       />
 
       <Navbar.Section>
@@ -197,9 +197,9 @@ export default function Sidebar({
         </Title>
 
         <Divider
-          sx={{
-            borderColor: "#2C2E33", // TODO color not in theme
-          }}
+          sx={(t) => ({
+            borderColor: t.colors.dark[5],
+          })}
         />
 
         <Group

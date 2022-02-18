@@ -7,6 +7,7 @@ import { PropsWithChildren, useState } from "react";
 import {
   AppShell,
   Burger,
+  Group,
   Header,
   MediaQuery,
   Text,
@@ -53,7 +54,10 @@ export default function Layout({
         <Header
           height={50}
           padding="md"
-          sx={(t) => ({ backgroundColor: t.colors.dark[6] })}
+          sx={(t) => ({
+            backgroundColor: t.colors.dark[8],
+            borderBottom: `1px solid ${t.colors.dark}`,
+          })}
         >
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
@@ -68,9 +72,12 @@ export default function Layout({
               />
             </MediaQuery>
 
-            <Text size={"sm"} weight={500}>
-              {`MSW Admin`}
-            </Text>
+            <Group>
+              <Text size={"lg"}>🛠</Text>
+              <Text size={"sm"} weight={500}>
+                MSW Admin
+              </Text>
+            </Group>
           </div>
         </Header>
       }

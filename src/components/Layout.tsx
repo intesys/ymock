@@ -55,7 +55,10 @@ export default function Layout({
           height={50}
           padding="md"
           sx={(t) => ({
-            backgroundColor: t.colors.dark[8],
+            background: `
+              linear-gradient(to top, #141517,#262626 ),
+              ${t.colors.dark[8]}
+            `,
             borderBottom: `1px solid ${t.colors.dark}`,
           })}
         >

@@ -22,6 +22,8 @@ import {
   Group,
   Code,
   JsonInput,
+  Center,
+  Space,
 } from "@mantine/core";
 import { RestHandler } from "msw";
 
@@ -68,7 +70,14 @@ export default function Body({
   return (
     <Container>
       {!info ? (
-        <span>Please select an item from the sidebar.</span>
+        <Center>
+          <Box>
+            {/* TODO should be centered in page */}
+            <Space h={216} />
+            <Text size={"sm"}>Please select an item from the sidebar.</Text>
+            <Space h={"xl"} />
+          </Box>
+        </Center>
       ) : (
         <Box component={"main"}>
           <header>
@@ -115,7 +124,7 @@ export default function Body({
           />
 
           <Box component={"section"} style={{ padding: "20px 0" }}>
-            <Text mb={40}>
+            <Text mb={40} size={"md"}>
               Enter a value in the following field to override the mocked
               response served by the service worker. The field accepts JSON, and
               will validate & format your input. Please note the override will

@@ -10,3 +10,5 @@ export type MSWglobalExports = {
   rest: any;
   handlers: RestHandler<MockedRequest<DefaultRequestBody>>[];
 };
+
+export type HandlerSortKeysType = "Select an option" | "Name" | "Method";

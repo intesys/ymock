@@ -184,12 +184,32 @@ export default function Sidebar({
         }}
       />
 
-      <Navbar.Section
-        sx={(t) => ({
-          padding: t.spacing.md,
-        })}
-      >
-        <Group position={"left"} spacing={"sm"}>
+      <Navbar.Section>
+        <Title
+          order={6}
+          sx={(t) => ({
+            textTransform: "uppercase",
+            fontSize: "small",
+            padding: t.spacing.md,
+          })}
+        >
+          Worker control
+        </Title>
+
+        <Divider
+          sx={{
+            borderColor: "#2C2E33", // TODO color not in theme
+          }}
+        />
+
+        <Group
+          position={"left"}
+          spacing={"sm"}
+          sx={(t) => ({
+            padding: t.spacing.md,
+            paddingBottom: 32,
+          })}
+        >
           {/* TODO alternate based on MSW status (get it via global object?) */}
           <Button
             size="xs"

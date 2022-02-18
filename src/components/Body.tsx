@@ -26,6 +26,7 @@ import {
   Space,
 } from "@mantine/core";
 import { RestHandler } from "msw";
+import { useNotifications } from "@mantine/notifications";
 
 type OwnProps = {
   currentItem?: RestHandler;
@@ -38,6 +39,7 @@ export default function Body({
 }: PropsWithChildren<OwnProps>): ReactElement {
   const [input, setInput] = useState<string>("");
   const { info } = currentItem ?? {};
+  const notifications = useNotifications();
 
   function handleReset() {
     setInput("");
@@ -47,16 +49,40 @@ export default function Body({
     e.preventDefault();
 
     if (!input) {
-      window.alert("Please provide a value.");
+      notifications.showNotification({
+        title: "Missing input",
+        message: "Please provide a value.",
+      });
+
       return;
     }
 
     if (!info?.path) {
-      window.alert("No path provided");
+      notifications.showNotification({
+        title: "Missing path",
+        message: "No path provided.",
+      });
+
       return;
     }
 
-    onSubmit && onSubmit(input, info.path as string);
+    try {
+      onSubmit(input, info.path as string);
+
+      notifications.showNotification({
+        title: "Saved!",
+        color: "green",
+        message: "The override was correctly submitted.",
+      });
+    } catch (err) {
+      notifications.showNotification({
+        title: "Submission error",
+        color: "red",
+        message: `There was an error in submitting the form${
+          err?.message ? ": " + err.message : ""
+        }`,
+      });
+    }
 
     handleReset();
   }

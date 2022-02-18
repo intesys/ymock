@@ -8,3 +8,4 @@ A minimal administrative UI for [MSW.](https://mswjs.io)
 
 - Lists the handlers (mocks) registered by MSW
 - Lets you override the mocked response
+- Lets you start/stop the worker

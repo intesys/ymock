@@ -68,8 +68,8 @@ export default function Layout({
               />
             </MediaQuery>
 
-            <Text size={"sm"} weight={700} transform="uppercase">
-              {`MSW Admin UI`}
+            <Text size={"sm"} weight={500}>
+              {`MSW Admin`}
             </Text>
           </div>
         </Header>

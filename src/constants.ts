@@ -1,0 +1,4 @@
+export const MOCK_PATH_1 = "https://jsonplaceholder.typicode.com/users";
+export const MOCK_PATH_2 = "https://jsonplaceholder.typicode.com/todos/100";
+export const MOCK_PATH_3 =
+  "https://jsonplaceholder.typicode.com/posts/100/comments";

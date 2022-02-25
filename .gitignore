@@ -8,8 +8,9 @@
 # testing
 /coverage
 
-# production
-/build
+# folders
+/dist
+/.parcel-cache
 
 # misc
 .DS_Store

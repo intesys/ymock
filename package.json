@@ -6,10 +6,10 @@
   "scripts": {
     "mock": "copyfiles -u 1 static/mockServiceWorker.js dist",
     "clean": "rimraf ./dist && rimraf ./.parcel-cache",
-    "dev": "yarn run clean && npm run mock && parcel",
-    "build": "yarn run clean && npm run mock && parcel build",
+    "dev": "yarn run clean && yarn run mock && parcel",
+    "build": "yarn run clean && yarn run mock && parcel build",
     "serve": "serve ./dist",
-    "export": "yarn run clean && npm run mock && parcel build --no-source-maps --dist-dir dist/admin",
+    "export": "yarn run clean && yarn run mock && parcel build --no-source-maps --dist-dir dist/admin",
     "test": "jest"
   },
   "eslintConfig": {
@@ -54,6 +54,7 @@
     "@types/react-dom": "^17.0.11",
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
+    "copyfiles": "2.4.1",
     "jest": "^27.5.1",
     "msw": "^0.36.8",
     "parcel": "^2.3.1",

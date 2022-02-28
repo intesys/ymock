@@ -2,6 +2,7 @@ import React, { FormEventHandler, useState } from "react";
 import { rest, RestHandler } from "msw";
 import { worker } from "./mocks/browser";
 import { handlers } from "./mocks/handlers";
+import { APP_BASE_PATH } from "../constants";
 
 function Demo() {
   const [response, setResponse] = useState<string>("");
@@ -104,7 +105,7 @@ function Demo() {
             style={{ marginTop: "2rem", width: "100%" }}
             onClick={() => {
               const windowRef = window.open(
-                "/",
+                APP_BASE_PATH + "/",
                 "_blank",
                 "popup, right=100, top=100, width=1200, height=700"
               );

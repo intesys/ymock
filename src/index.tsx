@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Demo from "./demo/Demo";
+import { APP_BASE_PATH } from "./constants";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,11 +16,15 @@ ReactDOM.render(
         autoClose={4000}
         zIndex={999}
       >
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="demo" element={<Demo />} />
-          </Routes>
+        <BrowserRouter basename={APP_BASE_PATH}>
+          <Switch>
+            <Route path="/demo">
+              <Demo />
+            </Route>
+            <Route path="/">
+              <App />
+            </Route>
+          </Switch>
         </BrowserRouter>
       </NotificationsProvider>
     </MantineProvider>

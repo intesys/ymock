@@ -4,7 +4,7 @@ App
 
 import React, { useEffect } from "react";
 import Layout from "./components/Layout";
-import _msw from "./mocks/msw";
+// import _msw from "./mocks/msw"; <== Re-enable mocks if you need them
 import { MSWglobalExports } from "./types";
 import {
   Alert,
@@ -16,9 +16,19 @@ import {
   Text,
 } from "@mantine/core";
 
+let msw: MSWglobalExports;
+
+if (process.env.NODE_ENV === "development") {
+  const { rest } = require("msw");
+  const { worker } = require("./demo/mocks/browser");
+  const { handlers } = require("./demo/mocks/handlers");
+
+  msw = { rest, worker, handlers };
+}
+
+
 function App() {
-  const { msw } = window;
-  const { worker, rest, handlers } = msw ?? {};
+  const { worker, rest, handlers } = msw ?? window?.msw ?? {};
 
   if ([worker, rest, handlers].some((el) => !el)) {
     return (

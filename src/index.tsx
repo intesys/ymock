@@ -21,6 +21,7 @@ ReactDOM.render(
             <Route path="/demo">
               <Demo />
             </Route>
+
             <Route path="/">
               <App />
             </Route>

@@ -122,14 +122,13 @@ export default function Sidebar({
                   handler?.info?.path === currentItem?.info?.path;
 
                 return (
-                  <>
+                  <React.Fragment key={i}>
                     <Divider
                       sx={(t) => ({
                         borderColor: t.colors.dark[5],
                       })}
                     />
                     <Box
-                      key={i}
                       onClick={() => handleItemClick(handler)}
                       sx={(t) => ({
                         backgroundColor: isSelected
@@ -170,7 +169,7 @@ export default function Sidebar({
                         })}
                       />
                     )}
-                  </>
+                  </React.Fragment>
                 );
               })
           : null}

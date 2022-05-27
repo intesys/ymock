@@ -2,6 +2,7 @@ import React, { FormEventHandler, useState } from "react";
 import { rest, RestHandler, SetupWorkerApi } from "msw";
 import { handlers } from "./mocks/handlers";
 import Launcher from "../components/Launcher";
+import { APP_NAME } from "../constants";
 
 /*
  * Not really required since this is a demo app,
@@ -54,7 +55,7 @@ function Demo() {
           margin: "0 auto",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>MSW Admin UI tester</h1>
+        <h1 style={{ textAlign: "center" }}>{`${APP_NAME} tester`}</h1>
 
         <section
           style={{

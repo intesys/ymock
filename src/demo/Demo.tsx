@@ -1,8 +1,21 @@
 import React, { FormEventHandler, useState } from "react";
-import { rest, RestHandler } from "msw";
-import { worker } from "./mocks/browser";
+import { rest, RestHandler, SetupWorkerApi } from "msw";
 import { handlers } from "./mocks/handlers";
 import { APP_BASE_PATH } from "../constants";
+
+/*
+ * Not really required since this is a demo app,
+ * but in a real-life scenario the worker should
+ * only run (once) in dev mode.
+ * */
+let worker: SetupWorkerApi;
+const isDevMode = process.env.NODE_ENV === "development";
+
+if (isDevMode) {
+  worker = require("./mocks/browser")?.worker;
+
+  worker?.start?.();
+}
 
 function Demo() {
   const [response, setResponse] = useState<string>("");
@@ -10,11 +23,6 @@ function Demo() {
 
   async function handleRequest(path: string) {
     return (await fetch(path)).json();
-  }
-
-  if (process.env.NODE_ENV === "development") {
-    const { worker } = require("./mocks/browser");
-    worker.start();
   }
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -63,6 +71,7 @@ function Demo() {
               backgroundColor: "#eee",
               borderRadius: "6px",
               boxShadow: "inset 0 -1px #0000001a",
+              color: "black",
             }}
           >
             <code>{response ? response : null}</code>

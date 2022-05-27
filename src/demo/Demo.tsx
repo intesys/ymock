@@ -1,7 +1,7 @@
 import React, { FormEventHandler, useState } from "react";
 import { rest, RestHandler, SetupWorkerApi } from "msw";
 import { handlers } from "./mocks/handlers";
-import { APP_BASE_PATH } from "../constants";
+import Launcher from "../components/Launcher";
 
 /*
  * Not really required since this is a demo app,
@@ -109,27 +109,13 @@ function Demo() {
         </section>
 
         <section>
-          <button
-            type={"button"}
-            style={{ marginTop: "2rem", width: "100%" }}
-            onClick={() => {
-              const windowRef = window.open(
-                APP_BASE_PATH + "/",
-                "_blank",
-                "popup, right=100, top=100, width=1200, height=700"
-              );
-
-              if (windowRef) {
-                windowRef.msw = {
-                  worker,
-                  rest,
-                  handlers,
-                };
-              }
+          <Launcher
+            msw={{
+              worker,
+              rest,
+              handlers,
             }}
-          >
-            Open Admin UI
-          </button>
+          />
         </section>
       </div>
     </div>

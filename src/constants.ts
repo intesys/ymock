@@ -4,6 +4,7 @@ export const MOCK_PATH_3 =
   "https://jsonplaceholder.typicode.com/posts/100/comments";
 
 export const APP_BASE_PATH = process.env.APP_BASE_PATH || "";
+export const APP_NAME = "yMock";
 
 export const EXAMPLE_TYPE = `
   let msw: MSWglobalExports;

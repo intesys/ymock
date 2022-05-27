@@ -18,6 +18,7 @@ import Body from "./Body";
 import { RestHandler } from "msw";
 import Sidebar from "./Sidebar";
 import { setRuntimeRequestHandler } from "../lib";
+import { APP_NAME } from "../constants";
 
 export default function Layout({
   worker,
@@ -78,7 +79,7 @@ export default function Layout({
             <Group>
               <Text size={"lg"}>🛠</Text>
               <Text size={"sm"} weight={500}>
-                MSW Admin
+                {APP_NAME}
               </Text>
             </Group>
           </div>

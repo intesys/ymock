@@ -53,19 +53,20 @@ if (isDevMode && isStandaloneMode) {
 
 function App() {
   const { worker, rest, handlers } = msw ?? window?.msw ?? {};
-
   const fatalError = [worker, rest, handlers].some((el) => !el);
 
-  if (isDevMode && fatalError) {
-    console.error(
-      `Fatal Error: Please ensure your app is saving a msw object to the global scope!
+  if (fatalError) {
+    if (isDevMode) {
+      console.error(
+        `Fatal Error: Please ensure your app is saving a msw object to the global scope!
       
       Hints:
       
       - Are you trying to run the app in standalone mode? Please enable STANDALONE_MODE in .env and re-run the server.
       - Did you mean to launch the app from its host app? Please visit the /demo route and launch it from there.
       `
-    );
+      );
+    }
 
     return (
       <Container size={"md"} sx={{ height: "100vh" }}>

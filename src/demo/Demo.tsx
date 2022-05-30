@@ -1,6 +1,10 @@
 import React, { FormEventHandler, useState } from "react";
-import { rest, RestHandler, SetupWorkerApi } from "msw";
-import { handlers } from "./mocks/handlers";
+import {
+  DefaultRequestBody,
+  MockedRequest,
+  RestHandler,
+  SetupWorkerApi,
+} from "msw";
 import Launcher from "../components/Launcher";
 import { APP_NAME, isDevMode } from "../constants";
 
@@ -10,9 +14,13 @@ import { APP_NAME, isDevMode } from "../constants";
  * only run (once) in dev mode.
  * */
 let worker: SetupWorkerApi;
+let rest: any; // TODO
+let handlers: RestHandler<MockedRequest<DefaultRequestBody>>[];
 
 if (isDevMode) {
   worker = require("./mocks/browser")?.worker;
+  rest = require("msw")?.rest;
+  handlers = require("./mocks/handlers")?.handlers;
 
   worker?.start?.();
 }
@@ -108,7 +116,8 @@ function Demo() {
           </form>
         </section>
 
-        <section>
+        {/* yMock Launcher */}
+        {isDevMode ? (
           <Launcher
             msw={{
               worker,
@@ -116,7 +125,7 @@ function Demo() {
               handlers,
             }}
           />
-        </section>
+        ) : null}
       </div>
     </div>
   );

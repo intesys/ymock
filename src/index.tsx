@@ -9,7 +9,11 @@ import Demo from "./demo/Demo";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MantineProvider theme={{ colorScheme: "dark" }} withGlobalStyles>
+    <MantineProvider
+      theme={{ colorScheme: "dark" }}
+      withGlobalStyles
+      withNormalizeCSS
+    >
       <NotificationsProvider
         position="top-right"
         limit={3}

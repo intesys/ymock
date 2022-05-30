@@ -58,19 +58,19 @@ function App() {
   if (fatalError) {
     if (isDevMode) {
       console.error(
-        `Fatal Error: Please ensure your app is saving a msw object to the global scope!
+        `Fatal Error: Please ensure your app is saving a \`msw\` object to the global scope.
       
       Hints:
       
       - Are you trying to run the app in standalone mode? Please enable STANDALONE_MODE in .env and re-run the server.
-      - Did you mean to launch the app from its host app? Please visit the /demo route and launch it from there.
+      - Did you mean to launch the app in hosted mode? Please visit the /demo route and launch it from there.
       `
       );
     }
 
     return (
       <Container size={"md"} sx={{ height: "100vh" }}>
-        <Center sx={{ height: "100%" }}>
+        <Center sx={{ height: "100%", flexDirection: "column" }}>
           <Box>
             <Alert
               title="Error in connecting to MSW"
@@ -80,13 +80,23 @@ function App() {
               Please ensure your app is saving a <code>msw</code> object to{" "}
               <code>window</code>.
             </Alert>
-
             <Text mt={"xl"}>
-              Such object should be shaped according to this type:
+              This is the expected shape of the <code>msw</code> object:
               <Space h={"xl"} />
               <Code block>{EXAMPLE_TYPE}</Code>
             </Text>
           </Box>
+
+          {isDevMode && (
+            <Box mt={"xl"}>
+              <Text mt={"lg"}>
+                Did you mean to launch the app in hosted mode?{" "}
+                <Text variant="link" component="a" href="/demo">
+                  Visit the <code>/demo</code> page.
+                </Text>
+              </Text>
+            </Box>
+          )}
         </Center>
       </Container>
     );

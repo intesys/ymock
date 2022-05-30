@@ -5,7 +5,7 @@ Launcher
 import * as React from "react";
 import { PropsWithChildren } from "react";
 import { MSWglobalExports } from "../types";
-import { APP_BASE_PATH } from "../constants";
+import { APP_BASE_PATH, ERROR__FATAL_ERROR } from "../constants";
 import { Button } from "@mantine/core";
 
 type OwnProps = {
@@ -15,7 +15,11 @@ type OwnProps = {
 export default function Launcher({
   msw,
 }: PropsWithChildren<OwnProps>): JSX.Element | null {
-  if (!msw) return null;
+  if (!msw) {
+    console.error(ERROR__FATAL_ERROR);
+
+    return null;
+  }
 
   function handleNewWindowClick() {
     const windowRef = window.open(

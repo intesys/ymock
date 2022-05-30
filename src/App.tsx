@@ -17,6 +17,7 @@ import {
 
 import {
   APP_BASE_PATH,
+  ERROR__FATAL_ERROR_DEV_VARIANT,
   EXAMPLE_TYPE,
   isDevMode,
   isStandaloneMode,
@@ -60,15 +61,7 @@ function App() {
 
   if (fatalError) {
     if (isDevMode) {
-      console.error(
-        `Fatal Error: Please ensure your app is saving a \`msw\` object to the global scope.
-      
-      Hints:
-      
-      - Are you trying to run the app in standalone mode? Please enable STANDALONE_MODE in .env and re-run the server.
-      - Did you mean to launch the app in hosted mode? Please visit the /demo route and launch it from there.
-      `
-      );
+      console.error(ERROR__FATAL_ERROR_DEV_VARIANT);
     }
 
     return (

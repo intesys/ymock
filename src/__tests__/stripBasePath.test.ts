@@ -1,4 +1,4 @@
-const { stripBasePath } = require("../index");
+const { stripBasePath } = require("../utils");
 
 test("Tests stripBasePath utility with https", () => {
   expect(stripBasePath("https://jsonplaceholder.typicode.com/todos/100")).toBe(
@@ -33,3 +33,6 @@ test("Tests stripBasePath utility without protocol", () => {
 test("Tests stripBasePath utility with falsy value", () => {
   expect(stripBasePath(undefined)).toBe("");
 });
+
+// workaround for `cannot be compiled under '--isolatedModules'`
+export {};

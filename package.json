@@ -53,7 +53,7 @@
     "@parcel/packager-ts": "2.3.2",
     "@parcel/transformer-typescript-types": "2.3.2",
     "@parcel/transformer-webmanifest": "2.3.2",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.5.1",
     "@types/node": "^16.11.24",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
@@ -62,13 +62,14 @@
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
     "copyfiles": "2.4.1",
-    "jest": "^27.5.1",
+    "jest": "^28.1.0",
     "msw": "^0.36.8",
     "parcel": "^2.3.2",
     "prettier": "^2.5.1",
     "process": "^0.11.10",
     "rimraf": "^3.0.2",
     "serve": "^13.0.2",
+    "ts-jest": "^28.0.3",
     "typescript": "^4.5.5"
   }
 }

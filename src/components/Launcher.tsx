@@ -6,8 +6,7 @@ import * as React from "react";
 import { PropsWithChildren } from "react";
 import { MSWglobalExports } from "../types";
 import { APP_BASE_PATH } from "../constants";
-import { Button, Menu, useMantineTheme } from "@mantine/core";
-import { ChevronDown, Package, SquareCheck } from "tabler-icons-react";
+import { Button, useMantineTheme } from "@mantine/core";
 
 type OwnProps = {
   msw: MSWglobalExports;
@@ -24,7 +23,7 @@ export default function Launcher({
     const windowRef = window.open(
       APP_BASE_PATH + "/",
       "_blank",
-      "popup, right=100, top=100, width=1200, height=700"
+      "popup, right=100, top=100, width=1100, height=700"
     );
 
     if (windowRef) {
@@ -33,43 +32,30 @@ export default function Launcher({
   }
 
   return (
-    <div>
-      <Menu
-        control={
-          <Button
-            rightIcon={<ChevronDown size={18} />}
-            sx={{ paddingRight: 12 }}
-          >
-            🚀 yMock
-          </Button>
-        }
-        transition="pop-top-right"
-        placement="end"
-        size="lg"
+    <div className={"launcher"}>
+      <Button
+        radius="xl"
+        size="md"
+        styles={{
+          root: {
+            padding: "0 24px",
+            height: 46,
+            boxShadow: "-10px 20px 55px #0000008f",
+          },
+        }}
+        onClick={handleNewWindowClick}
       >
-        <Menu.Item
-          icon={<Package size={16} color={theme.colors.blue[6]} />}
-          onClick={handleNewWindowClick}
-          // rightSection={
-          //   <Text size="xs" transform="uppercase" weight={700} color="dimmed">
-          //     Ctrl + P
-          //   </Text>
-          // }
-        >
-          Launch in a new window
-        </Menu.Item>
+        🚀
+        <span style={{ marginLeft: 8 }}>Launch yMock</span>
+      </Button>
 
-        <Menu.Item
-          icon={<SquareCheck size={16} color={theme.colors.pink[6]} />}
-          // rightSection={
-          //   <Text size="xs" transform="uppercase" weight={700} color="dimmed">
-          //     Ctrl + T
-          //   </Text>
-          // }
-        >
-          Launch Docked to bottom
-        </Menu.Item>
-      </Menu>
+      <style jsx>{`
+        .launcher {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+        }
+      `}</style>
     </div>
   );
 }

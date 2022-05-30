@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
+import { APP_BASE_PATH, isDevMode } from "./constants";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import App from "./App";
 import Demo from "./demo/Demo";
-import { APP_BASE_PATH } from "./constants";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,15 +17,11 @@ ReactDOM.render(
         zIndex={999}
       >
         <BrowserRouter basename={APP_BASE_PATH}>
-          <Switch>
-            <Route path="/demo">
-              <Demo />
-            </Route>
+          <Routes>
+            {isDevMode ? <Route path="/demo" element={<Demo />} /> : null}
 
-            <Route path="/">
-              <App />
-            </Route>
-          </Switch>
+            <Route path="/" element={<App />} />
+          </Routes>
         </BrowserRouter>
       </NotificationsProvider>
     </MantineProvider>

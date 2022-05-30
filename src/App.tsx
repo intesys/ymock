@@ -15,7 +15,12 @@ import {
   Text,
 } from "@mantine/core";
 
-import { EXAMPLE_TYPE, isDevMode, isStandaloneMode } from "./constants";
+import {
+  APP_BASE_PATH,
+  EXAMPLE_TYPE,
+  isDevMode,
+  isStandaloneMode,
+} from "./constants";
 // import _msw from "./mocks/msw"; <== Re-enable mocks if you need them
 
 let msw: MSWglobalExports;
@@ -88,9 +93,13 @@ function App() {
           {isDevMode && (
             <Box mt={"xl"}>
               <Text mt={"lg"}>
-                Did you mean to launch the app in hosted mode?{" "}
-                <Text variant="link" component="a" href="/demo">
-                  Visit the <code>/demo</code> page.
+                💡 Did you mean to launch the app in hosted mode?{" "}
+                <Text
+                  variant="link"
+                  component="a"
+                  href={`${APP_BASE_PATH}/demo`}
+                >
+                  Visit the demo page.
                 </Text>
               </Text>
             </Box>

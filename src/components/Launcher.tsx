@@ -6,7 +6,7 @@ import * as React from "react";
 import { PropsWithChildren } from "react";
 import { MSWglobalExports } from "../types";
 import { APP_BASE_PATH } from "../constants";
-import { Button, useMantineTheme } from "@mantine/core";
+import { Button } from "@mantine/core";
 
 type OwnProps = {
   msw: MSWglobalExports;
@@ -16,8 +16,6 @@ export default function Launcher({
   msw,
 }: PropsWithChildren<OwnProps>): JSX.Element | null {
   if (!msw) return null;
-
-  const theme = useMantineTheme();
 
   function handleNewWindowClick() {
     const windowRef = window.open(
@@ -40,7 +38,7 @@ export default function Launcher({
           root: {
             padding: "0 24px",
             height: 46,
-            boxShadow: "-10px 20px 55px #0000008f",
+            boxShadow: "0 0 55px #00000066",
           },
         }}
         onClick={handleNewWindowClick}

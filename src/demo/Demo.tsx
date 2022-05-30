@@ -2,7 +2,7 @@ import React, { FormEventHandler, useState } from "react";
 import { rest, RestHandler, SetupWorkerApi } from "msw";
 import { handlers } from "./mocks/handlers";
 import Launcher from "../components/Launcher";
-import { APP_NAME } from "../constants";
+import { APP_NAME, isDevMode } from "../constants";
 
 /*
  * Not really required since this is a demo app,
@@ -10,7 +10,6 @@ import { APP_NAME } from "../constants";
  * only run (once) in dev mode.
  * */
 let worker: SetupWorkerApi;
-const isDevMode = process.env.NODE_ENV === "development";
 
 if (isDevMode) {
   worker = require("./mocks/browser")?.worker;

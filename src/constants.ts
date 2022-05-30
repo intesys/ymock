@@ -1,3 +1,11 @@
+/* ---------------------------------
+constants
+--------------------------------- */
+
+// env
+export const isDevMode = process.env.NODE_ENV === "development";
+export const isStandaloneMode = process.env.STANDALONE_MODE === "on";
+
 export const MOCK_PATH_1 = "https://jsonplaceholder.typicode.com/users";
 export const MOCK_PATH_2 = "https://jsonplaceholder.typicode.com/todos/100";
 export const MOCK_PATH_3 =

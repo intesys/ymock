@@ -15,12 +15,10 @@ import {
   Text,
 } from "@mantine/core";
 
-import { EXAMPLE_TYPE } from "./constants";
+import { EXAMPLE_TYPE, isDevMode, isStandaloneMode } from "./constants";
 // import _msw from "./mocks/msw"; <== Re-enable mocks if you need them
 
 let msw: MSWglobalExports;
-const isDevMode = process.env.NODE_ENV === "development";
-const isStandaloneMode = process.env.STANDALONE_MODE === "on";
 
 /*
  * This app's use case is to manage a `msw`

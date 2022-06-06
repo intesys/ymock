@@ -4,7 +4,7 @@ Launcher
 
 import * as React from "react";
 import { MSWglobalExports } from "../types";
-import { APP_BASE_PATH, ERROR__FATAL_ERROR } from "../constants";
+import { APP_ROOT, ERROR__FATAL_ERROR } from "../constants";
 import { Alert, Button } from "@mantine/core";
 
 type OwnProps = {
@@ -15,7 +15,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
   function handleNewWindowClick() {
     if (typeof window !== "undefined") {
       const windowRef = window.open(
-        APP_BASE_PATH + "/",
+        APP_ROOT,
         "_blank",
         "popup, right=100, top=100, width=1100, height=700"
       );

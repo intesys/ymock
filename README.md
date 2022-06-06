@@ -17,8 +17,8 @@ A minimal administrative UI for [MSW.](https://mswjs.io)
 ### Development
 
 - From the root of the project, run: `yarn dev`
-- The Admin UI lives at `/`, and receives the `msw` instance
-- The host app (which launches the Admin UI in a new window preloaded with `msw`) lives in `/demo`
+- The host app (which launches the Admin UI in a new window preloaded with `msw`) lives in `/`
+- The Admin UI must be launched via the launcher button ("Launch yMock")
 
 ### Hosted mode (default)
 

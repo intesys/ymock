@@ -3,7 +3,6 @@ Launcher
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren } from "react";
 import { MSWglobalExports } from "../types";
 import { APP_BASE_PATH, ERROR__FATAL_ERROR } from "../constants";
 import { Alert, Button } from "@mantine/core";
@@ -12,9 +11,7 @@ type OwnProps = {
   msw: MSWglobalExports;
 };
 
-export default function Launcher({
-  msw,
-}: PropsWithChildren<OwnProps>): JSX.Element | null {
+export default function Launcher({ msw }: OwnProps): JSX.Element {
   function handleNewWindowClick() {
     if (typeof window !== "undefined") {
       const windowRef = window.open(
@@ -57,9 +54,11 @@ export default function Launcher({
         size="md"
         styles={{
           root: {
-            padding: "0 24px",
+            padding: "0 20px",
             height: 46,
             boxShadow: "0 0 55px #00000066",
+            textTransform: "uppercase",
+            fontSize: "small",
           },
         }}
         onClick={handleNewWindowClick}
@@ -71,8 +70,13 @@ export default function Launcher({
       <style jsx>{`
         .launcher {
           position: fixed;
-          bottom: 20px;
-          right: 20px;
+          bottom: 30px;
+          right: 30px;
+          transition: transform 0.3s ease;
+        }
+
+        .launcher:hover {
+          transform: scale(1.04);
         }
       `}</style>
     </div>

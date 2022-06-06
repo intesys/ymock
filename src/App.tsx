@@ -30,20 +30,8 @@ let msw: MSWglobalExports;
  * This app's use case is to manage a `msw`
  * instance launched by a host app.
  *
- * This is the default behavior when you run
- * `yarn dev`, so the app will run alongside
- * a "demo" page rendered at `/demo`; if you
- * try to run the app from its own route (`/`)
- * you will get an error.
- *
- * For cases when you want to develop the app
- * _without_ tying it to the host app (for example,
- * you may want to provide your own mock instance of
- * msw), enable STANDALONE_MODE in .env.
- *
- * This way, the msw instance required by the app will
- * be populated from this file, without needing to look
- * for it in the window object.
+ * @see: README.md:23 (Hosted mode)
+ * @see: README.md:30 (Standalone mode)
  *
  * */
 

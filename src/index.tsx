@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import { APP_BASE_PATH, isDevMode } from "./constants";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
-import Demo from "./demo/Demo";
+import { APP_ROOT, isHostedMode, isStandaloneMode } from "./constants";
+import NotFound from "./components/NotFound";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,11 +20,20 @@ ReactDOM.render(
         autoClose={4000}
         zIndex={999}
       >
-        <BrowserRouter basename={APP_BASE_PATH}>
+        <BrowserRouter>
           <Routes>
-            {isDevMode ? <Route path="/demo" element={<Demo />} /> : null}
+            {isHostedMode && (
+              <Route
+                path="/"
+                element={React.createElement(require("./demo/Demo")?.default)}
+              />
+            )}
 
-            <Route path="/" element={<App />} />
+            <Route path={isStandaloneMode ? "/" : APP_ROOT} element={<App />}>
+              <Route path="settings" element={"settings"} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </NotificationsProvider>

@@ -4,8 +4,9 @@ constants
 
 // env
 export const isDevMode = process.env.NODE_ENV === "development";
-export const isStandaloneMode = process.env.STANDALONE_MODE === "on";
-export const APP_BASE_PATH = process.env.APP_BASE_PATH || "";
+export const isStandaloneMode =
+  isDevMode && process.env.STANDALONE_MODE === "on";
+export const isHostedMode = isDevMode && !isStandaloneMode;
 
 // errors
 export const ERROR__FATAL_ERROR = `Fatal Error: Please ensure your app is passing a \`msw\` object to the \`Launcher\` component.`;
@@ -20,6 +21,10 @@ export const ERROR__FATAL_ERROR_DEV_VARIANT = `Fatal Error: Please ensure your a
 
 // labels
 export const APP_NAME = "yMock";
+
+// URLs
+export const APP_ROOT = `__${APP_NAME}`;
+export const APP_HOME = isStandaloneMode ? "/" : "/" + APP_ROOT;
 
 // mocks
 export const MOCK_PATH_1 = "https://jsonplaceholder.typicode.com/users";

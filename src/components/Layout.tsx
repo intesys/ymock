@@ -14,11 +14,12 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { MSWglobalExports } from "../types";
-import Body from "./Body";
 import { RestHandler } from "msw";
 import Sidebar from "./Sidebar";
+import { APP_HOME, APP_NAME } from "../constants";
+import { Link, Outlet, useMatch, useOutletContext } from "react-router-dom";
 import { setRuntimeRequestHandler } from "../lib";
-import { APP_NAME } from "../constants";
+import { BodyProps } from "./Body";
 
 export default function Layout({
   worker,
@@ -28,6 +29,7 @@ export default function Layout({
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<RestHandler>();
   const theme = useMantineTheme();
+  const isSettingsPath = useMatch("settings");
 
   function handleCurrentSidebarItem(item: RestHandler) {
     setSidebarItem(item);
@@ -45,10 +47,13 @@ export default function Layout({
           hidden={!showSidebar}
           width={{ sm: 300, lg: 400 }}
           onItemClick={handleCurrentSidebarItem}
-          {...{
-            worker,
-            handlers,
-          }}
+          mainSectionTitle={!isSettingsPath ? "Mocked requests" : "Settings"}
+          {...(!isSettingsPath
+            ? {
+                worker,
+                handlers,
+              }
+            : {})}
         />
       }
       header={
@@ -61,10 +66,17 @@ export default function Layout({
               ${t.colors.dark[8]}
             `,
             borderBottom: `1px solid ${t.colors.dark}`,
+            color: t.colors.gray[1],
+            textDecoration: "none",
           })}
         >
           <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              height: "100%",
+            }}
           >
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
@@ -79,17 +91,47 @@ export default function Layout({
             <Group>
               <Text size={"lg"}>🛠</Text>
               <Text size={"sm"} weight={500}>
-                {APP_NAME}
+                {/* TODO style tags */}
+                <Link
+                  style={{
+                    color: theme.colors.gray[1],
+                    textDecoration: "none",
+                  }}
+                  to={APP_HOME}
+                >
+                  {APP_NAME}
+                </Link>
               </Text>
+            </Group>
+
+            <Group>
+              <Link
+                style={{
+                  color: theme.colors.gray[1],
+                  textDecoration: "none",
+                  fontSize: "small",
+                  textTransform: "uppercase",
+                }}
+                to={`settings`}
+              >
+                Settings
+              </Link>
             </Group>
           </div>
         </Header>
       }
     >
-      <Body
-        currentItem={sidebarItem}
-        onSubmit={setRuntimeRequestHandler(worker, rest)}
+      <Outlet
+        // https://reactrouter.com/docs/en/v6/hooks/use-outlet-context
+        context={{
+          currentItem: sidebarItem,
+          onSubmit: setRuntimeRequestHandler(worker, rest),
+        }}
       />
     </AppShell>
   );
+}
+
+export function useSidebarContext() {
+  return useOutletContext<BodyProps>();
 }

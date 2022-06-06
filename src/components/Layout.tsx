@@ -16,7 +16,7 @@ import {
 import { MSWglobalExports } from "../types";
 import { RestHandler } from "msw";
 import Sidebar from "./Sidebar";
-import { APP_HOME, APP_NAME } from "../constants";
+import { APP_HOME, APP_NAME, APP_ROOT, isStandaloneMode } from "../constants";
 import { Link, Outlet, useMatch, useOutletContext } from "react-router-dom";
 import { setRuntimeRequestHandler } from "../lib";
 import { BodyProps } from "./Body";
@@ -29,7 +29,9 @@ export default function Layout({
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<RestHandler>();
   const theme = useMantineTheme();
-  const isSettingsPath = useMatch("settings");
+  const isSettingsPath = isStandaloneMode
+    ? useMatch("settings")
+    : useMatch(`${APP_ROOT}/settings`);
 
   function handleCurrentSidebarItem(item: RestHandler) {
     setSidebarItem(item);

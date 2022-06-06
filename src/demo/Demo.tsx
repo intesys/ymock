@@ -1,7 +1,12 @@
 import React, { FormEventHandler, useState } from "react";
-import { rest, RestHandler, SetupWorkerApi } from "msw";
-import { handlers } from "./mocks/handlers";
-import { APP_BASE_PATH,APP_NAME } from "../constants";
+import {
+  DefaultRequestBody,
+  MockedRequest,
+  RestHandler,
+  SetupWorkerApi,
+} from "msw";
+import Launcher from "../components/Launcher";
+import { APP_NAME, isDevMode, isHostedMode } from "../constants";
 
 /*
  * Not really required since this is a demo app,
@@ -9,15 +14,18 @@ import { APP_BASE_PATH,APP_NAME } from "../constants";
  * only run (once) in dev mode.
  * */
 let worker: SetupWorkerApi;
-const isDevMode = process.env.NODE_ENV === "development";
+let rest: any; // TODO
+let handlers: RestHandler<MockedRequest<DefaultRequestBody>>[];
 
 if (isDevMode) {
   worker = require("./mocks/browser")?.worker;
+  rest = require("msw")?.rest;
+  handlers = require("./mocks/handlers")?.handlers;
 
   worker?.start?.();
 }
 
-function Demo() {
+export default function Demo() {
   const [response, setResponse] = useState<string>("");
   const [request, setRequest] = useState<string>("");
 
@@ -54,7 +62,15 @@ function Demo() {
           margin: "0 auto",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>{`${APP_NAME} tester`}</h1>
+        <h1 style={{ textAlign: "center" }}>
+          {`${APP_NAME} Demo App`}
+
+          {isHostedMode && (
+            <>
+              <br /> (hosted mode)
+            </>
+          )}
+        </h1>
 
         <section
           style={{
@@ -108,32 +124,17 @@ function Demo() {
           </form>
         </section>
 
-        <section>
-          <button
-            type={"button"}
-            style={{ marginTop: "2rem", width: "100%" }}
-            onClick={() => {
-              const windowRef = window.open(
-                APP_BASE_PATH + "/",
-                "_blank",
-                "popup, right=100, top=100, width=1200, height=700"
-              );
-
-              if (windowRef) {
-                windowRef.msw = {
-                  worker,
-                  rest,
-                  handlers,
-                };
-              }
+        {/* yMock Launcher */}
+        {isDevMode ? (
+          <Launcher
+            msw={{
+              worker,
+              rest,
+              handlers,
             }}
-          >
-            Open Admin UI
-          </button>
-        </section>
+          />
+        ) : null}
       </div>
     </div>
   );
 }
-
-export default Demo;

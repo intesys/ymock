@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.1",
     "@mantine/core": "^3.6.7",
     "@mantine/hooks": "^3.6.7",
     "@mantine/modals": "^3.6.7",
@@ -38,8 +39,9 @@
     "@mantine/rte": "^3.6.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router": "5.1.2",
-    "react-router-dom": "5.1.2"
+    "react-router-dom": "6.3.0",
+    "styled-jsx": "^5.0.2",
+    "tabler-icons-react": "^1.48.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.4",
@@ -48,22 +50,24 @@
     "@parcel/packager-ts": "2.3.2",
     "@parcel/transformer-typescript-types": "2.3.2",
     "@parcel/transformer-webmanifest": "2.3.2",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.5.1",
     "@types/node": "^16.11.24",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-router": "5.1.5",
     "@types/react-router-dom": "5.1.3",
+    "@types/styled-jsx": "^3.4.4",
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
     "copyfiles": "2.4.1",
-    "jest": "^27.5.1",
+    "jest": "^28.1.0",
     "msw": "^0.36.8",
     "parcel": "^2.3.2",
     "prettier": "^2.5.1",
     "process": "^0.11.10",
     "rimraf": "^3.0.2",
     "serve": "^13.0.2",
+    "ts-jest": "^28.0.3",
     "typescript": "^4.5.5"
   }
 }

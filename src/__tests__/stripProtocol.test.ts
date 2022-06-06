@@ -1,4 +1,4 @@
-const { stripProtocol } = require("../index");
+const { stripProtocol } = require("../utils");
 
 test("Tests stripProtocol utility with https", () => {
   expect(stripProtocol("https://jsonplaceholder.typicode.com/todos/100")).toBe(
@@ -21,3 +21,6 @@ test("Tests stripProtocol utility with non-matching value", () => {
 test("Tests stripProtocol utility with falsy value", () => {
   expect(stripProtocol(undefined)).toBe("");
 });
+
+// workaround for `cannot be compiled under '--isolatedModules'`
+export {};

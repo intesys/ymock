@@ -11,24 +11,24 @@ import {
   useState,
 } from "react";
 import {
+  Badge,
   Box,
   Button,
+  Center,
+  Code,
   Container,
   Divider,
-  Paper,
-  Title,
-  Text,
-  Badge,
   Group,
-  Code,
   JsonInput,
-  Center,
+  Paper,
   Space,
+  Text,
+  Title,
 } from "@mantine/core";
 import { RestHandler } from "msw";
 import { useNotifications } from "@mantine/notifications";
 
-type OwnProps = {
+export type BodyProps = {
   currentItem?: RestHandler;
   onSubmit: (input: string, path: string) => void;
 };
@@ -36,7 +36,7 @@ type OwnProps = {
 export default function Body({
   currentItem,
   onSubmit,
-}: PropsWithChildren<OwnProps>): ReactElement {
+}: PropsWithChildren<BodyProps>): ReactElement {
   const [input, setInput] = useState<string>("");
   const { info } = currentItem ?? {};
   const notifications = useNotifications();
@@ -119,7 +119,7 @@ export default function Body({
                 <Text size={"xs"} transform={"uppercase"}>
                   Method:
                 </Text>
-                <Badge color={"green"} component={"span"}>
+                <Badge color={"teal"} component={"span"}>
                   {info.method}
                 </Badge>
               </Group>

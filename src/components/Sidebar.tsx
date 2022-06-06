@@ -24,6 +24,7 @@ import { stripBasePath } from "../utils";
 type OwnProps = Omit<NavbarProps, "children"> &
   Pick<MSWglobalExports, "handlers" | "worker"> & {
     onItemClick: (arg0: RestHandler) => void;
+    mainSectionTitle: string;
   };
 
 export default function Sidebar({
@@ -31,6 +32,7 @@ export default function Sidebar({
   worker,
   onItemClick,
   children,
+  mainSectionTitle,
   ...navbarProps
 }: PropsWithChildren<OwnProps>): ReactElement | null {
   const [currentItem, setCurrentItem] = useState<RestHandler>();
@@ -81,7 +83,7 @@ export default function Sidebar({
               fontSize: "small",
             })}
           >
-            Mocked requests
+            {mainSectionTitle}
           </Title>
 
           <Divider
@@ -133,7 +135,7 @@ export default function Sidebar({
                       sx={(t) => ({
                         backgroundColor: isSelected
                           ? t.colorScheme === "dark"
-                            ? t.colors.blue[9]
+                            ? t.colors.dark[9]
                             : t.colors.indigo[9]
                           : "none",
                         padding: t.spacing.md,
@@ -143,7 +145,7 @@ export default function Sidebar({
                         "&:hover": {
                           backgroundColor: isSelected
                             ? t.colorScheme === "dark"
-                              ? t.colors.blue[8]
+                              ? t.colors.dark[8]
                               : t.colors.gray[1]
                             : t.colorScheme === "dark"
                             ? t.colors.dark[5]
@@ -152,7 +154,7 @@ export default function Sidebar({
                       })}
                     >
                       <Group spacing="md" noWrap>
-                        <Badge color={"green"} component={"span"}>
+                        <Badge color={"teal"} component={"span"}>
                           {handler.info?.method}
                         </Badge>
 

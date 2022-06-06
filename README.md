@@ -1,6 +1,6 @@
 # yMock
 
-![](.preview/scrn-01.png)
+![yMock home](.preview/scrn-02.png)
 
 A minimal administrative UI for [MSW.](https://mswjs.io)
 
@@ -21,6 +21,8 @@ A minimal administrative UI for [MSW.](https://mswjs.io)
 - The Admin UI must be launched via the launcher button ("Launch yMock")
 
 ### Hosted mode (default)
+
+![Demo app with launcher](.preview/scrn-03.png)
 
 This app's use case is to manage a `msw` instance launched by a host app;
 This is the default behavior when you run `yarn dev`, so you'll have to launch

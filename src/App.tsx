@@ -16,10 +16,10 @@ import {
 } from "@mantine/core";
 
 import {
-  APP_BASE_PATH,
   ERROR__FATAL_ERROR_DEV_VARIANT,
   EXAMPLE_TYPE,
   isDevMode,
+  isHostedMode,
   isStandaloneMode,
 } from "./constants";
 // import _msw from "./mocks/msw"; <== Re-enable mocks if you need them
@@ -47,7 +47,7 @@ let msw: MSWglobalExports;
  *
  * */
 
-if (isDevMode && isStandaloneMode) {
+if (isStandaloneMode) {
   const { rest } = require("msw");
   const { worker } = require("./demo/mocks/browser");
   const { handlers } = require("./demo/mocks/handlers");
@@ -83,15 +83,11 @@ function App() {
             </Text>
           </Box>
 
-          {isDevMode && (
+          {isHostedMode && (
             <Box mt={"xl"}>
               <Text mt={"lg"}>
                 💡 Did you mean to launch the app in hosted mode?{" "}
-                <Text
-                  variant="link"
-                  component="a"
-                  href={`${APP_BASE_PATH}/demo`}
-                >
+                <Text variant="link" component="a" href={`/`}>
                   Visit the demo page.
                 </Text>
               </Text>

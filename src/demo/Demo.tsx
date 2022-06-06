@@ -6,7 +6,7 @@ import {
   SetupWorkerApi,
 } from "msw";
 import Launcher from "../components/Launcher";
-import { APP_NAME, isDevMode } from "../constants";
+import { APP_NAME, isDevMode, isHostedMode } from "../constants";
 
 /*
  * Not really required since this is a demo app,
@@ -25,7 +25,7 @@ if (isDevMode) {
   worker?.start?.();
 }
 
-function Demo() {
+export default function Demo() {
   const [response, setResponse] = useState<string>("");
   const [request, setRequest] = useState<string>("");
 
@@ -62,7 +62,15 @@ function Demo() {
           margin: "0 auto",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>{`${APP_NAME} tester`}</h1>
+        <h1 style={{ textAlign: "center" }}>
+          {`${APP_NAME} Demo App`}
+
+          {isHostedMode && (
+            <>
+              <br /> (hosted mode)
+            </>
+          )}
+        </h1>
 
         <section
           style={{
@@ -130,5 +138,3 @@ function Demo() {
     </div>
   );
 }
-
-export default Demo;

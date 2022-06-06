@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import { APP_ROOT, isHostedMode, isStandaloneMode } from "./constants";
 import NotFound from "./components/NotFound";
+import Settings from "./views/Settings";
+import Main from "./views/Main";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -30,7 +32,9 @@ ReactDOM.render(
             )}
 
             <Route path={isStandaloneMode ? "/" : APP_ROOT} element={<App />}>
-              <Route path="settings" element={"settings"} />
+              <Route index element={<Main />} />
+              <Route path="home" element={<Main />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

@@ -16,7 +16,7 @@ import {
 } from "@mantine/core";
 
 import {
-  ERROR__FATAL_ERROR_DEV_VARIANT,
+  ERROR__GLOBAL_FATAL_ERROR,
   EXAMPLE_TYPE,
   isDevMode,
   isHostedMode,
@@ -49,7 +49,7 @@ function App() {
 
   if (fatalError) {
     if (isDevMode) {
-      console.error(ERROR__FATAL_ERROR_DEV_VARIANT);
+      console.error(ERROR__GLOBAL_FATAL_ERROR);
     }
 
     return (

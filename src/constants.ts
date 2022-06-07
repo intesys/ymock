@@ -9,14 +9,14 @@ export const isStandaloneMode =
 export const isHostedMode = isDevMode && !isStandaloneMode;
 
 // errors
-export const ERROR__FATAL_ERROR = `Fatal Error: Please ensure your app is passing a \`msw\` object to the \`Launcher\` component.`;
+export const ERROR__LAUNCHER_FATAL_ERROR = `Fatal Error: Please ensure your app is passing a \`msw\` object to the \`Launcher\` component.`;
 
-export const ERROR__FATAL_ERROR_DEV_VARIANT = `Fatal Error: Please ensure your app is saving a \`msw\` object to the global scope.
+export const ERROR__GLOBAL_FATAL_ERROR = `Fatal Error: Please ensure your app is saving a \`msw\` object to the global scope.
       
       Hints:
       
+      - Did you mean to launch the app in hosted mode? Please visit the \`/\` route and launch it from there.
       - Are you trying to run the app in standalone mode? Please enable STANDALONE_MODE in .env and re-run the server.
-      - Did you mean to launch the app in hosted mode? Please visit the /demo route and launch it from there.
       `;
 
 // labels

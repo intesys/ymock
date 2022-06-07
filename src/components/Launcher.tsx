@@ -4,7 +4,7 @@ Launcher
 
 import * as React from "react";
 import { MSWglobalExports } from "../types";
-import { APP_ROOT, ERROR__FATAL_ERROR } from "../constants";
+import { APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR } from "../constants";
 import { Alert, Button } from "@mantine/core";
 
 type OwnProps = {
@@ -27,7 +27,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
   }
 
   if (!msw?.rest || !msw?.worker || !msw?.handlers) {
-    console.error(ERROR__FATAL_ERROR);
+    console.error(ERROR__LAUNCHER_FATAL_ERROR);
 
     return (
       <div className={"launcher"}>

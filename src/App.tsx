@@ -22,7 +22,7 @@ import {
   isHostedMode,
   isStandaloneMode,
 } from "./constants";
-// import _msw from "./mocks/msw"; <== Re-enable mocks if you need them
+import { WorkerLifecycleEventsMap } from "msw/lib/types/setupWorker/glossary";
 
 let msw: MSWglobalExports;
 
@@ -88,8 +88,12 @@ function App() {
 
   useEffect(() => {
     if (worker?.events) {
-      const events = ["request:start", "request:unhandled", "response:bypass"];
-      const listener = (ev: string) => () => console.log(ev);
+      const events: (keyof WorkerLifecycleEventsMap)[] = [
+        "request:start",
+        "request:unhandled",
+        "response:bypass",
+      ];
+      const listener = (ev: string) => () => console.log(ev); // TODO
 
       events.forEach((ev) => worker.events.on(ev, listener(ev)));
     }
@@ -102,7 +106,7 @@ function App() {
   return (
     <div className="App">
       <Layout
-        {...({ worker, rest, handlers } as unknown as MSWglobalExports)} // TODO...
+        {...({ worker, rest, handlers } as unknown as MSWglobalExports)}
       />
     </div>
   );

@@ -39,8 +39,8 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
         <style jsx>{`
           .launcher {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
           }
         `}</style>
       </div>

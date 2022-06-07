@@ -12,7 +12,7 @@ A minimal administrative UI for [MSW.](https://mswjs.io)
 
 ---
 
-## Contribute
+## Contributing
 
 ### Development
 
@@ -24,18 +24,18 @@ A minimal administrative UI for [MSW.](https://mswjs.io)
 
 ![Demo app with launcher](.preview/scrn-03.png)
 
-This app's use case is to manage a `msw` instance launched by a host app;
+yMock's use case is to manage a `msw` instance launched by a host app;
 This is the default behavior when you run `yarn dev`, so you'll have to launch
-the app from a "demo" page rendered at `/`; if you try to run the app from
+yMock from a "demo" page rendered at `/`; if you try to run yMock from
 its own route (`/__${APP_NAME}`) you will get an error.
 
 ### Standalone mode
 
-For cases when you want to develop the app
+For cases when you want to develop yMock
 _without_ tying it to the host app (for example,
-you may want to provide your own mock instance of
-msw, or rapidly iterate on the UI), enable `STANDALONE_MODE` in `.env`.
-This way, the msw instance required by the app will
+you may want to rapidly iterate on the UI), enable
+`STANDALONE_MODE` in `.env` (and re-run the server).
+This way, the `msw` instance required by the app will
 be pre-populated locally, without needing to look
 for it in the window object.
 

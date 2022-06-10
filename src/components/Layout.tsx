@@ -50,12 +50,12 @@ export default function Layout(): JSX.Element {
 
   function getRouteSpecificSidebar(): Partial<PropsWithChildren<SidebarProps>> {
     switch (location?.pathname) {
-      // TODO!
-      case `/settings`:
-      case `/settings/logs`: {
+      // TODO fix in standalone mode
+      case `${APP_HOME}/settings`:
+      case `${APP_HOME}/settings/logs`: {
         return {
           title: "Settings",
-          children: <SettingsSidebar onItemClick={handleCurrentSidebarItem} />,
+          children: <SettingsSidebar />,
         };
       }
 

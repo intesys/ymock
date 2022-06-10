@@ -7,7 +7,7 @@ import Body from "../components/Body";
 import { useSidebarContext } from "../components/Layout";
 
 export default function Home(): JSX.Element {
-  const { currentItem, onSubmit } = useSidebarContext();
+  const { sidebarItem, onSubmit } = useSidebarContext();
 
-  return <Body currentItem={currentItem} onSubmit={onSubmit} />;
+  return <Body sidebarItem={sidebarItem} onSubmit={onSubmit} />;
 }

@@ -7,7 +7,8 @@ import App from "./App";
 import { APP_ROOT, isHostedMode, isStandaloneMode } from "./constants";
 import NotFound from "./components/NotFound";
 import Settings from "./views/Settings";
-import Main from "./views/Main";
+import Home from "./views/Home";
+import Logs from "./views/Logs";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,9 +33,11 @@ ReactDOM.render(
             )}
 
             <Route path={isStandaloneMode ? "/" : APP_ROOT} element={<App />}>
-              <Route index element={<Main />} />
-              <Route path="home" element={<Main />} />
-              <Route path="settings" element={<Settings />} />
+              <Route index element={<Home />} />
+              <Route path="home" element={<Home />} />
+              <Route path="settings" element={<Settings />}>
+                <Route path="logs" element={<Logs />} />
+              </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />

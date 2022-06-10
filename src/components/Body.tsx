@@ -150,7 +150,7 @@ export default function Body({
           />
 
           <Box component={"section"} style={{ padding: "20px 0" }}>
-            <Text mb={40} size={"md"}>
+            <Text mb={40} size={"sm"}>
               Enter a value in the following field to override the mocked
               response served by the service worker. The field accepts JSON, and
               will validate & format your input. Please note the override will

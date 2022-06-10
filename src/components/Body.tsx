@@ -3,13 +3,7 @@ Body
 --------------------------------- */
 
 import * as React from "react";
-import {
-  FormEvent,
-  PropsWithChildren,
-  ReactElement,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, ReactElement, useEffect, useState } from "react";
 import {
   Badge,
   Box,
@@ -25,20 +19,16 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { RestHandler } from "msw";
 import { useNotifications } from "@mantine/notifications";
+import { OutletContext } from "./Layout";
+import { useOutletContext } from "react-router-dom";
+import { RestHandler } from "msw";
+import { stripBasePath } from "../utils";
 
-export type BodyProps = {
-  sidebarItem?: RestHandler;
-  onSubmit: (input: string, path: string) => void;
-};
-
-export default function Body({
-  sidebarItem,
-  onSubmit,
-}: PropsWithChildren<BodyProps>): ReactElement {
+export default function Body(): ReactElement {
   const [input, setInput] = useState<string>("");
-  const { info } = sidebarItem ?? {};
+  const { sidebarItem, onSubmit } = useOutletContext<OutletContext>();
+  const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const notifications = useNotifications();
 
   function handleReset() {
@@ -109,7 +99,18 @@ export default function Body({
           <header>
             {/* TODO use sx, not style, use theme values not arbitrary values */}
             <Title order={2} style={{ marginBottom: 30 }}>
-              Request info
+              Request info:{" "}
+              <Code
+                sx={() => ({
+                  fontSize: 20,
+                  marginLeft: 10,
+                  marginBottom: -3,
+                  position: "relative",
+                  top: -1,
+                })}
+              >
+                {stripBasePath(info.path)}
+              </Code>
             </Title>
           </header>
 

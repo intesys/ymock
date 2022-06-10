@@ -3,27 +3,19 @@ HomeSidebar
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren, useState } from "react";
+import { useContext, useState } from "react";
 import { useWorkerContext } from "../hooks";
 import { Badge, Divider, Group, NativeSelect, Text } from "@mantine/core";
 import { HandlerSortKeysType } from "../types";
 import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
 import SidebarItem from "./SidebarItem";
+import { SidebarContext } from "./Layout";
 
-type OwnProps = { onItemClick: (item: RestHandler) => void };
-
-export default function HomeSidebar({
-  onItemClick,
-}: PropsWithChildren<OwnProps>): JSX.Element {
+export default function HomeSidebar(): JSX.Element {
   const [select, setSelect] = useState<HandlerSortKeysType>("Select an option");
-  const [currentItem, setCurrentItem] = useState<RestHandler>();
   const { handlers } = useWorkerContext();
-
-  function handleItemClick(item: RestHandler) {
-    setCurrentItem(item);
-    onItemClick && onItemClick(item);
-  }
+  const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
 
   function handleSort(sortKey: HandlerSortKeysType) {
     return function (a: RestHandler, b: RestHandler): number {
@@ -82,12 +74,13 @@ export default function HomeSidebar({
             .sort(handleSort(select))
             .map((handler: RestHandler, i: number, arr) => {
               const isSelected =
-                handler?.info?.path === currentItem?.info?.path;
+                handler?.info?.path ===
+                (sidebarItem as unknown as RestHandler)?.info?.path;
 
               return (
                 <React.Fragment key={i}>
                   <SidebarItem
-                    onClick={() => handleItemClick(handler)}
+                    onClick={() => setSidebarItem(handler)}
                     selected={isSelected}
                   >
                     <Group spacing="md" noWrap>

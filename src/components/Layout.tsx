@@ -3,7 +3,7 @@ Layout
 --------------------------------- */
 
 import * as React from "react";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import {
   AppShell,
   Burger,
@@ -14,48 +14,52 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { RestHandler } from "msw";
-import Sidebar from "./Sidebar";
-import { APP_HOME, APP_NAME, APP_ROOT, isStandaloneMode } from "../constants";
-import { Link, Outlet, useMatch, useOutletContext } from "react-router-dom";
+import Sidebar, { SidebarProps } from "./Sidebar";
+import { APP_HOME, APP_NAME } from "../constants";
+import { Link, Outlet, useOutletContext } from "react-router-dom";
 import { setRuntimeRequestHandler } from "../lib";
 import { BodyProps } from "./Body";
 import { useWorkerContext } from "../hooks";
+import { useLocation } from "react-router";
+import HomeSidebar from "./HomeSidebar";
+import SettingsSidebar from "./SettingsSidebar";
 
 export default function Layout(): JSX.Element {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<RestHandler>();
-  const { worker, rest, handlers } = useWorkerContext();
+  const { worker, rest } = useWorkerContext();
+  const location = useLocation();
   const theme = useMantineTheme();
-
-  const isSettingsPath = useMatch(
-    `${!isStandaloneMode ? APP_ROOT + "/" : ""}settings*`
-  );
 
   function handleCurrentSidebarItem(item: RestHandler) {
     setSidebarItem(item);
+  }
+
+  function getRouteSpecificSidebar(): Partial<PropsWithChildren<SidebarProps>> {
+    switch (location?.pathname) {
+      // TODO!
+      case `/settings`:
+      case `/settings/logs`: {
+        return {
+          title: "Settings",
+          children: <SettingsSidebar onItemClick={handleCurrentSidebarItem} />,
+        };
+      }
+
+      default:
+      case `${APP_HOME}`: {
+        return {
+          title: "Mocked requests",
+          children: <HomeSidebar onItemClick={handleCurrentSidebarItem} />,
+        };
+      }
+    }
   }
 
   return (
     <AppShell
       navbarOffsetBreakpoint="sm"
       fixed
-      navbar={
-        <Sidebar
-          fixed
-          position={{ top: 0, left: 0 }}
-          hiddenBreakpoint="sm"
-          hidden={!showSidebar}
-          width={{ sm: 300, lg: 400 }}
-          onItemClick={handleCurrentSidebarItem}
-          mainSectionTitle={!isSettingsPath ? "Mocked requests" : "Settings"}
-          {...(!isSettingsPath
-            ? {
-                worker,
-                handlers,
-              }
-            : {})}
-        />
-      }
       header={
         <Header
           height={50}
@@ -119,6 +123,16 @@ export default function Layout(): JSX.Element {
             </Group>
           </div>
         </Header>
+      }
+      navbar={
+        <Sidebar
+          fixed
+          position={{ top: 0, left: 0 }}
+          hiddenBreakpoint="sm"
+          hidden={!showSidebar}
+          width={{ sm: 300, lg: 400 }}
+          {...getRouteSpecificSidebar()}
+        />
       }
     >
       <Outlet

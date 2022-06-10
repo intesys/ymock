@@ -3,25 +3,47 @@ HomeSidebar
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren } from "react";
+import { useContext } from "react";
 import { Divider, Group, useMantineTheme } from "@mantine/core";
-import { RestHandler } from "msw";
 import { Link } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
+import { SidebarContext } from "./Layout";
 
-type OwnProps = { onItemClick: (item: RestHandler) => void };
-
-export default function SettingsSidebar({
-  onItemClick,
-}: PropsWithChildren<OwnProps>): JSX.Element {
+export default function SettingsSidebar(): JSX.Element {
+  const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const theme = useMantineTheme();
 
   // TODO mock items
   return (
     <React.Fragment>
-      {Array.from({ length: 5 }, (_, i) => (
+      {[
+        {
+          label: "Logs",
+        },
+        {
+          label: "Lorem",
+        },
+        {
+          label: "Ipsum",
+        },
+        {
+          label: "Dolor",
+        },
+        {
+          label: "Sit",
+        },
+        {
+          label: "Amet",
+        },
+      ].map((mockItem, i, arr) => (
         <>
-          <SidebarItem onClick={() => null} selected={undefined} key={i}>
+          <SidebarItem
+            onClick={() => setSidebarItem(mockItem)}
+            selected={
+              (sidebarItem as { label: string })?.label === mockItem.label
+            }
+            key={i}
+          >
             <Group spacing="md" noWrap>
               <Link
                 style={{
@@ -32,12 +54,12 @@ export default function SettingsSidebar({
                 }}
                 to={`settings/logs`}
               >
-                {i === 0 ? "Logs" : `Logs ${i}`}
+                {mockItem.label}
               </Link>
             </Group>
           </SidebarItem>
 
-          {i === 5 - 1 && (
+          {i === arr.length - 1 && (
             <Divider
               sx={(t) => ({
                 borderColor: t.colors.dark[5],

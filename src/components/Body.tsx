@@ -29,16 +29,16 @@ import { RestHandler } from "msw";
 import { useNotifications } from "@mantine/notifications";
 
 export type BodyProps = {
-  currentItem?: RestHandler;
+  sidebarItem?: RestHandler;
   onSubmit: (input: string, path: string) => void;
 };
 
 export default function Body({
-  currentItem,
+  sidebarItem,
   onSubmit,
 }: PropsWithChildren<BodyProps>): ReactElement {
   const [input, setInput] = useState<string>("");
-  const { info } = currentItem ?? {};
+  const { info } = sidebarItem ?? {};
   const notifications = useNotifications();
 
   function handleReset() {
@@ -88,10 +88,10 @@ export default function Body({
   }
 
   useEffect(() => {
-    if (currentItem) {
+    if (sidebarItem) {
       handleReset();
     }
-  }, [currentItem]);
+  }, [sidebarItem]);
 
   return (
     <Container>

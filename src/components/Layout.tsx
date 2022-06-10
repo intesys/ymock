@@ -124,7 +124,7 @@ export default function Layout(): JSX.Element {
       <Outlet
         // https://reactrouter.com/docs/en/v6/hooks/use-outlet-context
         context={{
-          currentItem: sidebarItem,
+          sidebarItem,
           onSubmit: setRuntimeRequestHandler(worker, rest),
         }}
       />

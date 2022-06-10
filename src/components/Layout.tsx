@@ -24,12 +24,12 @@ import { useWorkerContext } from "../hooks";
 export default function Layout(): JSX.Element {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<RestHandler>();
-  const theme = useMantineTheme();
   const { worker, rest, handlers } = useWorkerContext();
+  const theme = useMantineTheme();
 
-  const isSettingsPath = isStandaloneMode
-    ? useMatch("settings")
-    : useMatch(`${APP_ROOT}/settings`);
+  const isSettingsPath = useMatch(
+    `${!isStandaloneMode ? APP_ROOT + "/" : ""}settings*`
+  );
 
   function handleCurrentSidebarItem(item: RestHandler) {
     setSidebarItem(item);

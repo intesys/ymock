@@ -24,7 +24,7 @@ export const APP_NAME = "yMock";
 
 // URLs
 export const APP_ROOT = `__${APP_NAME}`;
-export const APP_HOME = isStandaloneMode ? "/" : "/" + APP_ROOT;
+export const APP_HOME = isStandaloneMode ? "/" : `/${APP_ROOT}`;
 
 // mocks
 export const MOCK_PATH_1 = "https://jsonplaceholder.typicode.com/users";

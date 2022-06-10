@@ -3,7 +3,7 @@ Layout
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import {
   AppShell,
   Burger,
@@ -13,22 +13,20 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { MSWglobalExports } from "../types";
 import { RestHandler } from "msw";
 import Sidebar from "./Sidebar";
 import { APP_HOME, APP_NAME, APP_ROOT, isStandaloneMode } from "../constants";
 import { Link, Outlet, useMatch, useOutletContext } from "react-router-dom";
 import { setRuntimeRequestHandler } from "../lib";
 import { BodyProps } from "./Body";
+import { useWorkerContext } from "../hooks";
 
-export default function Layout({
-  worker,
-  rest,
-  handlers,
-}: PropsWithChildren<MSWglobalExports>): JSX.Element {
+export default function Layout(): JSX.Element {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<RestHandler>();
   const theme = useMantineTheme();
+  const { worker, rest, handlers } = useWorkerContext();
+
   const isSettingsPath = isStandaloneMode
     ? useMatch("settings")
     : useMatch(`${APP_ROOT}/settings`);

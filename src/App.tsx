@@ -2,7 +2,7 @@
 App
 --------------------------------- */
 
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "./components/Layout";
 import { MSWglobalExports } from "./types";
 import {
@@ -22,7 +22,6 @@ import {
   isHostedMode,
   isStandaloneMode,
 } from "./constants";
-import { WorkerLifecycleEventsMap } from "msw/lib/types/setupWorker/glossary";
 
 let msw: MSWglobalExports;
 
@@ -43,9 +42,16 @@ if (isStandaloneMode) {
   msw = { rest, worker, handlers };
 }
 
+// Provides the worker's data & handlers to the whole app
+export const WorkerContext = React.createContext<MSWglobalExports>({
+  handlers: [],
+  rest: undefined,
+  worker: undefined,
+});
+
 function App() {
   const { worker, rest, handlers } = msw ?? window?.msw ?? {};
-  const fatalError = [worker, rest, handlers].some((el) => !el);
+  const fatalError = [worker, rest, handlers].some((truthy) => !truthy);
 
   if (fatalError) {
     if (isDevMode) {
@@ -86,28 +92,11 @@ function App() {
     );
   }
 
-  useEffect(() => {
-    if (worker?.events) {
-      const events: (keyof WorkerLifecycleEventsMap)[] = [
-        "request:start",
-        "request:unhandled",
-        "response:bypass",
-      ];
-      const listener = (ev: string) => () => console.log(ev); // TODO
-
-      events.forEach((ev) => worker.events.on(ev, listener(ev)));
-    }
-
-    return () => {
-      worker.events.removeAllListeners();
-    };
-  }, [worker]);
-
   return (
     <div className="App">
-      <Layout
-        {...({ worker, rest, handlers } as unknown as MSWglobalExports)}
-      />
+      <WorkerContext.Provider value={{ worker, rest, handlers }}>
+        <Layout />
+      </WorkerContext.Provider>
     </div>
   );
 }

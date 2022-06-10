@@ -47,7 +47,7 @@ export default function Logs({}: PropsWithChildren<OwnProps>): JSX.Element {
 
   return (
     <section className={"logs"}>
-      Here's some logs!
+      Here are some logs!
       <Code block>{logs}</Code>
       <button onClick={() => setLogs("")}>Clear logs</button>
       <button onClick={() => setDetached((d) => !d)}>

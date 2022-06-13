@@ -16,6 +16,7 @@ import {
   JsonInput,
   Paper,
   Space,
+  Switch,
   Text,
   Title,
 } from "@mantine/core";
@@ -27,8 +28,9 @@ import { stripBasePath } from "../utils";
 
 export default function Body(): ReactElement {
   const [input, setInput] = useState<string>("");
+  const [checked, setChecked] = useState(true);
   const { sidebarItem, onSubmit } = useOutletContext<OutletContext>();
-  const { info } = (sidebarItem as unknown as RestHandler) ?? {};
+  const { info, markAsSkipped } = (sidebarItem as unknown as RestHandler) ?? {};
   const notifications = useNotifications();
 
   function handleReset() {
@@ -83,6 +85,12 @@ export default function Body(): ReactElement {
     }
   }, [sidebarItem]);
 
+  function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
+    setChecked(e.currentTarget.checked);
+    markAsSkipped.bind(sidebarItem)(checked);
+    console.log(e.currentTarget.checked, checked, sidebarItem?.shouldSkip);
+  }
+
   return (
     <Container>
       {!info ? (
@@ -112,6 +120,11 @@ export default function Body(): ReactElement {
                 {stripBasePath(info.path)}
               </Code>
             </Title>
+            <Switch
+              checked={checked}
+              onChange={handleCheck}
+              label={"Toggle active"}
+            />
           </header>
 
           <Paper shadow="xs" withBorder mb={40}>

@@ -104,8 +104,8 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
           }}
           onClick={handleCloseWindowClick}
         >
-          🚫
-          <span style={{ marginLeft: 8 }}>Close yMock</span>
+          <span style={{ fontSize: 22, marginTop: -4 }}>&times;</span>
+          <span style={{ marginLeft: 6 }}>Close yMock</span>
         </Button>
       )}
 

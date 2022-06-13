@@ -49,7 +49,6 @@ export default function Sidebar({
         </header>
 
         {/* Route-specific sidebars */}
-
         {children}
       </Navbar.Section>
 

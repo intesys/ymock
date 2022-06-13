@@ -28,9 +28,10 @@ import { stripBasePath } from "../utils";
 
 export default function Body(): ReactElement {
   const [input, setInput] = useState<string>("");
-  const [checked, setChecked] = useState(true);
-  const { sidebarItem, onSubmit } = useOutletContext<OutletContext>();
-  const { info, markAsSkipped } = (sidebarItem as unknown as RestHandler) ?? {};
+  const [enabled, setEnabled] = useState(true);
+  const { sidebarItem, setSidebarItem, onSubmit } =
+    useOutletContext<OutletContext>();
+  const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const notifications = useNotifications();
 
   function handleReset() {
@@ -82,13 +83,36 @@ export default function Body(): ReactElement {
   useEffect(() => {
     if (sidebarItem) {
       handleReset();
+
+      // sidebarItem is a RestHandler
+      if ("shouldSkip" in sidebarItem) {
+        setEnabled(!(sidebarItem as unknown as RestHandler).shouldSkip);
+      }
     }
   }, [sidebarItem]);
 
-  function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
-    setChecked(e.currentTarget.checked);
-    markAsSkipped.bind(sidebarItem)(checked);
-    console.log(e.currentTarget.checked, checked, sidebarItem?.shouldSkip);
+  function handleCheck() {
+    // `markAsSkipped` is not an own prop,
+    // it goes up the prototype chain by 2 levels
+    if (sidebarItem.markAsSkipped) {
+      setEnabled((enabled) => {
+        const _markAsSkipped = (
+          sidebarItem as unknown as RestHandler
+        ).markAsSkipped.bind(sidebarItem);
+
+        // The value of `shouldSkip` should be whatever
+        // the value of `enabled` is when I click;
+        // The mock is enabled (true) => I click to disable it => shouldSkip = true
+        // At the end of the process, we update the UI of `Switch` by flipping `enabled`.
+        _markAsSkipped(enabled);
+
+        // We don't create an object literal with new props spread into it,
+        // otherwise we'd lose the inherited properties from the proto chain.
+        setSidebarItem(sidebarItem);
+
+        return !enabled;
+      });
+    }
   }
 
   return (
@@ -104,9 +128,9 @@ export default function Body(): ReactElement {
         </Center>
       ) : (
         <Box component={"main"}>
+          {/* TODO use sx, not style, use theme values not arbitrary values */}
           <header style={{ marginBottom: 30 }}>
             <Group noWrap position={"apart"} align={"center"}>
-              {/* TODO use sx, not style, use theme values not arbitrary values */}
               <Title order={2}>
                 Mock info:{" "}
                 <Code
@@ -126,9 +150,9 @@ export default function Body(): ReactElement {
                   root: { flexDirection: "row-reverse" },
                   label: { paddingRight: 12, paddingLeft: 0 },
                 }}
-                checked={checked}
+                checked={enabled}
                 onChange={handleCheck}
-                label={checked ? "Enabled" : "Disabled"}
+                label={enabled ? "ENABLED" : "DISABLED"}
               />
             </Group>
           </header>

@@ -104,27 +104,33 @@ export default function Body(): ReactElement {
         </Center>
       ) : (
         <Box component={"main"}>
-          <header>
-            {/* TODO use sx, not style, use theme values not arbitrary values */}
-            <Title order={2} style={{ marginBottom: 30 }}>
-              Request info:{" "}
-              <Code
-                sx={() => ({
-                  fontSize: 20,
-                  marginLeft: 10,
-                  marginBottom: -3,
-                  position: "relative",
-                  top: -1,
-                })}
-              >
-                {stripBasePath(info.path)}
-              </Code>
-            </Title>
-            <Switch
-              checked={checked}
-              onChange={handleCheck}
-              label={"Toggle active"}
-            />
+          <header style={{ marginBottom: 30 }}>
+            <Group noWrap position={"apart"} align={"center"}>
+              {/* TODO use sx, not style, use theme values not arbitrary values */}
+              <Title order={2}>
+                Mock info:{" "}
+                <Code
+                  sx={() => ({
+                    fontSize: 20,
+                    marginLeft: 10,
+                    marginBottom: -3,
+                    position: "relative",
+                    top: -1,
+                  })}
+                >
+                  {stripBasePath(info.path)}
+                </Code>
+              </Title>
+              <Switch
+                styles={{
+                  root: { flexDirection: "row-reverse" },
+                  label: { paddingRight: 12, paddingLeft: 0 },
+                }}
+                checked={checked}
+                onChange={handleCheck}
+                label={checked ? "Enabled" : "Disabled"}
+              />
+            </Group>
           </header>
 
           <Paper shadow="xs" withBorder mb={40}>

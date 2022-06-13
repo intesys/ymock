@@ -44,10 +44,6 @@ export default function Layout(): JSX.Element {
   const location = useLocation();
   const theme = useMantineTheme();
 
-  function handleCurrentSidebarItem(item) {
-    setSidebarItem(item);
-  }
-
   function getRouteSpecificSidebar(): Partial<PropsWithChildren<SidebarProps>> {
     switch (location?.pathname) {
       // TODO fix in standalone mode
@@ -77,7 +73,6 @@ export default function Layout(): JSX.Element {
         header={
           <Header
             height={50}
-            padding="md"
             sx={(t) => ({
               background: `
               linear-gradient(to top, #141517,#262626 ),
@@ -94,6 +89,7 @@ export default function Layout(): JSX.Element {
                 alignItems: "center",
                 justifyContent: "space-between",
                 height: "100%",
+                padding: "0 1rem",
               }}
             >
               <MediaQuery largerThan="sm" styles={{ display: "none" }}>

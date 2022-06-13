@@ -79,20 +79,6 @@ export default function Demo() {
             padding: ".5rem",
           }}
         >
-          <pre
-            style={{
-              padding: "3rem 1rem",
-              whiteSpace: "pre-wrap",
-              wordWrap: "break-word",
-              backgroundColor: "#eee",
-              borderRadius: "6px",
-              boxShadow: "inset 0 -1px #0000001a",
-              color: "black",
-            }}
-          >
-            <code>{response ? response : null}</code>
-          </pre>
-
           <form action="#" onSubmit={handleSubmit}>
             <label htmlFor="request_selector" />
 
@@ -121,6 +107,20 @@ export default function Demo() {
             <button type="submit" style={{ width: "100%" }}>
               Perform request
             </button>
+
+            <pre
+              style={{
+                padding: "3rem 1rem",
+                whiteSpace: "pre-wrap",
+                wordWrap: "break-word",
+                backgroundColor: "#eee",
+                borderRadius: "6px",
+                boxShadow: "inset 0 -1px #0000001a",
+                color: "black",
+              }}
+            >
+              <code>{response ? response : null}</code>
+            </pre>
           </form>
         </section>
 

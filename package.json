@@ -32,6 +32,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.1",
     "@mantine/core": "^4.2.9",
+    "@mantine/form": "^4.2.9",
     "@mantine/hooks": "^4.2.9",
     "@mantine/modals": "^4.2.9",
     "@mantine/notifications": "^4.2.9",

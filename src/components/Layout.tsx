@@ -16,7 +16,7 @@ import {
 import Sidebar, { SidebarProps } from "./Sidebar";
 import { APP_HOME, APP_NAME } from "../constants";
 import { Link, Outlet } from "react-router-dom";
-import { setRuntimeRequestHandler } from "../lib";
+import { RuntimeRequestHandlerType, setRuntimeRequestHandler } from "../lib";
 import { useWorkerContext } from "../hooks";
 import { useLocation } from "react-router";
 import HomeSidebar from "./HomeSidebar";
@@ -32,7 +32,7 @@ type SidebarItemAndSetter = {
 
 // Outlet context shared by all Consumers inside `Outlet`
 export type OutletContext = {
-  onSubmit: (input: string, path: string) => void;
+  onSubmit: RuntimeRequestHandlerType;
 };
 
 // Sidebar context shared by all Consumers inside `Layout`
@@ -73,9 +73,8 @@ export default function Layout(): JSX.Element {
         fixed
         header={
           <Header
-            height={50}
+            height={46}
             sx={(t) => ({
-              background: t.colors.dark[9],
               color: t.colors.gray[1],
               textDecoration: "none",
             })}
@@ -89,40 +88,30 @@ export default function Layout(): JSX.Element {
                 padding: "0 1rem",
               }}
             >
-              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                <Burger
-                  opened={showSidebar}
-                  onClick={() => setShowSidebar((o) => !o)}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
-              </MediaQuery>
+              {/* TODO style tags */}
+              <Link
+                style={{
+                  color: theme.colors.gray[1],
+                  textDecoration: "none",
+                }}
+                to={APP_HOME}
+              >
+                <Group spacing={"xs"}>
+                  <ThreeDCubeSphere
+                    size={28}
+                    strokeWidth={1}
+                    color={"whitesmoke"}
+                  />
 
-              <Group spacing={"xs"}>
-                <ThreeDCubeSphere
-                  size={28}
-                  strokeWidth={1}
-                  color={"whitesmoke"}
-                />
-
-                <Text
-                  size={"sm"}
-                  weight={500}
-                  sx={() => ({ position: "relative", left: -6 })}
-                >
-                  {/* TODO style tags */}
-                  <Link
-                    style={{
-                      color: theme.colors.gray[1],
-                      textDecoration: "none",
-                    }}
-                    to={APP_HOME}
+                  <Text
+                    size={"sm"}
+                    weight={500}
+                    sx={() => ({ position: "relative", left: -6 })}
                   >
                     {APP_NAME}
-                  </Link>
-                </Text>
-              </Group>
+                  </Text>
+                </Group>
+              </Link>
 
               <Group>
                 <Link
@@ -137,6 +126,16 @@ export default function Layout(): JSX.Element {
                   Settings
                 </Link>
               </Group>
+
+              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={showSidebar}
+                  onClick={() => setShowSidebar((o) => !o)}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
             </div>
           </Header>
         }

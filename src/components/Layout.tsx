@@ -75,11 +75,7 @@ export default function Layout(): JSX.Element {
           <Header
             height={50}
             sx={(t) => ({
-              background: `
-              linear-gradient(to top, #141517,#262626 ),
-              ${t.colors.dark[8]}
-            `,
-              borderBottom: `1px solid ${t.colors.dark}`,
+              background: t.colors.dark[9],
               color: t.colors.gray[1],
               textDecoration: "none",
             })}

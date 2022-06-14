@@ -72,7 +72,7 @@ export default function Body(): ReactElement {
         title: "Submission error",
         color: "red",
         message: `There was an error in submitting the form${
-          err?.message ? ": " + err.message : ""
+          (err as Error).message ? ": " + (err as Error).message : ""
         }`,
       });
     }
@@ -203,7 +203,11 @@ export default function Body(): ReactElement {
 
             <form action="#" onSubmit={handleSubmit}>
               <JsonInput
-                placeholder={`insert runtime response override for the path: "${info.path}"...`}
+                placeholder={
+                  !enabled
+                    ? `Please enable the mock to use overrides.`
+                    : `Insert runtime response override for the path: "${info.path}"...`
+                }
                 variant="filled"
                 validationError="Invalid json"
                 formatOnBlur
@@ -211,6 +215,7 @@ export default function Body(): ReactElement {
                 minRows={10}
                 onChange={setInput}
                 value={input}
+                disabled={!enabled}
               />
 
               <Group position="right">

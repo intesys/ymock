@@ -6,9 +6,9 @@ import * as React from "react";
 import { Box, Divider } from "@mantine/core";
 
 type OwnProps = {
-  onClick;
-  selected;
-  children;
+  onClick: (e?: React.MouseEvent) => void;
+  selected: boolean;
+  children: JSX.Element;
 };
 
 export default function SidebarItem({

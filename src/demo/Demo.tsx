@@ -1,12 +1,8 @@
 import React, { FormEventHandler, useState } from "react";
-import {
-  DefaultRequestBody,
-  MockedRequest,
-  RestHandler,
-  SetupWorkerApi,
-} from "msw";
+import { RestHandler, SetupWorkerApi } from "msw";
 import Launcher from "../components/Launcher";
 import { APP_NAME, isDevMode, isHostedMode } from "../constants";
+import { Button } from "@mantine/core";
 
 /*
  * Not really required since this is a demo app,
@@ -15,7 +11,7 @@ import { APP_NAME, isDevMode, isHostedMode } from "../constants";
  * */
 let worker: SetupWorkerApi;
 let rest: any; // TODO
-let handlers: RestHandler<MockedRequest<DefaultRequestBody>>[];
+let handlers: RestHandler[];
 
 if (isDevMode) {
   worker = require("./mocks/browser")?.worker;
@@ -104,9 +100,9 @@ export default function Demo() {
                 : null}
             </select>
 
-            <button type="submit" style={{ width: "100%" }}>
+            <Button type="submit" style={{ width: "100%" }}>
               Perform request
-            </button>
+            </Button>
 
             <pre
               style={{

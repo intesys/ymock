@@ -26,9 +26,13 @@ import { useOutletContext } from "react-router-dom";
 import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
 import { useForm } from "@mantine/form";
+import { worker } from "../demo/mocks/browser";
+
+type OverrideDefinitionType = { path: string; body: string };
 
 export default function Body(): ReactElement {
   const [enabled, setEnabled] = useState(true);
+  const [override, setOverride] = useState<OverrideDefinitionType | null>();
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const notifications = useNotifications();
@@ -44,6 +48,7 @@ export default function Body(): ReactElement {
     if (!v.override_body) {
       notifications.showNotification({
         title: "Missing input",
+        color: "red",
         message: "Please provide a value.",
       });
 
@@ -53,6 +58,7 @@ export default function Body(): ReactElement {
     if (!info?.path) {
       notifications.showNotification({
         title: "Missing path",
+        color: "red",
         message: "No path provided.",
       });
 
@@ -69,6 +75,8 @@ export default function Body(): ReactElement {
         method: info.method.toLowerCase(),
       });
 
+      setOverride({ path: info.path, body });
+
       notifications.showNotification({
         title: "Saved!",
         color: "green",
@@ -76,7 +84,7 @@ export default function Body(): ReactElement {
       });
     } catch (err) {
       notifications.showNotification({
-        autoClose: 3000,
+        autoClose: false,
         title: "Submission error",
         color: "red",
         message: `There was an error in submitting the form${
@@ -86,6 +94,23 @@ export default function Body(): ReactElement {
     }
 
     form.reset();
+  }
+
+  function handleDestroyOverrides() {
+    // TODO redo with UI lib
+    const confirmed = window.confirm("Are you sure?");
+
+    if (confirmed) {
+      worker.resetHandlers();
+
+      setOverride(null);
+
+      notifications.showNotification({
+        title: "KABOOOM!",
+        color: "green",
+        message: "Overrides were destroyed.",
+      });
+    }
   }
 
   useEffect(() => {
@@ -195,13 +220,56 @@ export default function Body(): ReactElement {
             </Group>
           </Paper>
 
+          {override?.path ===
+            (sidebarItem as unknown as RestHandler).info.path && (
+            <>
+              <Divider
+                my="xs"
+                label={<Title order={4}>Active overrides</Title>}
+                labelPosition="left"
+              />
+
+              <Box component={"section"} py={20} mb={40}>
+                <Code block>{override.body}</Code>
+              </Box>
+
+              <Divider
+                my="xs"
+                label={<Title order={4}>Destroy overrides</Title>}
+                labelPosition="left"
+              />
+
+              <Box component={"section"} py={20} mb={40}>
+                <Group position={"apart"}>
+                  <Text
+                    size={"sm"}
+                    sx={() => ({ flexBasis: "80%", paddingRight: 16 })}
+                  >
+                    Click to destroy all runtime overrides.
+                    <br />
+                    Only the mocks provided to <Code>msw</Code> during
+                    initialization will be active.
+                  </Text>
+
+                  <Button
+                    color={"red"}
+                    variant={"outline"}
+                    onClick={handleDestroyOverrides}
+                  >
+                    Destroy
+                  </Button>
+                </Group>
+              </Box>
+            </>
+          )}
+
           <Divider
             my="xs"
-            label={<Title order={4}>Override response</Title>}
+            label={<Title order={4}>Override this mock</Title>}
             labelPosition="left"
           />
 
-          <Box component={"section"} style={{ padding: "20px 0" }}>
+          <Box component={"section"} py={40}>
             <Text mb={40} size={"sm"}>
               Enter a value in the following field to override the mocked
               response served by the service worker. The field accepts JSON, and

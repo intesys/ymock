@@ -31,7 +31,7 @@ type SidebarItemAndSetter = {
 };
 
 // Outlet context shared by all Consumers inside `Outlet`
-export type OutletContext = SidebarItemAndSetter & {
+export type OutletContext = {
   onSubmit: (input: string, path: string) => void;
 };
 
@@ -158,8 +158,6 @@ export default function Layout(): JSX.Element {
         <Outlet
           // https://reactrouter.com/docs/en/v6/hooks/use-outlet-context
           context={{
-            sidebarItem,
-            setSidebarItem,
             onSubmit: setRuntimeRequestHandler(worker, rest),
           }}
         />

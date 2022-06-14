@@ -3,7 +3,13 @@ Body
 --------------------------------- */
 
 import * as React from "react";
-import { FormEvent, ReactElement, useEffect, useState } from "react";
+import {
+  FormEvent,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   Badge,
   Box,
@@ -21,7 +27,7 @@ import {
   Title,
 } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
-import { OutletContext } from "./Layout";
+import { OutletContext, SidebarContext } from "./Layout";
 import { useOutletContext } from "react-router-dom";
 import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
@@ -29,8 +35,8 @@ import { stripBasePath } from "../utils";
 export default function Body(): ReactElement {
   const [input, setInput] = useState<string>("");
   const [enabled, setEnabled] = useState(true);
-  const { sidebarItem, setSidebarItem, onSubmit } =
-    useOutletContext<OutletContext>();
+  const { onSubmit } = useOutletContext<OutletContext>();
+  const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const notifications = useNotifications();
 
@@ -91,7 +97,7 @@ export default function Body(): ReactElement {
     }
   }, [sidebarItem]);
 
-  function handleCheck() {
+  function handleMockActivation() {
     // `markAsSkipped` is not an own prop,
     // it goes up the prototype chain by 2 levels
     if (sidebarItem.markAsSkipped) {
@@ -151,7 +157,7 @@ export default function Body(): ReactElement {
                   label: { paddingRight: 12, paddingLeft: 0 },
                 }}
                 checked={enabled}
-                onChange={handleCheck}
+                onChange={handleMockActivation}
                 label={enabled ? "ENABLED" : "DISABLED"}
               />
             </Group>

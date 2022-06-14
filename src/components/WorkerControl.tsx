@@ -3,11 +3,14 @@ WorkerControl
 --------------------------------- */
 
 import * as React from "react";
+import { useState } from "react";
 import { Button, Divider, Group, Navbar, Title } from "@mantine/core";
 import { useWorkerContext } from "../hooks";
+import Logs from "../views/Logs";
 
 export default function WorkerControl(): JSX.Element {
   const { worker } = useWorkerContext();
+  const [logs, enableLogs] = useState(false);
 
   return (
     <>
@@ -40,25 +43,24 @@ export default function WorkerControl(): JSX.Element {
           spacing={"sm"}
           sx={(t) => ({
             padding: t.spacing.md,
-            paddingBottom: 32,
           })}
         >
           {/* TODO alternate based on MSW status (get it via global object?) */}
-          <Button
-            size="xs"
-            variant="outline"
-            compact
-            uppercase
-            onClick={() => {
-              worker?.start?.();
-            }}
-          >
-            Start MSW
-          </Button>
+          {/*<Button*/}
+          {/*  size="xs"*/}
+          {/*  variant="outline"*/}
+          {/*  compact*/}
+          {/*  uppercase*/}
+          {/*  onClick={() => {*/}
+          {/*    worker?.start?.();*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  Start MSW*/}
+          {/*</Button>*/}
 
           <Button
             size="xs"
-            variant="outline"
+            variant="subtle"
             compact
             uppercase
             onClick={() => {
@@ -67,6 +69,18 @@ export default function WorkerControl(): JSX.Element {
           >
             Stop MSW
           </Button>
+
+          <Button
+            size="xs"
+            variant="subtle"
+            compact
+            uppercase
+            onClick={() => enableLogs(true)}
+          >
+            View logs
+          </Button>
+
+          {logs && <Logs />}
         </Group>
       </Navbar.Section>
     </>

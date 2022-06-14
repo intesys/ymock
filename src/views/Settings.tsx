@@ -18,6 +18,7 @@ export default function Settings({}: PropsWithChildren<OwnProps>): JSX.Element {
         <header>
           {/* TODO use sx, not style, use theme values not arbitrary values */}
           <Title order={2} style={{ marginBottom: 30 }}>
+            <span style={{ marginRight: 10 }}>🛠</span>
             Settings
           </Title>
         </header>

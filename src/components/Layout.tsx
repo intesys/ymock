@@ -21,6 +21,7 @@ import { useWorkerContext } from "../hooks";
 import { useLocation } from "react-router";
 import HomeSidebar from "./HomeSidebar";
 import SettingsSidebar from "./SettingsSidebar";
+import { ThreeDCubeSphere } from "tabler-icons-react";
 
 type SidebarItemAndSetter = {
   sidebarItem: Record<string, unknown>;
@@ -102,9 +103,18 @@ export default function Layout(): JSX.Element {
                 />
               </MediaQuery>
 
-              <Group>
-                <Text size={"lg"}>🛠</Text>
-                <Text size={"sm"} weight={500}>
+              <Group spacing={"xs"}>
+                <ThreeDCubeSphere
+                  size={28}
+                  strokeWidth={1}
+                  color={"whitesmoke"}
+                />
+
+                <Text
+                  size={"sm"}
+                  weight={500}
+                  sx={() => ({ position: "relative", left: -6 })}
+                >
                   {/* TODO style tags */}
                   <Link
                     style={{

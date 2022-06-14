@@ -3,13 +3,7 @@ Body
 --------------------------------- */
 
 import * as React from "react";
-import {
-  FormEvent,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import {
   Badge,
   Box,
@@ -31,23 +25,23 @@ import { OutletContext, SidebarContext } from "./Layout";
 import { useOutletContext } from "react-router-dom";
 import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
+import { useForm } from "@mantine/form";
 
 export default function Body(): ReactElement {
-  const [input, setInput] = useState<string>("");
   const [enabled, setEnabled] = useState(true);
-  const { onSubmit } = useOutletContext<OutletContext>();
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const notifications = useNotifications();
+  const { onSubmit } = useOutletContext<OutletContext>();
+  const form = useForm({
+    initialValues: {
+      override_body: "",
+      override_run_once: false,
+    },
+  });
 
-  function handleReset() {
-    setInput("");
-  }
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    if (!input) {
+  function handleSubmit(v: typeof form.values) {
+    if (!v.override_body) {
       notifications.showNotification({
         title: "Missing input",
         message: "Please provide a value.",
@@ -66,7 +60,14 @@ export default function Body(): ReactElement {
     }
 
     try {
-      onSubmit(input, info.path as string);
+      const { override_body: body, override_run_once: once } = v;
+
+      onSubmit({
+        body: JSON.parse(body),
+        once,
+        path: info.path,
+        method: info.method.toLowerCase(),
+      });
 
       notifications.showNotification({
         title: "Saved!",
@@ -75,6 +76,7 @@ export default function Body(): ReactElement {
       });
     } catch (err) {
       notifications.showNotification({
+        autoClose: 3000,
         title: "Submission error",
         color: "red",
         message: `There was an error in submitting the form${
@@ -83,12 +85,12 @@ export default function Body(): ReactElement {
       });
     }
 
-    handleReset();
+    form.reset();
   }
 
   useEffect(() => {
     if (sidebarItem) {
-      handleReset();
+      form.reset();
 
       // sidebarItem is a RestHandler
       if ("shouldSkip" in sidebarItem) {
@@ -203,34 +205,45 @@ export default function Body(): ReactElement {
             <Text mb={40} size={"sm"}>
               Enter a value in the following field to override the mocked
               response served by the service worker. The field accepts JSON, and
-              will validate & format your input. Please note the override will
-              run just once, then the previous response will be in effect.
+              will validate & format your input. The override can run just once,
+              (then the previous response will be in effect), or permanently.
             </Text>
 
-            <form action="#" onSubmit={handleSubmit}>
+            <form action="#" onSubmit={form.onSubmit(handleSubmit)}>
               <JsonInput
+                required
+                disabled={!enabled}
+                validationError="Invalid json"
+                formatOnBlur
                 placeholder={
                   !enabled
                     ? `Please enable the mock to use overrides.`
                     : `Insert runtime response override for the path: "${info.path}"...`
                 }
                 variant="filled"
-                validationError="Invalid json"
-                formatOnBlur
                 autosize
                 minRows={10}
-                onChange={setInput}
-                value={input}
-                disabled={!enabled}
+                {...form.getInputProps("override_body")}
               />
 
-              <Group position="right">
+              <Group position="apart" align={"center"} mt={20}>
+                <Switch
+                  styles={{
+                    root: { flexDirection: "row-reverse" },
+                    label: { paddingRight: 12, paddingLeft: 0 },
+                  }}
+                  label={"Run once"}
+                  disabled={!enabled}
+                  {...form.getInputProps("override_run_once", {
+                    type: "checkbox",
+                  })}
+                />
+
                 <Button
                   size="sm"
                   uppercase
                   type="submit"
-                  disabled={!input}
-                  mt={20}
+                  disabled={!form.values.override_body}
                 >
                   Submit
                 </Button>

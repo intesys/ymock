@@ -27,6 +27,7 @@ import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
 import { useForm } from "@mantine/form";
 import { worker } from "../demo/mocks/browser";
+import { useWorkerContext } from "../hooks";
 
 type OverrideDefinitionType = { path: string; body: string };
 
@@ -35,8 +36,10 @@ export default function Body(): ReactElement {
   const [override, setOverride] = useState<OverrideDefinitionType | null>();
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { info } = (sidebarItem as unknown as RestHandler) ?? {};
-  const notifications = useNotifications();
   const { onSubmit } = useOutletContext<OutletContext>();
+  const notifications = useNotifications();
+  const { handlers } = useWorkerContext();
+
   const form = useForm({
     initialValues: {
       override_body: "",
@@ -101,7 +104,8 @@ export default function Body(): ReactElement {
     const confirmed = window.confirm("Are you sure?");
 
     if (confirmed) {
-      worker.resetHandlers();
+      // TODO doesn't work
+      worker.resetHandlers(handlers);
 
       setOverride(null);
 

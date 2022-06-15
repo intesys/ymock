@@ -3,9 +3,14 @@ BlankSlate
 --------------------------------- */
 
 import * as React from "react";
+import { ReactChild } from "react";
 import { Box, Center } from "@mantine/core";
 
-export default function BlankSlate({ children }): JSX.Element {
+type OwnProps = {
+  children: ReactChild;
+};
+
+export default function BlankSlate({ children }: OwnProps): JSX.Element {
   return (
     <Center sx={() => ({ height: "100%", width: "100%" })}>
       <Box>{children}</Box>

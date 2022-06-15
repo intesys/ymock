@@ -7,6 +7,7 @@ import { PropsWithChildren, useState } from "react";
 import {
   AppShell,
   Burger,
+  Button,
   Group,
   Header,
   MediaQuery,
@@ -21,7 +22,7 @@ import { useWorkerContext } from "../hooks";
 import { useLocation } from "react-router";
 import HomeSidebar from "./HomeSidebar";
 import SettingsSidebar from "./SettingsSidebar";
-import { ThreeDCubeSphere } from "tabler-icons-react";
+import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
 
 type SidebarItemAndSetter = {
   sidebarItem: Record<string, unknown>;
@@ -114,17 +115,13 @@ export default function Layout(): JSX.Element {
               </Link>
 
               <Group>
-                <Link
-                  style={{
-                    color: theme.colors.gray[1],
-                    textDecoration: "none",
-                    fontSize: "small",
-                    textTransform: "uppercase",
-                  }}
-                  to={`settings`}
-                >
-                  Settings
-                </Link>
+                <Button component={Link} to="settings" variant={"subtle"}>
+                  <SettingsIcon
+                    size={22}
+                    strokeWidth={1}
+                    color={"whitesmoke"}
+                  />
+                </Button>
               </Group>
 
               <MediaQuery largerThan="sm" styles={{ display: "none" }}>

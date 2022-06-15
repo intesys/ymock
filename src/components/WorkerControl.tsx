@@ -4,13 +4,31 @@ WorkerControl
 
 import * as React from "react";
 import { useState } from "react";
-import { Button, Divider, Group, Navbar, Title } from "@mantine/core";
+import {
+  Button,
+  Divider,
+  Group,
+  Navbar,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
 import { useWorkerContext } from "../hooks";
 import Logs from "../views/Logs";
+import { PlayerStop, WaveSawTool } from "tabler-icons-react";
 
 export default function WorkerControl(): JSX.Element {
   const { worker } = useWorkerContext();
   const [logs, enableLogs] = useState(false);
+  const theme = useMantineTheme();
+
+  const iconStyles = {
+    size: 18,
+    strokeWidth: 1,
+    color: theme.colors.blue[2],
+    style: {
+      marginRight: 4,
+    },
+  };
 
   return (
     <>
@@ -67,6 +85,7 @@ export default function WorkerControl(): JSX.Element {
               worker?.stop?.();
             }}
           >
+            <PlayerStop {...iconStyles} />
             Stop MSW
           </Button>
 
@@ -77,10 +96,11 @@ export default function WorkerControl(): JSX.Element {
             uppercase
             onClick={() => enableLogs(true)}
           >
+            <WaveSawTool {...iconStyles} />
             View logs
           </Button>
 
-          {logs && <Logs />}
+          {logs && <Logs onClose={() => enableLogs(false)} />}
         </Group>
       </Navbar.Section>
     </>

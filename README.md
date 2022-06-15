@@ -1,6 +1,6 @@
 # yMock
 
-![yMock home](.preview/scrn-02.png)
+![yMock home](.preview/scrn-04.png)
 
 A minimal administrative UI for [MSW.](https://mswjs.io)
 

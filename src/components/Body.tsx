@@ -12,6 +12,7 @@ import {
   Container,
   Divider,
   Group,
+  Indicator,
   JsonInput,
   Paper,
   Switch,
@@ -28,11 +29,18 @@ import { worker } from "../demo/mocks/browser";
 import { useWorkerContext } from "../hooks";
 import BlankSlate from "./BlankSlate";
 
-type OverrideDefinitionType = { path: string; body: string };
+type MockOverridesType = Record<
+  // the path, or a UUID
+  string,
+  {
+    path: string;
+    overrides: { once?: boolean; body: string }[];
+  }
+>;
 
 export default function Body(): ReactElement {
   const [enabled, setEnabled] = useState(true);
-  const [override, setOverride] = useState<OverrideDefinitionType | null>();
+  const [override, setOverride] = useState<MockOverridesType | null>();
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const { onSubmit } = useOutletContext<OutletContext>();
@@ -47,7 +55,9 @@ export default function Body(): ReactElement {
   });
 
   function handleSubmit(v: typeof form.values) {
-    if (!v.override_body) {
+    const { override_body: body, override_run_once: once } = v;
+
+    if (!body) {
       notifications.showNotification({
         title: "Missing input",
         color: "red",
@@ -68,8 +78,7 @@ export default function Body(): ReactElement {
     }
 
     try {
-      const { override_body: body, override_run_once: once } = v;
-
+      // commit the override to `msw`
       onSubmit({
         body: JSON.parse(body),
         once,
@@ -77,7 +86,27 @@ export default function Body(): ReactElement {
         method: info.method.toLowerCase(),
       });
 
-      setOverride({ path: info.path, body });
+      // also save it to state for the UI to use it
+      setOverride((o) => {
+        const override = { once, body };
+
+        if (o) {
+          return {
+            ...o,
+            [info.path]: {
+              ...(o[info.path] ?? { path: info.path }),
+              overrides: [override].concat(o[info.path]?.overrides ?? []),
+            },
+          };
+        }
+
+        return {
+          [info.path]: {
+            path: info.path,
+            overrides: [override],
+          },
+        };
+      });
 
       notifications.showNotification({
         title: "Saved!",
@@ -218,24 +247,36 @@ export default function Body(): ReactElement {
             </Group>
           </Paper>
 
-          {override?.path ===
-            (sidebarItem as unknown as RestHandler).info.path && (
+          {override?.[(sidebarItem as unknown as RestHandler).info.path]
+            ?.overrides?.length && (
             <>
               <Divider
                 my="xs"
-                label={<Title order={4}>Active overrides</Title>}
+                label={<Title order={4}>Overrides</Title>}
                 labelPosition="left"
               />
 
-              <Box component={"section"} py={20} mb={40}>
-                <Code block>{override.body}</Code>
+              <Box component={"section"} py={20}>
+                {override[
+                  (sidebarItem as unknown as RestHandler).info.path
+                ].overrides.map((o, i, arr) => {
+                  const content = (
+                    <Code block key={i} mb={i !== arr.length - 1 ? 16 : 0}>
+                      {o.body}
+                    </Code>
+                  );
+
+                  if (o.once) {
+                    return (
+                      <Indicator label="Once" size={10}>
+                        {content}
+                      </Indicator>
+                    );
+                  }
+
+                  return content;
+                })}
               </Box>
-
-              <Divider
-                my="xs"
-                label={<Title order={4}>Destroy overrides</Title>}
-                labelPosition="left"
-              />
 
               <Box component={"section"} py={20} mb={40}>
                 <Group position={"apart"}>

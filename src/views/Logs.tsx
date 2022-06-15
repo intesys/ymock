@@ -14,7 +14,12 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { ArrowAutofitRight, Trash } from "tabler-icons-react";
+import {
+  ArrowAutofitDown,
+  ArrowAutofitRight,
+  Trash,
+  WaveSawTool,
+} from "tabler-icons-react";
 
 type OwnProps = {
   onClose: () => void;
@@ -25,7 +30,7 @@ export default function Logs({
 }: PropsWithChildren<OwnProps>): JSX.Element {
   const { worker } = useWorkerContext();
   const [logs, setLogs] = useState("");
-  const [detached, setDetached] = useState(false); // TODO implement
+  const [detached, setDetached] = useState(true);
   const theme = useMantineTheme();
 
   const iconStyles = {
@@ -75,6 +80,12 @@ export default function Logs({
               textTransform: "uppercase",
             })}
           >
+            <WaveSawTool
+              {...{
+                ...iconStyles,
+                style: { ...iconStyles.style, position: "relative", top: 4 },
+              }}
+            />
             Logs
           </Title>
 
@@ -114,24 +125,35 @@ export default function Logs({
           size={"xs"}
           onClick={() => setDetached((d) => !d)}
         >
-          <ArrowAutofitRight {...iconStyles} />
-          Detach panel
+          {detached ? (
+            <ArrowAutofitDown {...iconStyles} />
+          ) : (
+            <ArrowAutofitRight {...iconStyles} />
+          )}
+          {detached ? "Attach panel" : "Detach panel"}
         </Button>
       </div>
 
       <style jsx>{`
         .logs {
           position: fixed;
-          bottom: 0;
-          right: 0;
-          left: 0;
+          bottom: ${detached ? "16px" : "0"};
+          right: ${detached ? "16px" : "0"};
+          left: ${detached ? "initial" : "0"};
+          width: ${detached ? "50%" : "initial"};
           z-index: 1;
+          opacity: 0.95;
           background: ${theme.colors.dark[7]};
-          box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.15);
+          box-shadow: ${detached
+            ? "0 0 16px rgba(0,0,0,0.15)"
+            : "0 -8px 16px rgba(0, 0, 0, 0.15)"};
+          border: ${detached ? "1px solid #2C2E33" : "none"};
+          border-top: 1px solid #2c2e33;
+          border-radius: ${detached ? theme.radius.sm + "px" : "0"};
         }
 
         .log-container {
-          height: 260px;
+          height: ${detached ? "160px" : "260px"};
           padding: 0 8px;
         }
 

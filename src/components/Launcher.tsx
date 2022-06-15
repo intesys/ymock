@@ -33,7 +33,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
       const w = window.open?.(
         APP_ROOT,
         "_blank",
-        "popup, right=100, top=100, width=1100, height=700"
+        "popup, right=100, top=100, width=1200, height=680"
       );
 
       if (w) {

@@ -94,10 +94,10 @@ export default function WorkerControl(): JSX.Element {
             variant="subtle"
             compact
             uppercase
-            onClick={() => enableLogs(true)}
+            onClick={!logs ? () => enableLogs(true) : () => enableLogs(false)}
           >
             <WaveSawTool {...iconStyles} />
-            View logs
+            {!logs ? "View" : "Hide"} logs
           </Button>
 
           {logs && <Logs onClose={() => enableLogs(false)} />}

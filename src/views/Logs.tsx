@@ -146,7 +146,7 @@ export default function Logs({
           background: ${theme.colors.dark[7]};
           box-shadow: ${detached
             ? "0 0 16px rgba(0,0,0,0.15)"
-            : "0 -8px 16px rgba(0, 0, 0, 0.15)"};
+            : "0 -8px 16px rgba(0, 0, 0, 0.25)"};
           border: ${detached ? "1px solid #2C2E33" : "none"};
           border-top: 1px solid #2c2e33;
           border-radius: ${detached ? theme.radius.sm + "px" : "0"};

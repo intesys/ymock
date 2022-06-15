@@ -8,14 +8,12 @@ import {
   Badge,
   Box,
   Button,
-  Center,
   Code,
   Container,
   Divider,
   Group,
   JsonInput,
   Paper,
-  Space,
   Switch,
   Text,
   Title,
@@ -28,6 +26,7 @@ import { stripBasePath } from "../utils";
 import { useForm } from "@mantine/form";
 import { worker } from "../demo/mocks/browser";
 import { useWorkerContext } from "../hooks";
+import BlankSlate from "./BlankSlate";
 
 type OverrideDefinitionType = { path: string; body: string };
 
@@ -153,16 +152,11 @@ export default function Body(): ReactElement {
   }
 
   return (
-    <Container>
+    <Container sx={() => (!info ? { height: "100%" } : {})}>
       {!info ? (
-        <Center>
-          <Box>
-            {/* TODO should be centered in page */}
-            <Space h={216} />
-            <Text size={"sm"}>Please select an item from the sidebar.</Text>
-            <Space h={"xl"} />
-          </Box>
-        </Center>
+        <BlankSlate>
+          <Text size={"sm"}>Please select an item from the sidebar.</Text>
+        </BlankSlate>
       ) : (
         <Box component={"main"}>
           {/* TODO use sx, not style, use theme values not arbitrary values */}

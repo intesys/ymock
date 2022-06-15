@@ -18,9 +18,6 @@ export default function SettingsSidebar(): JSX.Element {
     <React.Fragment>
       {[
         {
-          label: "Logs",
-        },
-        {
           label: "Lorem",
         },
         {

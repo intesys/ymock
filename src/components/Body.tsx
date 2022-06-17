@@ -11,6 +11,7 @@ import {
   Button,
   Code,
   Container,
+  Divider,
   Group,
   Indicator,
   JsonInput,
@@ -18,6 +19,7 @@ import {
   Switch,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
 import { OutletContext, SidebarContext } from "./Layout";
@@ -46,6 +48,7 @@ export default function Body(): ReactElement {
   const { onSubmit } = useOutletContext<OutletContext>();
   const notifications = useNotifications();
   const { handlers } = useWorkerContext();
+  const theme = useMantineTheme();
 
   const form = useForm({
     initialValues: {
@@ -247,6 +250,7 @@ export default function Body(): ReactElement {
             </Group>
           </Paper>
 
+          <Divider color={theme.colors.dark[4]} />
           <Accordion multiple initialItem={0}>
             <Accordion.Item label="Override this mock">
               <Box component={"section"} pb={20} pt={10}>

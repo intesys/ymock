@@ -249,7 +249,7 @@ export default function Body(): ReactElement {
 
           <Accordion multiple initialItem={0}>
             <Accordion.Item label="Override this mock">
-              <Box component={"section"} py={40}>
+              <Box component={"section"} pb={20} pt={10}>
                 <Text mb={40} size={"sm"}>
                   Enter a value in the following field to override the mocked
                   response served by the service worker. The field accepts JSON,
@@ -305,7 +305,7 @@ export default function Body(): ReactElement {
               {override?.[(sidebarItem as unknown as RestHandler).info.path]
                 ?.overrides?.length ? (
                 <>
-                  <Box component={"section"} py={20}>
+                  <Box component={"section"} pb={20} pt={10}>
                     {override[
                       (sidebarItem as unknown as RestHandler).info.path
                     ].overrides.map((o, i, arr) => {
@@ -327,7 +327,7 @@ export default function Body(): ReactElement {
                     })}
                   </Box>
 
-                  <Box component={"section"} py={20} mb={40}>
+                  <Box component={"section"} py={20}>
                     <Group position={"apart"}>
                       <Text
                         size={"sm"}

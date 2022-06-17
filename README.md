@@ -12,6 +12,12 @@ A minimal administrative UI for [MSW.](https://mswjs.io)
 
 ---
 
+## Getting started
+
+…
+
+---
+
 ## Contributing
 
 ### Development
@@ -39,7 +45,8 @@ This way, the `msw` instance required by the app will
 be pre-populated locally, without needing to look
 for it in the window object.
 
+---
+
 ### TODO
 
-- [x] The `/demo` route should be hidden in production
-- [x] There's something not 100% working with the `__ymock` basepath
+See [TODO](./TODO.md)

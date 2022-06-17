@@ -5,12 +5,12 @@ Body
 import * as React from "react";
 import { ReactElement, useContext, useEffect, useState } from "react";
 import {
+  Accordion,
   Badge,
   Box,
   Button,
   Code,
   Container,
-  Divider,
   Group,
   Indicator,
   JsonInput,
@@ -247,116 +247,113 @@ export default function Body(): ReactElement {
             </Group>
           </Paper>
 
-          {override?.[(sidebarItem as unknown as RestHandler).info.path]
-            ?.overrides?.length && (
-            <>
-              <Divider
-                my="xs"
-                label={<Title order={4}>Overrides</Title>}
-                labelPosition="left"
-              />
+          <Accordion multiple initialItem={0}>
+            <Accordion.Item label="Override this mock">
+              <Box component={"section"} py={40}>
+                <Text mb={40} size={"sm"}>
+                  Enter a value in the following field to override the mocked
+                  response served by the service worker. The field accepts JSON,
+                  and will validate & format your input. The override can run
+                  just once, (then the previous response will be in effect), or
+                  permanently.
+                </Text>
 
-              <Box component={"section"} py={20}>
-                {override[
-                  (sidebarItem as unknown as RestHandler).info.path
-                ].overrides.map((o, i, arr) => {
-                  const content = (
-                    <Code block key={i} mb={i !== arr.length - 1 ? 16 : 0}>
-                      {o.body}
-                    </Code>
-                  );
+                <form action="#" onSubmit={form.onSubmit(handleSubmit)}>
+                  <JsonInput
+                    required
+                    disabled={!enabled}
+                    validationError="Invalid json"
+                    formatOnBlur
+                    placeholder={
+                      !enabled
+                        ? `Please enable the mock to use overrides.`
+                        : `Insert runtime response override for the path: "${info.path}"...`
+                    }
+                    variant="filled"
+                    autosize
+                    minRows={10}
+                    {...form.getInputProps("override_body")}
+                  />
 
-                  if (o.once) {
-                    return (
-                      <Indicator label="Once" size={10}>
-                        {content}
-                      </Indicator>
-                    );
-                  }
+                  <Group position="apart" align={"center"} mt={20}>
+                    <Switch
+                      styles={{
+                        root: { flexDirection: "row-reverse" },
+                        label: { paddingRight: 12, paddingLeft: 0 },
+                      }}
+                      label={"Run once"}
+                      disabled={!enabled}
+                      {...form.getInputProps("override_run_once", {
+                        type: "checkbox",
+                      })}
+                    />
 
-                  return content;
-                })}
+                    <Button
+                      size="sm"
+                      uppercase
+                      type="submit"
+                      disabled={!form.values.override_body}
+                    >
+                      Submit
+                    </Button>
+                  </Group>
+                </form>
               </Box>
+            </Accordion.Item>
 
-              <Box component={"section"} py={20} mb={40}>
-                <Group position={"apart"}>
-                  <Text
-                    size={"sm"}
-                    sx={() => ({ flexBasis: "80%", paddingRight: 16 })}
-                  >
-                    Click to destroy all runtime overrides.
-                    <br />
-                    Only the mocks provided to <Code>msw</Code> during
-                    initialization will be active.
-                  </Text>
+            <Accordion.Item label="Overrides">
+              {override?.[(sidebarItem as unknown as RestHandler).info.path]
+                ?.overrides?.length ? (
+                <>
+                  <Box component={"section"} py={20}>
+                    {override[
+                      (sidebarItem as unknown as RestHandler).info.path
+                    ].overrides.map((o, i, arr) => {
+                      const content = (
+                        <Code block key={i} mb={i !== arr.length - 1 ? 16 : 0}>
+                          {o.body}
+                        </Code>
+                      );
 
-                  <Button
-                    color={"red"}
-                    variant={"outline"}
-                    onClick={handleDestroyOverrides}
-                  >
-                    Destroy
-                  </Button>
-                </Group>
-              </Box>
-            </>
-          )}
+                      if (o.once) {
+                        return (
+                          <Indicator label="Once" size={10}>
+                            {content}
+                          </Indicator>
+                        );
+                      }
 
-          <Divider
-            my="xs"
-            label={<Title order={4}>Override this mock</Title>}
-            labelPosition="left"
-          />
+                      return content;
+                    })}
+                  </Box>
 
-          <Box component={"section"} py={40}>
-            <Text mb={40} size={"sm"}>
-              Enter a value in the following field to override the mocked
-              response served by the service worker. The field accepts JSON, and
-              will validate & format your input. The override can run just once,
-              (then the previous response will be in effect), or permanently.
-            </Text>
+                  <Box component={"section"} py={20} mb={40}>
+                    <Group position={"apart"}>
+                      <Text
+                        size={"sm"}
+                        sx={() => ({ flexBasis: "80%", paddingRight: 16 })}
+                      >
+                        Click to destroy all runtime overrides.
+                        <br />
+                        Only the mocks provided to <Code>msw</Code> during
+                        initialization will be active.
+                      </Text>
 
-            <form action="#" onSubmit={form.onSubmit(handleSubmit)}>
-              <JsonInput
-                required
-                disabled={!enabled}
-                validationError="Invalid json"
-                formatOnBlur
-                placeholder={
-                  !enabled
-                    ? `Please enable the mock to use overrides.`
-                    : `Insert runtime response override for the path: "${info.path}"...`
-                }
-                variant="filled"
-                autosize
-                minRows={10}
-                {...form.getInputProps("override_body")}
-              />
-
-              <Group position="apart" align={"center"} mt={20}>
-                <Switch
-                  styles={{
-                    root: { flexDirection: "row-reverse" },
-                    label: { paddingRight: 12, paddingLeft: 0 },
-                  }}
-                  label={"Run once"}
-                  disabled={!enabled}
-                  {...form.getInputProps("override_run_once", {
-                    type: "checkbox",
-                  })}
-                />
-
-                <Button
-                  size="sm"
-                  uppercase
-                  type="submit"
-                  disabled={!form.values.override_body}
-                >
-                  Submit
-                </Button>
-              </Group>
-            </form>
-          </Box>
+                      <Button
+                        color={"red"}
+                        variant={"outline"}
+                        onClick={handleDestroyOverrides}
+                      >
+                        Destroy
+                      </Button>
+                    </Group>
+                  </Box>
+                </>
+              ) : (
+                "There are no overrides."
+              )}
+            </Accordion.Item>
+          </Accordion>
         </Box>
       )}
     </Container>

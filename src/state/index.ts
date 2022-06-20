@@ -1,8 +1,9 @@
 import create from "zustand";
 import { APP_NAME } from "../constants";
 import { GlobalState } from "../types";
+import { devtools } from "zustand/middleware";
 
-export const useStore = create<GlobalState>((set) => ({
+const store = (set) => ({
   actions: {
     setRuntimeOverride: (id, once, body) =>
       set((state) => {
@@ -27,4 +28,8 @@ export const useStore = create<GlobalState>((set) => ({
   },
   mocks: {},
   settings: {},
-}));
+});
+
+export const useStore = create<GlobalState>(
+  devtools(store, { name: `${APP_NAME}_store` })
+);

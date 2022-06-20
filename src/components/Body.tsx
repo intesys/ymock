@@ -297,13 +297,13 @@ export default function Body(): ReactElement {
 
                       if (o.once) {
                         return (
-                          <Indicator label="Once" size={10}>
+                          <Indicator label="Once" size={10} key={i}>
                             {content}
                           </Indicator>
                         );
                       }
 
-                      return content;
+                      return <React.Fragment key={i}>{content}</React.Fragment>;
                     })}
                   </Box>
 

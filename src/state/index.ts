@@ -5,9 +5,15 @@ import { devtools, persist, PersistOptions } from "zustand/middleware";
 
 type ZustandStateMerger = any; // TODO (s: GlobalState) => Partial<GlobalState>
 
+// https://github.com/pmndrs/zustand/wiki/Persisting-the-store's-data
 const persistOpts: PersistOptions<GlobalState, Partial<GlobalState>> = {
   name: `${APP_NAME}_store`,
-  partialize: (state) => ({ meta: state.meta, settings: state.settings }),
+  partialize: (state) =>
+    Object.fromEntries(
+      Object.entries(state).filter(
+        ([key]) => !["mocks", "actions"].includes(key)
+      )
+    ),
 };
 
 const devToolsOpts = { name: `${APP_NAME}_persisted_store` };

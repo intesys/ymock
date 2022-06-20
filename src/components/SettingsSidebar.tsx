@@ -8,6 +8,7 @@ import { Divider, Group, useMantineTheme } from "@mantine/core";
 import { Link } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
 import { SidebarContext } from "./Layout";
+import { useStore } from "../state";
 
 export default function SettingsSidebar(): JSX.Element {
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
@@ -49,7 +50,7 @@ export default function SettingsSidebar(): JSX.Element {
                   fontSize: "small",
                   textTransform: "uppercase",
                 }}
-                to={`settings/logs`}
+                to={`settings/${mockItem.label.toLowerCase()}`}
               >
                 {mockItem.label}
               </Link>

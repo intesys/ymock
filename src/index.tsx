@@ -34,7 +34,9 @@ ReactDOM.render(
             <Route path={isStandaloneMode ? "/" : APP_ROOT} element={<App />}>
               <Route index element={<Home />} />
               <Route path="home" element={<Home />} />
-              <Route path="settings" element={<Settings />} />
+              <Route path="settings">
+                <Route path=":setting" element={<Settings />} />
+              </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />

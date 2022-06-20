@@ -3,7 +3,7 @@ Layout
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import {
   AppShell,
   Burger,
@@ -14,14 +14,16 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import Sidebar, { SidebarProps } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { APP_HOME, APP_NAME } from "../constants";
 import { Link, Outlet } from "react-router-dom";
-import { RuntimeRequestHandlerType, setRuntimeRequestHandler } from "../lib";
+import {
+  getRouteSpecificSidebar,
+  RuntimeRequestHandlerType,
+  setRuntimeRequestHandler,
+} from "../lib";
 import { useWorkerContext } from "../hooks";
 import { useLocation } from "react-router";
-import HomeSidebar from "./HomeSidebar";
-import SettingsSidebar from "./SettingsSidebar";
 import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
 
 type SidebarItemAndSetter = {
@@ -45,27 +47,6 @@ export default function Layout(): JSX.Element {
   const { worker, rest } = useWorkerContext();
   const location = useLocation();
   const theme = useMantineTheme();
-
-  function getRouteSpecificSidebar(): Partial<PropsWithChildren<SidebarProps>> {
-    switch (location?.pathname) {
-      // TODO fix in standalone mode
-      case `${APP_HOME}/settings`:
-      case `${APP_HOME}/settings/logs`: {
-        return {
-          title: "Settings",
-          children: <SettingsSidebar />,
-        };
-      }
-
-      default:
-      case `${APP_HOME}`: {
-        return {
-          title: "Mocked requests",
-          children: <HomeSidebar />,
-        };
-      }
-    }
-  }
 
   return (
     <SidebarContext.Provider value={{ sidebarItem, setSidebarItem }}>
@@ -143,7 +124,7 @@ export default function Layout(): JSX.Element {
             hiddenBreakpoint="sm"
             hidden={!showSidebar}
             width={{ sm: 300, lg: 400 }}
-            {...getRouteSpecificSidebar()}
+            {...getRouteSpecificSidebar(location)}
           />
         }
       >

@@ -1,9 +1,16 @@
 import create from "zustand";
 import { APP_NAME } from "../constants";
 import { GlobalState } from "../types";
-import { devtools, persist } from "zustand/middleware";
+import { devtools, persist, PersistOptions } from "zustand/middleware";
 
 type ZustandStateMerger = any; // TODO (s: GlobalState) => Partial<GlobalState>
+
+const persistOpts: PersistOptions<GlobalState, Partial<GlobalState>> = {
+  name: `${APP_NAME}_store`,
+  partialize: (state) => ({ meta: state.meta, settings: state.settings }),
+};
+
+const devToolsOpts = { name: `${APP_NAME}_persisted_store` };
 
 const store: (setter: ZustandStateMerger) => GlobalState = (set) => ({
   actions: {
@@ -33,7 +40,5 @@ const store: (setter: ZustandStateMerger) => GlobalState = (set) => ({
 });
 
 export const useStore = create(
-  devtools(persist(store, { name: `${APP_NAME}_persisted_store` }), {
-    name: `${APP_NAME}_store`,
-  })
+  devtools(persist(store, persistOpts), devToolsOpts)
 );

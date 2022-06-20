@@ -30,25 +30,20 @@ import { useForm } from "@mantine/form";
 import { worker } from "../demo/mocks/browser";
 import { useWorkerContext } from "../hooks";
 import BlankSlate from "./BlankSlate";
-
-type MockOverridesType = Record<
-  // the path, or a UUID
-  string,
-  {
-    path: string;
-    overrides: { once?: boolean; body: string }[];
-  }
->;
+import { useStore } from "../state";
 
 export default function Body(): ReactElement {
   const [enabled, setEnabled] = useState(true);
-  const [override, setOverride] = useState<MockOverridesType | null>();
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const { onSubmit } = useOutletContext<OutletContext>();
-  const notifications = useNotifications();
   const { handlers } = useWorkerContext();
+  const notifications = useNotifications();
   const theme = useMantineTheme();
+  const mocks = useStore((s) => s.mocks);
+  const { setRuntimeOverride } = useStore((s) => s.actions);
+
+  console.log(mocks);
 
   const form = useForm({
     initialValues: {
@@ -56,6 +51,9 @@ export default function Body(): ReactElement {
       override_run_once: false,
     },
   });
+
+  const itemOverrides =
+    mocks?.[(sidebarItem as unknown as RestHandler)?.info?.path]?.overrides;
 
   function handleSubmit(v: typeof form.values) {
     const { override_body: body, override_run_once: once } = v;
@@ -90,26 +88,7 @@ export default function Body(): ReactElement {
       });
 
       // also save it to state for the UI to use it
-      setOverride((o) => {
-        const override = { once, body };
-
-        if (o) {
-          return {
-            ...o,
-            [info.path]: {
-              ...(o[info.path] ?? { path: info.path }),
-              overrides: [override].concat(o[info.path]?.overrides ?? []),
-            },
-          };
-        }
-
-        return {
-          [info.path]: {
-            path: info.path,
-            overrides: [override],
-          },
-        };
-      });
+      setRuntimeOverride(info.path, once, body);
 
       notifications.showNotification({
         title: "Saved!",
@@ -138,7 +117,7 @@ export default function Body(): ReactElement {
       // TODO doesn't work
       worker.resetHandlers(handlers);
 
-      setOverride(null);
+      // setOverride(null); TODO
 
       notifications.showNotification({
         title: "KABOOOM!",
@@ -306,13 +285,10 @@ export default function Body(): ReactElement {
             </Accordion.Item>
 
             <Accordion.Item label="Overrides">
-              {override?.[(sidebarItem as unknown as RestHandler).info.path]
-                ?.overrides?.length ? (
+              {itemOverrides?.length ? (
                 <>
                   <Box component={"section"} pb={20} pt={10}>
-                    {override[
-                      (sidebarItem as unknown as RestHandler).info.path
-                    ].overrides.map((o, i, arr) => {
+                    {itemOverrides.map((o, i, arr) => {
                       const content = (
                         <Code block key={i} mb={i !== arr.length - 1 ? 16 : 0}>
                           {o.body}

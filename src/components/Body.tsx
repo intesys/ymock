@@ -43,8 +43,6 @@ export default function Body(): ReactElement {
   const mocks = useStore((s) => s.mocks);
   const { setRuntimeOverride } = useStore((s) => s.actions);
 
-  console.log(mocks);
-
   const form = useForm({
     initialValues: {
       override_body: "",

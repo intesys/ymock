@@ -12,7 +12,6 @@ const store: (setter: ZustandStateMerger) => GlobalState = (set) => ({
         const override = { once, body };
 
         return {
-          ...state,
           mocks: {
             ...state.mocks,
 

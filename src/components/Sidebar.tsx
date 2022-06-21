@@ -16,6 +16,7 @@ import { Route, Routes } from "react-router-dom";
 import HomeSidebar from "./HomeSidebar";
 import SettingsSidebar from "./SettingsSidebar";
 import { matchPath, useLocation } from "react-router";
+import { APP_ROOT, isStandaloneMode } from "../constants";
 
 export type SidebarProps = Omit<NavbarProps, "children"> & {
   title?: string;
@@ -33,7 +34,10 @@ export default function Sidebar({
   if (!title) {
     const location = useLocation();
 
-    title = matchPath({ path: "settings/*" }, location.pathname)
+    title = matchPath(
+      { path: `${!isStandaloneMode ? APP_ROOT + "/" : ""}settings/*` },
+      location.pathname
+    )
       ? "Settings"
       : "Mocked requests";
   }

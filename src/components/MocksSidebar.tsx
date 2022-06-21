@@ -3,7 +3,7 @@ HomeSidebar
 --------------------------------- */
 
 import * as React from "react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useWorkerContext } from "../hooks";
 import {
   Badge,
@@ -17,14 +17,10 @@ import { HandlerSortKeysType } from "../types";
 import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
 import SidebarItem from "./SidebarItem";
-import { SidebarContext } from "./Layout";
-import { useNavigate } from "react-router-dom";
 
 export default function MocksSidebar(): JSX.Element {
   const [select, setSelect] = useState<HandlerSortKeysType>("Select an option");
   const { handlers } = useWorkerContext();
-  const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
-  const navigate = useNavigate();
 
   function handleSort(sortKey: HandlerSortKeysType) {
     return function (a: RestHandler, b: RestHandler): number {
@@ -82,20 +78,11 @@ export default function MocksSidebar(): JSX.Element {
         ? [...handlers]
             .sort(handleSort(select))
             .map((handler: RestHandler, i: number, arr) => {
-              const isSelected =
-                handler?.info?.path ===
-                (sidebarItem as unknown as RestHandler)?.info?.path;
-
               return (
                 <React.Fragment key={i}>
                   <SidebarItem
-                    onClick={() => {
-                      setSidebarItem(handler);
-                      navigate(
-                        encodeURIComponent(stripBasePath(handler.info?.path))
-                      );
-                    }}
-                    selected={isSelected}
+                    state={{ selected: handler.info }}
+                    to={encodeURIComponent(stripBasePath(handler.info?.path))}
                   >
                     <Indicator
                       position="middle-end"
@@ -113,6 +100,7 @@ export default function MocksSidebar(): JSX.Element {
                       </Group>
                     </Indicator>
                   </SidebarItem>
+
                   {i === arr.length - 1 && (
                     <Divider
                       sx={(t) => ({

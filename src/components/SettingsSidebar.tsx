@@ -23,18 +23,23 @@ export default function SettingsSidebar(): JSX.Element {
       {[
         {
           label: "Theme",
+          info: "Theme", // TODO
         },
         {
           label: "Ipsum",
+          info: "Ipsum",
         },
         {
           label: "Dolor",
+          info: "Dolor",
         },
         {
           label: "Sit",
+          info: "Sit",
         },
         {
           label: "Amet",
+          info: "Amet",
         },
       ].map((mockItem, i, arr) => (
         <>

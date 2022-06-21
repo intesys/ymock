@@ -12,6 +12,9 @@ import { useStore } from "../state";
 
 export default function SettingsSidebar(): JSX.Element {
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
+  const settings = useStore((s) => s.settings);
+
+  console.log(settings);
   const theme = useMantineTheme();
 
   // TODO mock items
@@ -19,7 +22,7 @@ export default function SettingsSidebar(): JSX.Element {
     <React.Fragment>
       {[
         {
-          label: "Lorem",
+          label: "Theme",
         },
         {
           label: "Ipsum",
@@ -49,8 +52,9 @@ export default function SettingsSidebar(): JSX.Element {
                   textDecoration: "none",
                   fontSize: "small",
                   textTransform: "uppercase",
+                  display: "block",
                 }}
-                to={`settings/${mockItem.label.toLowerCase()}`}
+                to={mockItem.label.toLowerCase() ?? ""}
               >
                 {mockItem.label}
               </Link>

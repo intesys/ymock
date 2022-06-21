@@ -17,12 +17,7 @@ import {
 import Sidebar from "./Sidebar";
 import { APP_HOME, APP_NAME, isStandaloneMode } from "../constants";
 import { Link, Outlet } from "react-router-dom";
-import {
-  getRouteSpecificSidebar,
-  RuntimeRequestHandlerType,
-  setRuntimeRequestHandler,
-} from "../lib";
-import { useLocation } from "react-router";
+import { RuntimeRequestHandlerType, setRuntimeRequestHandler } from "../lib";
 import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
 import Error from "../views/Error";
 import { MSWglobalExports } from "../types";
@@ -75,7 +70,6 @@ export default function Layout(): JSX.Element {
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<Record<string, unknown>>();
-  const location = useLocation();
   const theme = useMantineTheme();
 
   if (fatalError) return <Error />;
@@ -157,7 +151,6 @@ export default function Layout(): JSX.Element {
               hiddenBreakpoint="sm"
               hidden={!showSidebar}
               width={{ sm: 300, lg: 400 }}
-              {...getRouteSpecificSidebar(location)}
             />
           }
         >

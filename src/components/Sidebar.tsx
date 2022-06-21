@@ -12,9 +12,13 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import WorkerControl from "./WorkerControl";
+import { Route, Routes } from "react-router-dom";
+import HomeSidebar from "./HomeSidebar";
+import SettingsSidebar from "./SettingsSidebar";
+import { matchPath, useLocation } from "react-router";
 
 export type SidebarProps = Omit<NavbarProps, "children"> & {
-  title: string;
+  title?: string;
   workerControl?: boolean;
 };
 
@@ -25,6 +29,14 @@ export default function Sidebar({
   ...navbarProps
 }: PropsWithChildren<SidebarProps>): ReactElement | null {
   const theme = useMantineTheme();
+
+  if (!title) {
+    const location = useLocation();
+
+    title = matchPath({ path: "settings/*" }, location.pathname)
+      ? "Settings"
+      : "Mocked requests";
+  }
 
   return (
     <Navbar {...navbarProps}>
@@ -49,7 +61,10 @@ export default function Sidebar({
         </header>
 
         {/* Route-specific sidebars */}
-        {children}
+        <Routes>
+          <Route path="/" element={<HomeSidebar />} />
+          <Route path="settings*" element={<SettingsSidebar />} />
+        </Routes>
       </Navbar.Section>
 
       {workerControl && <WorkerControl />}

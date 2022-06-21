@@ -3,13 +3,6 @@ lib
 --------------------------------- */
 
 import { SetupWorkerApi } from "msw";
-import * as React from "react";
-import { PropsWithChildren } from "react";
-import { SidebarProps } from "../components/Sidebar";
-import { matchPath } from "react-router";
-import SettingsSidebar from "../components/SettingsSidebar";
-import HomeSidebar from "../components/HomeSidebar";
-import { Location } from "history";
 
 type RuntimeRequestHandlerArgsType = {
   body: any;
@@ -40,25 +33,5 @@ export function setRuntimeRequestHandler(
         return once ? res.once?.(responseBody) : res(responseBody);
       })
     );
-  };
-}
-
-export function getRouteSpecificSidebar(
-  location: Location
-): Partial<PropsWithChildren<SidebarProps>> {
-  const matchesSettingsPage = matchPath(
-    { path: "__yMock/settings/*" },
-    location.pathname
-  );
-
-  if (matchesSettingsPage)
-    return {
-      title: "Settings",
-      children: React.createElement(SettingsSidebar),
-    };
-
-  return {
-    title: "Mocked requests",
-    children: React.createElement(HomeSidebar),
   };
 }

@@ -14,6 +14,7 @@ import Layout from "./components/Layout";
 import Home from "./views/Home";
 import Settings from "./views/Settings";
 import NotFound from "./components/NotFound";
+import Setting from "./views/Setting";
 
 type OwnProps = {};
 
@@ -34,8 +35,8 @@ export default function Routes({}: PropsWithChildren<OwnProps>): JSX.Element {
           <Route path="home" element={<Home />} />
           <Route path="mocks" element={<Home />} />
 
-          <Route path="settings">
-            <Route path=":setting" element={<Settings />} />
+          <Route path="settings" element={<Settings />}>
+            <Route path=":setting" element={<Setting />} />
           </Route>
         </Route>
 

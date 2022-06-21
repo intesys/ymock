@@ -5,7 +5,7 @@ Settings
 import * as React from "react";
 import { PropsWithChildren } from "react";
 import { Switch, useMantineColorScheme } from "@mantine/core";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { GlobalStateSettings } from "../types";
 import PageBody from "../components/PageBody";
 import PageHeader from "../components/PageHeader";
@@ -14,6 +14,7 @@ type OwnProps = {};
 
 export default function Setting({}: PropsWithChildren<OwnProps>): JSX.Element {
   const { setting } = useParams();
+  const { state } = useLocation();
 
   const getSettingPageContent = () => {
     switch (setting as keyof GlobalStateSettings) {
@@ -40,7 +41,7 @@ export default function Setting({}: PropsWithChildren<OwnProps>): JSX.Element {
 
   return (
     <PageBody>
-      <PageHeader title={setting} />
+      <PageHeader title={setting ?? ""} />
 
       {getSettingPageContent()}
     </PageBody>

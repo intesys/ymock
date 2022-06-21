@@ -31,17 +31,19 @@ import { RestHandler } from "msw";
 import { worker } from "../demo/mocks/browser";
 import PageHeader from "../components/PageHeader";
 import BlankSlate from "../components/BlankSlate";
+import { useLocation } from "react-router";
 
 export default function Mock(): JSX.Element {
   const [enabled, setEnabled] = useState(true);
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
-  const { info } = (sidebarItem as unknown as RestHandler) ?? {};
   const { onSubmit } = useOutletContext<OutletContext>();
   const { handlers } = useWorkerContext();
   const notifications = useNotifications();
   const theme = useMantineTheme();
   const mocks = useStore((s) => s.mocks);
   const { setRuntimeOverride } = useStore((s) => s.actions);
+  const { state } = useLocation();
+  const { selected: info } = state ?? {};
 
   const form = useForm({
     initialValues: {

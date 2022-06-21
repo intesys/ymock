@@ -3,51 +3,61 @@ SidebarItem
 --------------------------------- */
 
 import * as React from "react";
-import { Box, Divider } from "@mantine/core";
+import { Box, Divider, useMantineTheme } from "@mantine/core";
+import { NavLink, NavLinkProps } from "react-router-dom";
 
 type OwnProps = {
-  onClick: (e?: React.MouseEvent) => void;
-  selected: boolean;
   children: JSX.Element;
 };
 
 export default function SidebarItem({
-  onClick,
-  selected,
   children,
-}: OwnProps): JSX.Element {
-  return (
-    <>
-      <Divider
-        sx={(t) => ({
-          borderColor: t.colors.dark[5],
-        })}
-      />
-      <Box
-        onClick={onClick}
-        sx={(t) => ({
-          backgroundColor: selected
-            ? t.colorScheme === "dark"
-              ? t.colors.dark[9]
-              : t.colors.indigo[9]
-            : "none",
-          padding: t.spacing.md,
-          cursor: "pointer",
-          fontSize: t.fontSizes.sm,
+  ...navLinkProps
+}: OwnProps & Partial<NavLinkProps>): JSX.Element {
+  const theme = useMantineTheme();
 
-          "&:hover": {
-            backgroundColor: selected
-              ? t.colorScheme === "dark"
-                ? t.colors.dark[8]
-                : t.colors.gray[1]
-              : t.colorScheme === "dark"
-              ? t.colors.dark[5]
-              : t.colors.gray[1],
-          },
-        })}
-      >
-        {children}
-      </Box>
-    </>
+  return (
+    <NavLink
+      {...(navLinkProps ?? {})}
+      style={{
+        color: theme.colors.gray[1],
+        textDecoration: "none",
+      }}
+    >
+      {({ isActive }) => (
+        <>
+          <Divider
+            sx={(t) => ({
+              borderColor: t.colors.dark[5],
+            })}
+          />
+          <Box
+            sx={(t) => ({
+              padding: t.spacing.md,
+              cursor: "pointer",
+              fontSize: t.fontSizes.sm,
+
+              backgroundColor: isActive
+                ? t.colorScheme === "dark"
+                  ? t.colors.dark[9]
+                  : t.colors.indigo[9]
+                : "none",
+
+              "&:hover": {
+                backgroundColor: isActive
+                  ? t.colorScheme === "dark"
+                    ? t.colors.dark[8]
+                    : t.colors.gray[1]
+                  : t.colorScheme === "dark"
+                  ? t.colors.dark[5]
+                  : t.colors.gray[1],
+              },
+            })}
+          >
+            {children}
+          </Box>
+        </>
+      )}
+    </NavLink>
   );
 }

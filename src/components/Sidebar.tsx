@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import WorkerControl from "./WorkerControl";
 import { Route, Routes } from "react-router-dom";
-import HomeSidebar from "./HomeSidebar";
+import MocksSidebar from "./MocksSidebar";
 import SettingsSidebar from "./SettingsSidebar";
 import { matchPath, useLocation } from "react-router";
 import { APP_ROOT, isStandaloneMode } from "../constants";
@@ -66,8 +66,8 @@ export default function Sidebar({
 
         {/* Route-specific sidebars */}
         <Routes>
-          <Route path="/" element={<HomeSidebar />} />
-          <Route path="settings*" element={<SettingsSidebar />} />
+          <Route path="mocks/*" element={<MocksSidebar />} />
+          <Route path="settings/*" element={<SettingsSidebar />} />
         </Routes>
       </Navbar.Section>
 

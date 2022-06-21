@@ -3,6 +3,7 @@ state
 --------------------------------- */
 
 import { MockDefinition } from "./app";
+import { ColorScheme } from "@mantine/core";
 
 type GlobalStateMeta = {
   app: string;
@@ -18,7 +19,9 @@ export type GlobalStateMocks = Partial<
   >
 >;
 
-type GlobalStateSettings = {};
+export type GlobalStateSettings = {
+  theme: ColorScheme;
+};
 
 type GlobalStateActions = {
   setRuntimeOverride(id: string, once: boolean, body: string): void;

@@ -12,3 +12,5 @@ export type MockDefinition = {
   path: string;
   overrides: { once?: boolean; body: string }[];
 };
+
+export type ErrorTypes = "FATAL_ERROR";

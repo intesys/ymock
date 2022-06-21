@@ -2,9 +2,9 @@
 Hooks
 --------------------------------- */
 
-import { WorkerContext } from "../App";
 import { useContext } from "react";
 import { MSWglobalExports } from "../types";
+import { WorkerContext } from "../components/Layout";
 
 export function useWorkerContext(): MSWglobalExports {
   const { worker, rest, handlers } = useContext(WorkerContext) ?? {};

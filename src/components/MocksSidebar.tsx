@@ -18,11 +18,13 @@ import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
 import SidebarItem from "./SidebarItem";
 import { SidebarContext } from "./Layout";
+import { useNavigate } from "react-router-dom";
 
-export default function HomeSidebar(): JSX.Element {
+export default function MocksSidebar(): JSX.Element {
   const [select, setSelect] = useState<HandlerSortKeysType>("Select an option");
   const { handlers } = useWorkerContext();
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
+  const navigate = useNavigate();
 
   function handleSort(sortKey: HandlerSortKeysType) {
     return function (a: RestHandler, b: RestHandler): number {
@@ -87,7 +89,12 @@ export default function HomeSidebar(): JSX.Element {
               return (
                 <React.Fragment key={i}>
                   <SidebarItem
-                    onClick={() => setSidebarItem(handler)}
+                    onClick={() => {
+                      setSidebarItem(handler);
+                      navigate(
+                        encodeURIComponent(stripBasePath(handler.info?.path))
+                      );
+                    }}
                     selected={isSelected}
                   >
                     <Indicator

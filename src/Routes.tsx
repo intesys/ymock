@@ -3,7 +3,6 @@ Routes
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren } from "react";
 import { APP_ROOT, isHostedMode, isStandaloneMode } from "./constants";
 import {
   BrowserRouter,
@@ -11,14 +10,15 @@ import {
   Routes as RoutesComponent,
 } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./views/Home";
+import Mocks from "./views/Mocks";
 import Settings from "./views/Settings";
 import NotFound from "./components/NotFound";
 import Setting from "./views/Setting";
+import Mock from "./views/Mock";
+import Error from "./views/Error";
+import BlankSlate from "./components/BlankSlate";
 
-type OwnProps = {};
-
-export default function Routes({}: PropsWithChildren<OwnProps>): JSX.Element {
+export default function Routes({}): JSX.Element {
   return (
     <BrowserRouter>
       <RoutesComponent>
@@ -30,17 +30,19 @@ export default function Routes({}: PropsWithChildren<OwnProps>): JSX.Element {
         )}
 
         <Route path={isStandaloneMode ? "/" : APP_ROOT} element={<Layout />}>
-          <Route index element={<Home />} />
-
-          <Route path="home" element={<Home />} />
-          <Route path="mocks" element={<Home />} />
+          <Route path="mocks" element={<Mocks />}>
+            <Route index element={<BlankSlate />} />
+            <Route path=":mock" element={<Mock />} />
+          </Route>
 
           <Route path="settings" element={<Settings />}>
+            <Route index element={<BlankSlate />} />
             <Route path=":setting" element={<Setting />} />
           </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
+        <Route path="error" element={<Error />} />
       </RoutesComponent>
     </BrowserRouter>
   );

@@ -3,6 +3,8 @@ constants
 --------------------------------- */
 
 // env
+import { ColorScheme } from "@mantine/core";
+
 export const isDevMode = process.env.NODE_ENV === "development";
 export const isStandaloneMode =
   isDevMode && process.env.STANDALONE_MODE === "on";
@@ -26,6 +28,7 @@ export const MESSAGE__SELECT_FROM_SIDEBAR = `Please select an item from the side
 // URLs
 export const APP_ROOT = `__${APP_NAME}`;
 export const APP_HOME = isStandaloneMode ? "/" : `/${APP_ROOT}`;
+export const APP_SOURCE = "https://github.com/intesys/ymock/";
 
 // mocks
 export const MOCK_PATH_1 = "https://jsonplaceholder.typicode.com/users";
@@ -33,6 +36,10 @@ export const MOCK_PATH_2 = "https://jsonplaceholder.typicode.com/todos/100";
 export const MOCK_PATH_3 =
   "https://jsonplaceholder.typicode.com/posts/100/comments";
 
+// values
+export const DEFAULT_THEME: ColorScheme = "dark";
+
+// other
 export const EXAMPLE_TYPE = `
   let msw: MSWglobalExports;
 

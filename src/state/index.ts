@@ -1,5 +1,5 @@
 import create from "zustand";
-import { APP_NAME } from "../constants";
+import { APP_NAME, APP_SOURCE, DEFAULT_THEME } from "../constants";
 import { GlobalState } from "../types";
 import { devtools, persist, PersistOptions } from "zustand/middleware";
 
@@ -39,10 +39,12 @@ const store: (setter: ZustandStateMerger) => GlobalState = (set) => ({
 
   meta: {
     app: APP_NAME,
-    source: "https://github.com/intesys/ymock/",
+    source: APP_SOURCE,
   },
+
   mocks: {},
-  settings: {},
+
+  settings: { theme: DEFAULT_THEME },
 });
 
 export const useStore = create(

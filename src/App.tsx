@@ -10,10 +10,11 @@ import {
 } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import Routes from "./Routes";
+import { DEFAULT_THEME } from "./constants";
 
 function App() {
   // https://mantine.dev/theming/dark-theme/
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(DEFAULT_THEME);
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));

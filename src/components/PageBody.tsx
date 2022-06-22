@@ -9,11 +9,9 @@ import { SidebarContext } from "./Layout";
 import { RestHandler } from "msw";
 
 type OwnProps = {
-  blankSlateMessage?: string;
 };
 
 export default function PageBody({
-  blankSlateMessage,
   children,
 }: PropsWithChildren<OwnProps>): ReactElement {
   const { sidebarItem } = useContext(SidebarContext);

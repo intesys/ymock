@@ -40,7 +40,7 @@ export default function SettingsSidebar(): JSX.Element {
             state={{ selected: mockItem }}
             to={mockItem.label.toLowerCase() ?? ""}
           >
-            {mockItem.label}
+            <span>{mockItem.label}</span>
           </SidebarItem>
 
           {i === arr.length - 1 && (

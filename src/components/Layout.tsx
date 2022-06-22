@@ -90,7 +90,7 @@ export default function Layout(): JSX.Element {
 
   useEffect(() => {
     // Redirect to `/mocks` since there's no real homepage ATM
-    if (location.pathname === (isStandaloneMode ? "/" : APP_ROOT))
+    if (location.pathname === (isStandaloneMode ? "/" : "/" + APP_ROOT))
       navigate("mocks");
   }, [location]);
 

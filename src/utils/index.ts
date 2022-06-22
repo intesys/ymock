@@ -16,7 +16,14 @@ export function stripProtocol(path: string): string {
   return path.replace(/http[s]?:\/\//, "");
 }
 
+export function capitalizeFirstLetter(s: string | undefined): string {
+  if (!s) return String(s);
+
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 module.exports = {
   stripProtocol,
   stripBasePath,
+  capitalizeFirstLetter,
 };

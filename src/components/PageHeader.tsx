@@ -13,12 +13,18 @@ export default function PageHeader({
   children,
 }: PropsWithChildren<OwnProps>): JSX.Element {
   return (
-    <header style={{ marginBottom: 30 }}>
+    <header>
       <Group noWrap position={"apart"} align={"center"}>
         <Title order={2}>{title}</Title>
 
         {children}
       </Group>
+
+      <style jsx>{`
+        header {
+          padding: 50px 0 30px;
+        }
+      `}</style>
     </header>
   );
 }

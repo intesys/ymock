@@ -3,23 +3,24 @@ Body
 --------------------------------- */
 
 import * as React from "react";
-import { PropsWithChildren, ReactElement, useContext } from "react";
+import { PropsWithChildren, ReactElement } from "react";
 import { Box, Container } from "@mantine/core";
-import { SidebarContext } from "./Layout";
-import { RestHandler } from "msw";
 
-type OwnProps = {
-};
+type OwnProps = {};
 
 export default function PageBody({
   children,
 }: PropsWithChildren<OwnProps>): ReactElement {
-  const { sidebarItem } = useContext(SidebarContext);
-  const { info } = (sidebarItem as unknown as RestHandler) ?? {};
-
   return (
-    <Container sx={() => (!info ? { height: "100%" } : {})}>
-      <Box component={"main"}>{children}</Box>
-    </Container>
+    <Box component={"main"} className={"page-body"}>
+      <Container className={"page-body-container"}>{children}</Container>
+
+      <style jsx>{`
+        :global(.page-body),
+        :global(.page-body-container) {
+          height: 100%;
+        }
+      `}</style>
+    </Box>
   );
 }

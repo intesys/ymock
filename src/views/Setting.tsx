@@ -13,7 +13,6 @@ import {
 } from "@mantine/core";
 import { useLocation, useParams } from "react-router";
 import { GlobalStateSettings } from "../types";
-import PageBody from "../components/PageBody";
 import PageHeader from "../components/PageHeader";
 import { capitalizeFirstLetter } from "../utils";
 
@@ -39,7 +38,7 @@ export default function Setting({}: PropsWithChildren<OwnProps>): JSX.Element {
                   root: { flexDirection: "row-reverse" },
                   label: { paddingRight: 12, paddingLeft: 0 },
                 }}
-                onClick={() => toggleColorScheme()}
+                onClick={() => toggleColorScheme()} // TODO should also inform global state
               />
             </Group>
           </Paper>
@@ -52,10 +51,10 @@ export default function Setting({}: PropsWithChildren<OwnProps>): JSX.Element {
   };
 
   return (
-    <PageBody>
+    <>
       <PageHeader title={capitalizeFirstLetter(setting) ?? ""} />
 
       {getSettingPageContent()}
-    </PageBody>
+    </>
   );
 }

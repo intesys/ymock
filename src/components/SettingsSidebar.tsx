@@ -5,7 +5,7 @@ HomeSidebar
 import * as React from "react";
 import { Divider } from "@mantine/core";
 import SidebarItem from "./SidebarItem";
-import { useStore } from "../state";
+import { useStore } from "../store";
 
 export default function SettingsSidebar(): JSX.Element {
   const settings = useStore((s) => s.settings);

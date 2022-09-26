@@ -25,7 +25,7 @@ import { useOutletContext } from "react-router-dom";
 import { OutletContext, SidebarContext } from "../components/Layout";
 import { useWorkerContext } from "../hooks";
 import { useNotifications } from "@mantine/notifications";
-import { useStore } from "../state";
+import { useStore } from "../store";
 import { useForm } from "@mantine/form";
 import { RestHandler } from "msw";
 import { worker } from "../demo/mocks/browser";

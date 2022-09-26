@@ -186,15 +186,15 @@ export default function Mock(): JSX.Element {
           </>
         }
       >
-        <Switch
-          styles={{
-            root: { flexDirection: "row-reverse" },
-            label: { paddingRight: 12, paddingLeft: 0 },
-          }}
-          checked={enabled}
-          onChange={handleMockActivation}
-          label={enabled ? "ENABLED" : "DISABLED"}
-        />
+        {/*<Switch*/}
+        {/*  styles={{*/}
+        {/*    root: { flexDirection: "row-reverse" },*/}
+        {/*    label: { paddingRight: 12, paddingLeft: 0 },*/}
+        {/*  }}*/}
+        {/*  checked={enabled}*/}
+        {/*  onChange={handleMockActivation}*/}
+        {/*  label={enabled ? "ENABLED" : "DISABLED"}*/}
+        {/*/>*/}
       </PageHeader>
 
       <Paper shadow="xs" withBorder mb={40}>

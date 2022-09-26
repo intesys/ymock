@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import { useWorkerContext } from "../hooks";
 import Logs from "../views/Logs";
-import { PlayerStop, WaveSawTool } from "tabler-icons-react";
+import { PlayerPlay, PlayerStop, WaveSawTool } from "tabler-icons-react";
 
 export default function WorkerControl(): JSX.Element {
   const { worker } = useWorkerContext();
@@ -64,17 +64,18 @@ export default function WorkerControl(): JSX.Element {
           })}
         >
           {/* TODO alternate based on MSW status (get it via global object?) */}
-          {/*<Button*/}
-          {/*  size="xs"*/}
-          {/*  variant="outline"*/}
-          {/*  compact*/}
-          {/*  uppercase*/}
-          {/*  onClick={() => {*/}
-          {/*    worker?.start?.();*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  Start MSW*/}
-          {/*</Button>*/}
+          <Button
+            size="xs"
+            variant="subtle"
+            compact
+            uppercase
+            onClick={() => {
+              worker?.start?.();
+            }}
+          >
+            <PlayerPlay {...iconStyles} style={{ marginRight: 6 }} />
+            Start MSW
+          </Button>
 
           <Button
             size="xs"

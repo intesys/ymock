@@ -51,6 +51,7 @@ export default function MocksSidebar(): JSX.Element {
 
   return (
     <>
+      {/* MOCK SORTER */}
       {handlers?.length ? (
         <section>
           <NativeSelect
@@ -74,6 +75,7 @@ export default function MocksSidebar(): JSX.Element {
         </section>
       ) : null}
 
+      {/* MOCK LIST */}
       {handlers?.length
         ? [...handlers]
             .sort(handleSort(select))

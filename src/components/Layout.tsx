@@ -195,6 +195,7 @@ export default function Layout(): JSX.Element {
             />
           }
         >
+          {/* OUTLET */}
           <Outlet />
         </AppShell>
       </SidebarContext.Provider>

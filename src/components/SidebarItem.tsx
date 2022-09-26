@@ -12,12 +12,16 @@ type OwnProps = {
 
 export default function SidebarItem({
   children,
+  to,
   ...navLinkProps
-}: OwnProps & Partial<NavLinkProps>): JSX.Element {
+}: OwnProps & Partial<NavLinkProps>): JSX.Element | null {
   const theme = useMantineTheme();
+
+  if (!to) return null;
 
   return (
     <NavLink
+      to={to}
       {...(navLinkProps ?? {})}
       style={{
         color: theme.colors.gray[1],

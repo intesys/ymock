@@ -83,7 +83,12 @@ export default function MocksSidebar(): JSX.Element {
               return (
                 <React.Fragment key={i}>
                   <SidebarItem
-                    state={{ selected: handler.info }}
+                    state={{
+                      selected: {
+                        ...handler.info,
+                        shouldSkip: handler.shouldSkip,
+                      },
+                    }}
                     to={encodeURIComponent(stripBasePath(handler.info?.path))}
                   >
                     <Indicator

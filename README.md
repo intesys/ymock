@@ -1,4 +1,4 @@
-t# yMock
+# yMock
 
 ![yMock home](.preview/scrn-04.png)
 

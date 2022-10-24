@@ -10,4 +10,4 @@ The first thing to do is to [fork the repo](https://docs.github.com/en/get-start
 
 ## Do you intend to add a new feature or change an existing one?
 
-You can find new features to be developed in the [TODO](./TODO.md) list. For writing the code and submitting it, you should follow the same procedures described in the previous section (fork the repo, open a PR, etc.).
+You can find new features to be developed in the [ROADMAP](./ROADMAP.md) list. For writing the code and submitting it, you should follow the same procedures described in the previous section (fork the repo, open a PR, etc.).

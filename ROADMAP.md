@@ -6,6 +6,7 @@ _"Inbox" if for tasks that are still uncategorized._
 
 ### Features
 
+- [ ] Define & implement a way to seamlessly install and use the library as as dependency
 - [ ] Implement UI animations
 - [ ] Implement data store (see: <https://github.com/intesys/ytestbook/issues/3>)
 - [ ] Finalize Settings (sidebar objects, data structure)

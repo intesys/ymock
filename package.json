@@ -63,7 +63,7 @@
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
     "jest": "^28.1.0",
-    "msw": "^0.47.4",
+    "msw": "^0.48.3",
     "parcel": "^2.3.2",
     "prettier": "^2.5.1",
     "process": "^0.11.10",

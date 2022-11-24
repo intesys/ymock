@@ -25,6 +25,7 @@ _"Inbox" if for tasks that are still uncategorized._
 
 ### Maintenance
 
+- [ ] In order to seamlessly handle the relationship between yMock and the Demo App, convert the package to a monorepo with [TurboRepo](https://turbo.build/repo/)
 - [ ] Fix TS issues
 
 ### Optimizations

@@ -1,0 +1,6 @@
+{
+  "name": "ymock-host",
+  "dependencies": {
+    "ymock": "*"
+  }
+}

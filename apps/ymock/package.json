@@ -1,0 +1,6 @@
+{
+  "name": "ymock",
+  "dependencies": {
+    "shared": "*"
+  }
+}

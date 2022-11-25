@@ -1,4 +1,4 @@
-const { stripProtocol } = require("../utils");
+const { stripProtocol } = require("../index");
 
 test("Tests stripProtocol utility with https", () => {
   expect(stripProtocol("https://jsonplaceholder.typicode.com/todos/100")).toBe(

@@ -1,4 +1,4 @@
-const { stripBasePath } = require("../utils");
+const { stripBasePath } = require("../index");
 
 test("Tests stripBasePath utility with https", () => {
   expect(stripBasePath("https://jsonplaceholder.typicode.com/todos/100")).toBe(

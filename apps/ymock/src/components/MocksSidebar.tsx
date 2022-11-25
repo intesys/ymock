@@ -15,7 +15,7 @@ import {
 } from "@mantine/core";
 import { HandlerSortKeysType } from "../types";
 import { RestHandler } from "msw";
-import { stripBasePath } from "../utils";
+import { stripBasePath } from "ymock-shared/src";
 import SidebarItem from "./SidebarItem";
 
 export default function MocksSidebar(): JSX.Element {

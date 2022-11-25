@@ -27,9 +27,8 @@ import {
 } from "react-router-dom";
 import { RuntimeRequestHandlerType } from "../lib";
 import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
-import Error from "../views/Error";
+import Error from "../routes/Error";
 import { MSWglobalExports } from "../types";
-import { rest } from "msw";
 
 let msw: MSWglobalExports;
 
@@ -44,8 +43,8 @@ let msw: MSWglobalExports;
 
 if (isStandaloneMode) {
   const { rest } = require("msw");
-  const { worker } = require("../demo/mocks/browser");
-  const { handlers } = require("../demo/mocks/handlers");
+  const { worker } = require("apps/host/src/mocks/browser.js");
+  const { handlers } = require("apps/host/src/mocks/handlers.js");
 
   msw = { rest, worker, handlers };
 }

@@ -10,12 +10,12 @@ import {
   Routes as RoutesComponent,
 } from "react-router-dom";
 import Layout from "./components/Layout";
-import Mocks from "./views/Mocks";
-import Settings from "./views/Settings";
+import Mocks from "./routes/Mocks";
+import Settings from "./routes/Settings";
 import NotFound from "./components/NotFound";
-import Setting from "./views/Setting";
-import Mock from "./views/Mock";
-import Error from "./views/Error";
+import Setting from "./routes/Setting";
+import Mock from "./routes/Mock";
+import Error from "./routes/Error";
 import BlankSlate from "./components/BlankSlate";
 
 export default function Routes({}): JSX.Element {

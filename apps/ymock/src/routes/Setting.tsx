@@ -14,7 +14,7 @@ import {
 import { useLocation, useParams } from "react-router";
 import { GlobalStateSettings } from "../types";
 import PageHeader from "../components/PageHeader";
-import { capitalizeFirstLetter } from "../utils";
+import { capitalizeFirstLetter } from "../../../../packages/shared/src";
 
 type OwnProps = {};
 

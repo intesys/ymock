@@ -1,34 +1,47 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+/* ---------------------------------
+App
+--------------------------------- */
+
+import React, { useState } from "react";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
+import Routes from "./Routes";
+import { DEFAULT_THEME } from "./constants";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // https://mantine.dev/theming/dark-theme/
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(DEFAULT_THEME);
+
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/apps/ymock/public/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        theme={{ colorScheme }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <NotificationsProvider
+          position="top-right"
+          limit={3}
+          autoClose={4000}
+          zIndex={999}
+        >
+          <div className="App">
+            <Routes />
+          </div>
+        </NotificationsProvider>
+      </MantineProvider>
+    </ColorSchemeProvider>
+  );
 }
 
-export default App
+export default App;

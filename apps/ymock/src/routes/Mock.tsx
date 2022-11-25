@@ -20,7 +20,6 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { stripBasePath } from "../utils";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext, SidebarContext } from "../components/Layout";
 import { useWorkerContext } from "../hooks";
@@ -28,10 +27,11 @@ import { useNotifications } from "@mantine/notifications";
 import { useStore } from "../store";
 import { useForm } from "@mantine/form";
 import { RestHandler } from "msw";
-import { worker } from "../demo/mocks/browser";
+import { worker } from "apps/host/src/mocks/browser.js";
 import PageHeader from "../components/PageHeader";
 import BlankSlate from "../components/BlankSlate";
 import { useLocation } from "react-router";
+import { stripBasePath } from "ymock-shared/src";
 
 export default function Mock(): JSX.Element {
   const [enabled, setEnabled] = useState(true);
@@ -239,7 +239,10 @@ export default function Mock(): JSX.Element {
               (then the previous response will be in effect), or permanently.
             </Text>
 
-            <form action="#" onSubmit={form.onSubmit(handleSubmit)}>
+            <form
+              action="src/routes/Mock#"
+              onSubmit={form.onSubmit(handleSubmit)}
+            >
               <JsonInput
                 required
                 disabled={!enabled}

@@ -13,7 +13,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useWorkerContext } from "../hooks";
-import Logs from "../views/Logs";
+import Logs from "../routes/Logs";
 import { PlayerPlay, PlayerStop, WaveSawTool } from "tabler-icons-react";
 
 export default function WorkerControl(): JSX.Element {

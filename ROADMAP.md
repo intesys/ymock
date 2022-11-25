@@ -6,7 +6,7 @@ _"Inbox" if for tasks that are still uncategorized._
 
 ### Features
 
-- [ ] Define & implement a way to seamlessly install and use the library as as dependency
+- [ ] Define & implement a way to seamlessly install and use the library as a dependency
 - [ ] Implement UI animations
 - [ ] Implement data store (see: <https://github.com/intesys/ytestbook/issues/3>)
 - [ ] Finalize Settings (sidebar objects, data structure)
@@ -32,7 +32,7 @@ _"Inbox" if for tasks that are still uncategorized._
 
 - [ ] ? Migrate to Vite
 - [ ] Migrate contexts to global state
-- [x] Refactor main route like settings (dynamic subroutes with Outlet)
+- [x] Refactor main route like settings (dynamic sub-routes with Outlet)
 - [x] Refactor Body component as generic component
 
 ---

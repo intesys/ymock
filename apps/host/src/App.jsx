@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import "./App.css";
 
+// TODO make these imports conditional!
+// based on the env; they should reflect
+// a real-life scenario where the user
+// won't import msw or ymock unless the
+// env is not production.
+import { rest } from "msw";
+import { worker } from "./mocks/browser";
+import { handlers } from "./mocks/handlers";
+import Launcher from "ymock";
+
+const notProd = true; // TODO
+
 /*
  * Not really required since this is a demo app,
  * but in a real-life scenario the worker should
  * only run (once) in dev mode.
  * */
-let worker;
-let rest;
-let handlers;
-
-// TODO setup env vars
-const devMode = 1;
-
-if (devMode) {
-  worker = require("./mocks/browser.js")?.worker;
-  rest = require("msw")?.rest;
-  handlers = require("./mocks/handlers")?.handlers;
-
-  worker?.start?.();
-}
+// let worker;
+// let rest;
+// let handlers;
 
 export default function App() {
   const [response, setResponse] = useState("");
@@ -113,7 +114,7 @@ export default function App() {
         </section>
 
         {/* yMock Launcher */}
-        {devMode ? (
+        {notProd ? (
           <Launcher
             msw={{
               worker,

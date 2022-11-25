@@ -1,6 +1,10 @@
 // src/mocks/handlers.js
 import { rest } from "msw";
-import { MOCK_PATH_1, MOCK_PATH_2, MOCK_PATH_3 } from "../../constants";
+import {
+  MOCK_PATH_1,
+  MOCK_PATH_2,
+  MOCK_PATH_3,
+} from "../../../../src/constants";
 
 export const handlers = [
   rest.get(MOCK_PATH_1, (req, res, ctx) => {

@@ -22,8 +22,8 @@ export function capitalizeFirstLetter(s: string | undefined): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-module.exports = {
-  stripProtocol,
-  stripBasePath,
-  capitalizeFirstLetter,
-};
+// module.exports = {
+//   stripProtocol,
+//   stripBasePath,
+//   capitalizeFirstLetter,
+// };

@@ -9,14 +9,35 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.5",
+    "@mantine/core": "^4.2.9",
+    "@mantine/form": "^4.2.9",
+    "@mantine/hooks": "^4.2.9",
+    "@mantine/modals": "^4.2.9",
+    "@mantine/notifications": "^4.2.9",
+    "@mantine/prism": "^4.2.9",
+    "@mantine/rte": "^4.2.9",
+    "framer-motion": "^6.3.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ymock-shared": "*"
+    "react-router-dom": "^6.3.0",
+    "styled-jsx": "^5.0.2",
+    "tabler-icons-react": "^1.55.0",
+    "ymock-shared": "*",
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "@types/node": "^16.11.24",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/react-router": "^5.1.5",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/styled-jsx": "^3.4.4",
     "@vitejs/plugin-react": "^2.2.0",
+    "jest": "^28.1.0",
+    "rimraf": "^3.0.2",
+    "serve": "^14.1.2",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
   }

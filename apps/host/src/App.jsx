@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-import { APP_NAME, isDevMode, isHostedMode } from "../../../src/constants.js";
-import Launcher from "../../../src/components/Launcher.js";
 
 /*
  * Not really required since this is a demo app,
@@ -12,7 +10,10 @@ let worker;
 let rest;
 let handlers;
 
-if (isDevMode) {
+// TODO setup env vars
+const devMode = 1;
+
+if (devMode) {
   worker = require("./mocks/browser.js")?.worker;
   rest = require("msw")?.rest;
   handlers = require("./mocks/handlers")?.handlers;
@@ -57,15 +58,7 @@ export default function App() {
           margin: "0 auto",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>
-          {`${APP_NAME} Demo App`}
-
-          {isHostedMode && (
-            <>
-              <br /> (hosted mode)
-            </>
-          )}
-        </h1>
+        <h1 style={{ textAlign: "center" }}>yMock Demo App</h1>
 
         <section
           style={{
@@ -120,7 +113,7 @@ export default function App() {
         </section>
 
         {/* yMock Launcher */}
-        {isDevMode ? (
+        {devMode ? (
           <Launcher
             msw={{
               worker,

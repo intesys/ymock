@@ -27,7 +27,6 @@ import { useNotifications } from "@mantine/notifications";
 import { useStore } from "../store";
 import { useForm } from "@mantine/form";
 import { RestHandler } from "msw";
-import { worker } from "apps/host/src/mocks/browser.js";
 import PageHeader from "../components/PageHeader";
 import BlankSlate from "../components/BlankSlate";
 import { useLocation } from "react-router";
@@ -115,7 +114,7 @@ export default function Mock(): JSX.Element {
 
     if (confirmed) {
       // TODO doesn't work
-      worker.resetHandlers(handlers);
+      // worker.resetHandlers(handlers);
 
       // setOverride(null); TODO
 

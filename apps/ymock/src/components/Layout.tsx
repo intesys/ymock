@@ -41,13 +41,15 @@ let msw: MSWglobalExports;
  *
  * */
 
-if (isStandaloneMode) {
-  const { rest } = require("msw");
-  const { worker } = require("apps/host/src/mocks/browser.js");
-  const { handlers } = require("apps/host/src/mocks/handlers.js");
+(async function () {
+  if (isStandaloneMode) {
+    const {
+      default: { rest, worker, handlers },
+    } = (await import("../mocks/msw.js")) ?? {};
 
-  msw = { rest, worker, handlers };
-}
+    msw = { rest, worker, handlers };
+  }
+})();
 
 type SidebarItemAndSetter = {
   sidebarItem: Record<string, unknown> | undefined;

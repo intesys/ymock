@@ -3,7 +3,6 @@ Routes
 --------------------------------- */
 
 import * as React from "react";
-import { APP_ROOT, isHostedMode, isStandaloneMode } from "./constants";
 import {
   BrowserRouter,
   Route,
@@ -22,14 +21,7 @@ export default function Routes({}): JSX.Element {
   return (
     <BrowserRouter>
       <RoutesComponent>
-        {isHostedMode && (
-          <Route
-            path="/"
-            element={React.createElement(require("./demo/Demo")?.default)}
-          />
-        )}
-
-        <Route path={isStandaloneMode ? "/" : APP_ROOT} element={<Layout />}>
+        <Route path={"/"} element={<Layout />}>
           <Route path="mocks" element={<Mocks />}>
             <Route index element={<BlankSlate />} />
             <Route path=":mock" element={<Mock />} />

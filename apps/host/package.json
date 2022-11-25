@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "init": "npx msw init ./dist --save",
+    "dev": "npm run init && vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "msw": "^0.49.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ymock": "*"

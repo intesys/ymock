@@ -1,10 +1,10 @@
 // src/mocks/handlers.js
 import { rest } from "msw";
-import {
-  MOCK_PATH_1,
-  MOCK_PATH_2,
-  MOCK_PATH_3,
-} from "../../../../src/constants";
+
+// mocks
+const MOCK_PATH_1 = "https://jsonplaceholder.typicode.com/users";
+const MOCK_PATH_2 = "https://jsonplaceholder.typicode.com/todos/100";
+const MOCK_PATH_3 = "https://jsonplaceholder.typicode.com/posts/100/comments";
 
 export const handlers = [
   rest.get(MOCK_PATH_1, (req, res, ctx) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // TODO make these imports conditional!
@@ -30,7 +30,7 @@ export default function App() {
     return (await fetch(path)).json();
   }
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!request) {
@@ -40,10 +40,14 @@ export default function App() {
 
     setResponse("");
 
-    handleRequest(request).then((response) =>
-      setResponse(JSON.stringify(response))
-    );
-  };
+    const response = await handleRequest(request);
+
+    setResponse(JSON.stringify(response));
+  }
+
+  useEffect(() => {
+    worker?.start?.();
+  }, []);
 
   return (
     <div

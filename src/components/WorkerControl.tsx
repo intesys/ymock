@@ -2,19 +2,12 @@
 WorkerControl
 --------------------------------- */
 
+import { Button, Divider, Group, Navbar, Title, useMantineTheme } from "@mantine/core";
 import * as React from "react";
 import { useState } from "react";
-import {
-  Button,
-  Divider,
-  Group,
-  Navbar,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
+import { PlayerPlay, PlayerStop, WaveSawTool } from "tabler-icons-react";
 import { useWorkerContext } from "../hooks";
 import Logs from "../views/Logs";
-import { PlayerPlay, PlayerStop, WaveSawTool } from "tabler-icons-react";
 
 export default function WorkerControl(): JSX.Element {
   const { worker } = useWorkerContext();

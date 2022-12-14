@@ -2,21 +2,15 @@
 Nav
 --------------------------------- */
 
+import { Divider, Navbar, NavbarProps, Title, useMantineTheme } from "@mantine/core";
 import * as React from "react";
 import { PropsWithChildren, ReactElement } from "react";
-import {
-  Divider,
-  Navbar,
-  NavbarProps,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
-import WorkerControl from "./WorkerControl";
+import { matchPath, useLocation } from "react-router";
 import { Route, Routes } from "react-router-dom";
+import { APP_ROOT, isStandaloneMode } from "../constants";
 import MocksSidebar from "./MocksSidebar";
 import SettingsSidebar from "./SettingsSidebar";
-import { matchPath, useLocation } from "react-router";
-import { APP_ROOT, isStandaloneMode } from "../constants";
+import WorkerControl from "./WorkerControl";
 
 export type SidebarProps = Omit<NavbarProps, "children"> & {
   title?: string;
@@ -34,10 +28,7 @@ export default function Sidebar({
   if (!title) {
     const location = useLocation();
 
-    title = matchPath(
-      { path: `${!isStandaloneMode ? APP_ROOT + "/" : ""}settings/*` },
-      location.pathname
-    )
+    title = matchPath({ path: `${!isStandaloneMode ? APP_ROOT + "/" : ""}settings/*` }, location.pathname)
       ? "Settings"
       : "Mocked requests";
   }

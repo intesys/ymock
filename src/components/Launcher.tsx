@@ -2,12 +2,12 @@
 Launcher
 --------------------------------- */
 
-import * as React from "react";
-import { useRef, useState } from "react";
-import { MSWglobalExports } from "../types";
-import { APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR } from "../constants";
 import { Alert, Button, useMantineTheme } from "@mantine/core";
 import { CSSObject } from "@mantine/styles/lib/tss";
+import * as React from "react";
+import { useRef, useState } from "react";
+import { APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR } from "../constants";
+import { MSWglobalExports } from "../types";
 
 type OwnProps = {
   msw: MSWglobalExports;
@@ -30,11 +30,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
 
   function handleNewWindowClick() {
     if (typeof window !== "undefined") {
-      const w = window.open?.(
-        APP_ROOT,
-        "_blank",
-        "popup, right=100, top=100, width=1200, height=680"
-      );
+      const w = window.open?.(APP_ROOT, "_blank", "popup, right=100, top=100, width=1200, height=680");
 
       if (w) {
         // load msw in global state
@@ -64,8 +60,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
     return (
       <div className={"launcher"}>
         <Alert title="Cannot launch yMock" color="red" variant="filled">
-          Please ensure <code>Launcher</code> is receiving a valid{" "}
-          <code>msw</code> prop.
+          Please ensure <code>Launcher</code> is receiving a valid <code>msw</code> prop.
         </Alert>
 
         <style jsx>{`
@@ -82,12 +77,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
   return (
     <div className={"launcher"}>
       {!launched ? (
-        <Button
-          radius="xl"
-          size="md"
-          styles={buttonStyles}
-          onClick={handleNewWindowClick}
-        >
+        <Button radius="xl" size="md" styles={buttonStyles} onClick={handleNewWindowClick}>
           🚀
           <span style={{ marginLeft: 8 }}>Launch yMock</span>
         </Button>

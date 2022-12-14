@@ -2,32 +2,18 @@
 Logs
 --------------------------------- */
 
+import { Box, Button, Code, Group, Title, useMantineTheme } from "@mantine/core";
+import { WorkerLifecycleEventsMap } from "msw/lib/types/setupWorker/glossary";
 import * as React from "react";
 import { PropsWithChildren, useEffect, useState } from "react";
-import { WorkerLifecycleEventsMap } from "msw/lib/types/setupWorker/glossary";
+import { ArrowAutofitDown, ArrowAutofitRight, Trash, WaveSawTool } from "tabler-icons-react";
 import { useWorkerContext } from "../hooks";
-import {
-  Box,
-  Button,
-  Code,
-  Group,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
-import {
-  ArrowAutofitDown,
-  ArrowAutofitRight,
-  Trash,
-  WaveSawTool,
-} from "tabler-icons-react";
 
 type OwnProps = {
   onClose: () => void;
 };
 
-export default function Logs({
-  onClose,
-}: PropsWithChildren<OwnProps>): JSX.Element {
+export default function Logs({ onClose }: PropsWithChildren<OwnProps>): JSX.Element {
   const { worker } = useWorkerContext();
   const [logs, setLogs] = useState("");
   const [detached, setDetached] = useState(true);
@@ -110,26 +96,13 @@ export default function Logs({
       </div>
 
       <div className="log-controls">
-        <Button
-          variant={"light"}
-          size={"xs"}
-          onClick={() => setLogs("")}
-          sx={() => ({ marginRight: 10 })}
-        >
+        <Button variant={"light"} size={"xs"} onClick={() => setLogs("")} sx={() => ({ marginRight: 10 })}>
           <Trash {...iconStyles} />
           Clear logs
         </Button>
 
-        <Button
-          variant={"light"}
-          size={"xs"}
-          onClick={() => setDetached((d) => !d)}
-        >
-          {detached ? (
-            <ArrowAutofitDown {...iconStyles} />
-          ) : (
-            <ArrowAutofitRight {...iconStyles} />
-          )}
+        <Button variant={"light"} size={"xs"} onClick={() => setDetached((d) => !d)}>
+          {detached ? <ArrowAutofitDown {...iconStyles} /> : <ArrowAutofitRight {...iconStyles} />}
           {detached ? "Attach panel" : "Detach panel"}
         </Button>
       </div>
@@ -144,9 +117,7 @@ export default function Logs({
           z-index: 1;
           opacity: 0.95;
           background: ${theme.colors.dark[7]};
-          box-shadow: ${detached
-            ? "0 0 16px rgba(0,0,0,0.15)"
-            : "0 -8px 16px rgba(0, 0, 0, 0.25)"};
+          box-shadow: ${detached ? "0 0 16px rgba(0,0,0,0.15)" : "0 -8px 16px rgba(0, 0, 0, 0.25)"};
           border: ${detached ? "1px solid #2C2E33" : "none"};
           border-top: 1px solid #2c2e33;
           border-radius: ${detached ? theme.radius.sm + "px" : "0"};

@@ -2,8 +2,6 @@
 Layout
 --------------------------------- */
 
-import * as React from "react";
-import { useEffect, useState } from "react";
 import {
   Anchor,
   AppShell,
@@ -16,20 +14,16 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import Sidebar from "./Sidebar";
-import { APP_HOME, APP_NAME, APP_ROOT, isStandaloneMode } from "../constants";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { RuntimeRequestHandlerType } from "../lib";
-import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
-import Error from "../views/Error";
-import { MSWglobalExports } from "../types";
 import { rest } from "msw";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
+import { APP_HOME, APP_NAME, APP_ROOT, isStandaloneMode } from "../constants";
+import { RuntimeRequestHandlerType } from "../lib";
+import { MSWglobalExports } from "../types";
+import Error from "../views/Error";
+import Sidebar from "./Sidebar";
 
 let msw: MSWglobalExports;
 
@@ -52,9 +46,7 @@ if (isStandaloneMode) {
 
 type SidebarItemAndSetter = {
   sidebarItem: Record<string, unknown> | undefined;
-  setSidebarItem: React.Dispatch<
-    React.SetStateAction<Record<string, unknown> | undefined>
-  >;
+  setSidebarItem: React.Dispatch<React.SetStateAction<Record<string, unknown> | undefined>>;
 };
 
 // Outlet context shared by all Consumers inside `Outlet`
@@ -79,9 +71,7 @@ export default function Layout(): JSX.Element {
   const { worker, rest, handlers } = msw ?? window?.msw ?? {};
   const fatalError = [worker, rest, handlers].some((truthy) => !truthy);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [sidebarItem, setSidebarItem] = useState<
-    Record<string, unknown> | undefined
-  >();
+  const [sidebarItem, setSidebarItem] = useState<Record<string, unknown> | undefined>();
   const theme = useMantineTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -90,8 +80,7 @@ export default function Layout(): JSX.Element {
 
   useEffect(() => {
     // Redirect to `/mocks` since there's no real homepage ATM
-    if (location.pathname === (isStandaloneMode ? "/" : "/" + APP_ROOT))
-      navigate("mocks");
+    if (location.pathname === (isStandaloneMode ? "/" : "/" + APP_ROOT)) navigate("mocks");
   }, [location]);
 
   const breadcrumbItems = location.pathname.split("/").map((part, i) => {
@@ -144,17 +133,9 @@ export default function Layout(): JSX.Element {
                     to={APP_HOME}
                   >
                     <Group spacing={"xs"}>
-                      <ThreeDCubeSphere
-                        size={28}
-                        strokeWidth={1}
-                        color={"whitesmoke"}
-                      />
+                      <ThreeDCubeSphere size={28} strokeWidth={1} color={"whitesmoke"} />
 
-                      <Text
-                        size={"sm"}
-                        weight={500}
-                        sx={() => ({ position: "relative", left: -6 })}
-                      >
+                      <Text size={"sm"} weight={500} sx={() => ({ position: "relative", left: -6 })}>
                         {APP_NAME}
                       </Text>
                     </Group>
@@ -165,11 +146,7 @@ export default function Layout(): JSX.Element {
 
                 <Group>
                   <Button component={Link} to="settings" variant={"subtle"}>
-                    <SettingsIcon
-                      size={22}
-                      strokeWidth={1}
-                      color={"whitesmoke"}
-                    />
+                    <SettingsIcon size={22} strokeWidth={1} color={"whitesmoke"} />
                   </Button>
                 </Group>
 

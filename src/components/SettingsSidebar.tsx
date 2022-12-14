@@ -2,10 +2,10 @@
 HomeSidebar
 --------------------------------- */
 
-import * as React from "react";
 import { Divider } from "@mantine/core";
-import SidebarItem from "./SidebarItem";
+import * as React from "react";
 import { useStore } from "../store";
+import SidebarItem from "./SidebarItem";
 
 export default function SettingsSidebar(): JSX.Element {
   const settings = useStore((s) => s.settings);
@@ -36,10 +36,7 @@ export default function SettingsSidebar(): JSX.Element {
         },
       ].map((mockItem, i, arr) => (
         <React.Fragment key={i}>
-          <SidebarItem
-            state={{ selected: mockItem }}
-            to={mockItem.label.toLowerCase() ?? ""}
-          >
+          <SidebarItem state={{ selected: mockItem }} to={mockItem.label.toLowerCase() ?? ""}>
             <span>{mockItem.label}</span>
           </SidebarItem>
 

@@ -2,8 +2,8 @@
 state
 --------------------------------- */
 
-import { MockDefinition } from "./app";
 import { ColorScheme } from "@mantine/core";
+import { MockDefinition } from "./app";
 
 type GlobalStateMeta = {
   app: string;

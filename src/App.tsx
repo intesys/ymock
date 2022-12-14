@@ -2,15 +2,11 @@
 App
 --------------------------------- */
 
-import React, { useState } from "react";
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-} from "@mantine/core";
+import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import Routes from "./Routes";
+import React, { useState } from "react";
 import { DEFAULT_THEME } from "./constants";
+import Routes from "./Routes";
 
 function App() {
   // https://mantine.dev/theming/dark-theme/
@@ -20,21 +16,9 @@ function App() {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        theme={{ colorScheme }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
-        <NotificationsProvider
-          position="top-right"
-          limit={3}
-          autoClose={4000}
-          zIndex={999}
-        >
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+        <NotificationsProvider position="top-right" limit={3} autoClose={4000} zIndex={999}>
           <div className="App">
             <Routes />
           </div>

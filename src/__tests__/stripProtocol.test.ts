@@ -7,15 +7,11 @@ test("Tests stripProtocol utility with https", () => {
 });
 
 test("Tests stripProtocol utility with http", () => {
-  expect(stripProtocol("http://jsonplaceholder.typicode.com/todos/100")).toBe(
-    "jsonplaceholder.typicode.com/todos/100"
-  );
+  expect(stripProtocol("http://jsonplaceholder.typicode.com/todos/100")).toBe("jsonplaceholder.typicode.com/todos/100");
 });
 
 test("Tests stripProtocol utility with non-matching value", () => {
-  expect(stripProtocol("jsonplaceholder.typicode.com/todos/100")).toBe(
-    "jsonplaceholder.typicode.com/todos/100"
-  );
+  expect(stripProtocol("jsonplaceholder.typicode.com/todos/100")).toBe("jsonplaceholder.typicode.com/todos/100");
 });
 
 test("Tests stripProtocol utility with falsy value", () => {

@@ -2,19 +2,12 @@
 HomeSidebar
 --------------------------------- */
 
+import { Badge, Divider, Group, Indicator, NativeSelect, Text } from "@mantine/core";
+import { RestHandler } from "msw";
 import * as React from "react";
 import { useState } from "react";
 import { useWorkerContext } from "../hooks";
-import {
-  Badge,
-  Divider,
-  Group,
-  Indicator,
-  NativeSelect,
-  Text,
-} from "@mantine/core";
 import { HandlerSortKeysType } from "../types";
-import { RestHandler } from "msw";
 import { stripBasePath } from "../utils";
 import SidebarItem from "./SidebarItem";
 
@@ -55,9 +48,7 @@ export default function MocksSidebar(): JSX.Element {
       {handlers?.length ? (
         <section>
           <NativeSelect
-            data={
-              ["Select an option", "Name", "Method"] as HandlerSortKeysType[]
-            }
+            data={["Select an option", "Name", "Method"] as HandlerSortKeysType[]}
             label={
               <Text size={"xs"} mb={"6px"}>
                 Order by…
@@ -68,56 +59,46 @@ export default function MocksSidebar(): JSX.Element {
               paddingBottom: t.spacing.lg,
             })}
             value={select}
-            onChange={(e) =>
-              setSelect(e.currentTarget.value as HandlerSortKeysType)
-            }
+            onChange={(e) => setSelect(e.currentTarget.value as HandlerSortKeysType)}
           />
         </section>
       ) : null}
 
       {/* MOCK LIST */}
       {handlers?.length
-        ? [...handlers]
-            .sort(handleSort(select))
-            .map((handler: RestHandler, i: number, arr) => {
-              return (
-                <React.Fragment key={i}>
-                  <SidebarItem
-                    state={{
-                      selected: {
-                        ...handler.info,
-                        shouldSkip: handler.shouldSkip,
-                      },
-                    }}
-                    to={encodeURIComponent(stripBasePath(handler.info?.path))}
-                  >
-                    <Indicator
-                      position="middle-end"
-                      size={8}
-                      color={handler.shouldSkip ? "gray" : undefined}
-                    >
-                      <Group spacing="md" noWrap>
-                        <Badge color={"teal"} component={"span"}>
-                          {handler.info?.method}
-                        </Badge>
+        ? [...handlers].sort(handleSort(select)).map((handler: RestHandler, i: number, arr) => {
+            return (
+              <React.Fragment key={i}>
+                <SidebarItem
+                  state={{
+                    selected: {
+                      ...handler.info,
+                      shouldSkip: handler.shouldSkip,
+                    },
+                  }}
+                  to={encodeURIComponent(stripBasePath(handler.info?.path))}
+                >
+                  <Indicator position="middle-end" size={8} color={handler.shouldSkip ? "gray" : undefined}>
+                    <Group spacing="md" noWrap>
+                      <Badge color={"teal"} component={"span"}>
+                        {handler.info?.method}
+                      </Badge>
 
-                        <Text size={"sm"}>
-                          {stripBasePath(handler.info?.path)}
-                        </Text>
-                      </Group>
-                    </Indicator>
-                  </SidebarItem>
+                      <Text size={"sm"}>{stripBasePath(handler.info?.path)}</Text>
+                    </Group>
+                  </Indicator>
+                </SidebarItem>
 
-                  {i === arr.length - 1 && (
-                    <Divider
-                      sx={(t) => ({
-                        borderColor: t.colors.dark[5],
-                      })}
-                    />
-                  )}
-                </React.Fragment>
-              );
-            })
+                {i === arr.length - 1 && (
+                  <Divider
+                    sx={(t) => ({
+                      borderColor: t.colors.dark[5],
+                    })}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })
         : null}
     </>
   );

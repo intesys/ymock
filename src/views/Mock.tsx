@@ -2,9 +2,6 @@
 Mock
 --------------------------------- */
 
-import * as React from "react";
-import { useContext, useEffect, useState } from "react";
-import PageBody from "../components/PageBody";
 import {
   Accordion,
   Badge,
@@ -20,18 +17,21 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { stripBasePath } from "../utils";
-import { useOutletContext } from "react-router-dom";
-import { OutletContext, SidebarContext } from "../components/Layout";
-import { useWorkerContext } from "../hooks";
-import { useNotifications } from "@mantine/notifications";
-import { useStore } from "../store";
 import { useForm } from "@mantine/form";
+import { useNotifications } from "@mantine/notifications";
 import { RestHandler } from "msw";
-import { worker } from "../demo/mocks/browser";
-import PageHeader from "../components/PageHeader";
-import BlankSlate from "../components/BlankSlate";
+import * as React from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { useOutletContext } from "react-router-dom";
+import BlankSlate from "../components/BlankSlate";
+import { OutletContext, SidebarContext } from "../components/Layout";
+import PageBody from "../components/PageBody";
+import PageHeader from "../components/PageHeader";
+import { worker } from "../demo/mocks/browser";
+import { useWorkerContext } from "../hooks";
+import { useStore } from "../store";
+import { stripBasePath } from "../utils";
 
 export default function Mock(): JSX.Element {
   const [enabled, setEnabled] = useState(true);
@@ -52,8 +52,7 @@ export default function Mock(): JSX.Element {
     },
   });
 
-  const itemOverrides =
-    mocks?.[(sidebarItem as unknown as RestHandler)?.info?.path]?.overrides;
+  const itemOverrides = mocks?.[(sidebarItem as unknown as RestHandler)?.info?.path]?.overrides;
 
   function handleSubmit(v: typeof form.values) {
     const { override_body: body, override_run_once: once } = v;
@@ -143,9 +142,7 @@ export default function Mock(): JSX.Element {
     // it goes up the prototype chain by 2 levels
     if (sidebarItem.markAsSkipped) {
       setEnabled((enabled) => {
-        const _markAsSkipped = (
-          sidebarItem as unknown as RestHandler
-        ).markAsSkipped.bind(sidebarItem);
+        const _markAsSkipped = (sidebarItem as unknown as RestHandler).markAsSkipped.bind(sidebarItem);
 
         // The value of `shouldSkip` should be whatever
         // the value of `enabled` is when I click;
@@ -233,10 +230,9 @@ export default function Mock(): JSX.Element {
         <Accordion.Item label="Override this mock">
           <Box component={"section"} pb={20} pt={10}>
             <Text mb={40} size={"sm"}>
-              Enter a value in the following field to override the mocked
-              response served by the service worker. The field accepts JSON, and
-              will validate & format your input. The override can run just once,
-              (then the previous response will be in effect), or permanently.
+              Enter a value in the following field to override the mocked response served by the service worker. The
+              field accepts JSON, and will validate & format your input. The override can run just once, (then the
+              previous response will be in effect), or permanently.
             </Text>
 
             <form action="#" onSubmit={form.onSubmit(handleSubmit)}>
@@ -269,12 +265,7 @@ export default function Mock(): JSX.Element {
                   })}
                 />
 
-                <Button
-                  size="sm"
-                  uppercase
-                  type="submit"
-                  disabled={!form.values.override_body}
-                >
+                <Button size="sm" uppercase type="submit" disabled={!form.values.override_body}>
                   Submit
                 </Button>
               </Group>
@@ -307,21 +298,13 @@ export default function Mock(): JSX.Element {
 
               <Box component={"section"} py={20}>
                 <Group position={"apart"}>
-                  <Text
-                    size={"sm"}
-                    sx={() => ({ flexBasis: "80%", paddingRight: 16 })}
-                  >
+                  <Text size={"sm"} sx={() => ({ flexBasis: "80%", paddingRight: 16 })}>
                     Click to destroy all runtime overrides.
                     <br />
-                    Only the mocks provided to <Code>msw</Code> during
-                    initialization will be active.
+                    Only the mocks provided to <Code>msw</Code> during initialization will be active.
                   </Text>
 
-                  <Button
-                    color={"red"}
-                    variant={"outline"}
-                    onClick={handleDestroyOverrides}
-                  >
+                  <Button color={"red"} variant={"outline"} onClick={handleDestroyOverrides}>
                     Destroy
                   </Button>
                 </Group>

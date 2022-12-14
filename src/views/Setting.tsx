@@ -2,18 +2,12 @@
 Setting
 --------------------------------- */
 
+import { Group, Paper, Switch, Text, useMantineColorScheme } from "@mantine/core";
 import * as React from "react";
 import { PropsWithChildren } from "react";
-import {
-  Group,
-  Paper,
-  Switch,
-  Text,
-  useMantineColorScheme,
-} from "@mantine/core";
 import { useLocation, useParams } from "react-router";
-import { GlobalStateSettings } from "../types";
 import PageHeader from "../components/PageHeader";
+import { GlobalStateSettings } from "../types";
 import { capitalizeFirstLetter } from "../utils";
 
 type OwnProps = {};

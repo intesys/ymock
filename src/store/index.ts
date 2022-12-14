@@ -1,7 +1,7 @@
 import create from "zustand";
+import { devtools, persist, PersistOptions } from "zustand/middleware";
 import { APP_NAME, APP_SOURCE, DEFAULT_THEME } from "../constants";
 import { GlobalState } from "../types";
-import { devtools, persist, PersistOptions } from "zustand/middleware";
 
 type ZustandStateMerger = any; // TODO (s: GlobalState) => Partial<GlobalState>
 
@@ -9,11 +9,7 @@ type ZustandStateMerger = any; // TODO (s: GlobalState) => Partial<GlobalState>
 const persistOpts: PersistOptions<GlobalState, Partial<GlobalState>> = {
   name: `${APP_NAME}_store`,
   partialize: (state) =>
-    Object.fromEntries(
-      Object.entries(state).filter(
-        ([key]) => !["mocks", "actions"].includes(key)
-      )
-    ),
+    Object.fromEntries(Object.entries(state).filter(([key]) => !["mocks", "actions"].includes(key))),
 };
 
 const devToolsOpts = { name: `${APP_NAME}_persisted_store` };
@@ -47,6 +43,4 @@ const store: (setter: ZustandStateMerger) => GlobalState = (set) => ({
   settings: { theme: DEFAULT_THEME },
 });
 
-export const useStore = create(
-  devtools(persist(store, persistOpts), devToolsOpts)
-);
+export const useStore = create(devtools(persist(store, persistOpts), devToolsOpts));

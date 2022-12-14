@@ -2,16 +2,13 @@
 PageHeader
 --------------------------------- */
 
+import { Group, Title } from "@mantine/core";
 import * as React from "react";
 import { PropsWithChildren } from "react";
-import { Group, Title } from "@mantine/core";
 
 type OwnProps = { title: string | JSX.Element };
 
-export default function PageHeader({
-  title,
-  children,
-}: PropsWithChildren<OwnProps>): JSX.Element {
+export default function PageHeader({ title, children }: PropsWithChildren<OwnProps>): JSX.Element {
   return (
     <header>
       <Group noWrap position={"apart"} align={"center"}>

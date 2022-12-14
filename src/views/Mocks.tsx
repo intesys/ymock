@@ -4,9 +4,9 @@ Mocks
 
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import { setRuntimeRequestHandler } from "../lib";
-import { useWorkerContext } from "../hooks";
 import PageBody from "../components/PageBody";
+import { useWorkerContext } from "../hooks";
+import { setRuntimeRequestHandler } from "../lib";
 
 export default function Mocks(): JSX.Element {
   const { worker, rest } = useWorkerContext();

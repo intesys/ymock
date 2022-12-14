@@ -2,8 +2,8 @@
 SidebarItem
 --------------------------------- */
 
-import * as React from "react";
 import { Box, Divider, useMantineTheme } from "@mantine/core";
+import * as React from "react";
 import { NavLink, NavLinkProps } from "react-router-dom";
 
 type OwnProps = {
@@ -41,11 +41,7 @@ export default function SidebarItem({
               cursor: "pointer",
               fontSize: t.fontSizes.sm,
 
-              backgroundColor: isActive
-                ? t.colorScheme === "dark"
-                  ? t.colors.dark[9]
-                  : t.colors.indigo[9]
-                : "none",
+              backgroundColor: isActive ? (t.colorScheme === "dark" ? t.colors.dark[9] : t.colors.indigo[9]) : "none",
 
               "&:hover": {
                 backgroundColor: isActive

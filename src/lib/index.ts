@@ -11,18 +11,13 @@ type RuntimeRequestHandlerArgsType = {
   once?: boolean;
 };
 
-export type RuntimeRequestHandlerType = (
-  args: RuntimeRequestHandlerArgsType
-) => any;
+export type RuntimeRequestHandlerType = (args: RuntimeRequestHandlerArgsType) => any;
 
 // TODO types, error handling...
 export function setRuntimeRequestHandler(
   worker: SetupWorkerApi,
   rest: {
-    [x: string]: (
-      arg0: string,
-      arg1: (req: any, res: any, ctx: any) => any
-    ) => any;
+    [x: string]: (arg0: string, arg1: (req: any, res: any, ctx: any) => any) => any;
   }
 ): RuntimeRequestHandlerType {
   return function ({ body, path, method = "get", once = false }) {

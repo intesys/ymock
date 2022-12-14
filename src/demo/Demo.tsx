@@ -1,8 +1,8 @@
-import React, { FormEventHandler, useState } from "react";
+import { Button } from "@mantine/core";
 import { RestHandler, SetupWorkerApi } from "msw";
+import React, { FormEventHandler, useState } from "react";
 import Launcher from "../components/Launcher";
 import { APP_NAME, isDevMode, isHostedMode } from "../constants";
-import { Button } from "@mantine/core";
 
 /*
  * Not really required since this is a demo app,
@@ -39,9 +39,7 @@ export default function Demo() {
 
     setResponse("");
 
-    handleRequest(request).then((response) =>
-      setResponse(JSON.stringify(response))
-    );
+    handleRequest(request).then((response) => setResponse(JSON.stringify(response)));
   };
 
   return (
@@ -90,11 +88,9 @@ export default function Demo() {
                     const { info } = h ?? {};
 
                     return (
-                      <option key={i} value={String(info?.path ?? "")}>{`${
-                        info?.method ?? ""
-                      } ${info?.method && info?.path ? "|" : ""} ${
-                        info?.path ?? "Select a request"
-                      }`}</option>
+                      <option key={i} value={String(info?.path ?? "")}>{`${info?.method ?? ""} ${
+                        info?.method && info?.path ? "|" : ""
+                      } ${info?.path ?? "Select a request"}`}</option>
                     );
                   })
                 : null}

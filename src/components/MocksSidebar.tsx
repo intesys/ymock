@@ -76,15 +76,16 @@ export default function MocksSidebar(): JSX.Element {
                       shouldSkip: handler.shouldSkip,
                     },
                   }}
-                  to={encodeURIComponent(stripBasePath(handler.info?.path))}
+                  // TODO: controllare il casting perché path può essere anche una RegEx
+                  to={encodeURIComponent(stripBasePath(handler.info?.path as string))}
                 >
                   <Indicator position="middle-end" size={8} color={handler.shouldSkip ? "gray" : undefined}>
                     <Group spacing="md" noWrap>
                       <Badge color={"teal"} component={"span"}>
                         {handler.info?.method}
                       </Badge>
-
-                      <Text size={"sm"}>{stripBasePath(handler.info?.path)}</Text>
+                      {/* TODO: controllare il casting perché path può essere anche una RegEx */}
+                      <Text size={"sm"}>{stripBasePath(handler.info?.path as string)}</Text>
                     </Group>
                   </Indicator>
                 </SidebarItem>

@@ -14,7 +14,6 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { rest } from "msw";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";

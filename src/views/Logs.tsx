@@ -3,7 +3,6 @@ Logs
 --------------------------------- */
 
 import { Box, Button, Code, Group, Title, useMantineTheme } from "@mantine/core";
-import { WorkerLifecycleEventsMap } from "msw/lib/types/setupWorker/glossary";
 import * as React from "react";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { ArrowAutofitDown, ArrowAutofitRight, Trash, WaveSawTool } from "tabler-icons-react";
@@ -38,21 +37,17 @@ export default function Logs({ onClose }: PropsWithChildren<OwnProps>): JSX.Elem
     }
 
     if (worker?.events) {
-      const events: (keyof WorkerLifecycleEventsMap)[] = [
-        "request:end",
-        "request:match",
-        "request:start",
-        "request:unhandled",
-        "response:bypass",
-        "response:mocked",
-      ];
       const listener = (ev: string) => () => setLogs(handleLogUpdates(ev));
-
-      events.forEach((ev) => worker.events.on(ev, listener(ev)));
+      worker.events.on("request:end", listener("request:end"));
+      worker.events.on("request:match", listener("request:match"));
+      worker.events.on("request:start", listener("request:start"));
+      worker.events.on("request:unhandled", listener("request:unhandled"));
+      worker.events.on("response:bypass", listener("response:bypass"));
+      worker.events.on("response:mocked", listener("response:mocked"));
     }
 
     return () => {
-      worker.events.removeAllListeners();
+      worker?.events.removeAllListeners();
     };
   }, [worker]);
 

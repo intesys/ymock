@@ -37,13 +37,15 @@ export default function Mock(): JSX.Element {
   const [enabled, setEnabled] = useState(true);
   const { sidebarItem, setSidebarItem } = useContext(SidebarContext);
   const { onSubmit } = useOutletContext<OutletContext>();
-  const { handlers } = useWorkerContext();
+  // const { handlers } = useWorkerContext();
   const notifications = useNotifications();
   const theme = useMantineTheme();
   const mocks = useStore((s) => s.mocks);
   const { setRuntimeOverride } = useStore((s) => s.actions);
   const { state } = useLocation();
-  const { selected: info } = state ?? {};
+  // TODO: remove ts-ignore
+  // @ts-ignore
+  const info = state?.selected;
 
   const form = useForm({
     initialValues: {
@@ -52,7 +54,8 @@ export default function Mock(): JSX.Element {
     },
   });
 
-  const itemOverrides = mocks?.[(sidebarItem as unknown as RestHandler)?.info?.path]?.overrides;
+  // TODO: controllare il casting perché path può essere anche una RegEx
+  const itemOverrides = mocks?.[(sidebarItem as unknown as RestHandler)?.info?.path as string]?.overrides;
 
   function handleSubmit(v: typeof form.values) {
     const { override_body: body, override_run_once: once } = v;
@@ -114,7 +117,8 @@ export default function Mock(): JSX.Element {
 
     if (confirmed) {
       // TODO doesn't work
-      worker.resetHandlers(handlers);
+      // worker.resetHandlers(handlers);
+      worker.resetHandlers();
 
       // setOverride(null); TODO
 
@@ -140,7 +144,7 @@ export default function Mock(): JSX.Element {
   function handleMockActivation() {
     // `markAsSkipped` is not an own prop,
     // it goes up the prototype chain by 2 levels
-    if (sidebarItem.markAsSkipped) {
+    if (sidebarItem?.markAsSkipped) {
       setEnabled((enabled) => {
         const _markAsSkipped = (sidebarItem as unknown as RestHandler).markAsSkipped.bind(sidebarItem);
 

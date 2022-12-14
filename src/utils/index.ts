@@ -2,7 +2,7 @@
 utils
 --------------------------------- */
 
-export function stripBasePath(path: string): string {
+export function stripBasePath(path?: string): string {
   if (!path) return "";
 
   if (!path.includes("/")) return path;

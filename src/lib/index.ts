@@ -15,13 +15,13 @@ export type RuntimeRequestHandlerType = (args: RuntimeRequestHandlerArgsType) =>
 
 // TODO types, error handling...
 export function setRuntimeRequestHandler(
-  worker: SetupWorkerApi,
+  worker: SetupWorkerApi | undefined,
   rest: {
     [x: string]: (arg0: string, arg1: (req: any, res: any, ctx: any) => any) => any;
   }
 ): RuntimeRequestHandlerType {
   return function ({ body, path, method = "get", once = false }) {
-    worker.use(
+    worker?.use(
       rest[method.toLowerCase()](path, (req: any, res: any, ctx: any) => {
         const responseBody = ctx.json(body);
 

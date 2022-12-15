@@ -5,8 +5,8 @@ constants
 // env
 import { ColorScheme } from "@mantine/core";
 
-export const isDevMode = process.env.NODE_ENV === "development";
-export const isStandaloneMode = isDevMode && process.env.STANDALONE_MODE === "on";
+export const isDevMode = import.meta.env.DEV;
+export const isStandaloneMode = isDevMode && import.meta.env.VITE_APP_STANDALONE_MODE === "on";
 export const isHostedMode = isDevMode && !isStandaloneMode;
 
 // errors
@@ -17,7 +17,7 @@ export const ERROR__GLOBAL_FATAL_ERROR = `Fatal Error: Please ensure your app is
       Hints:
 
       - Did you mean to launch the app in hosted mode? Please visit the \`/\` route and launch it from there.
-      - Are you trying to run the app in standalone mode? Please enable STANDALONE_MODE in .env and re-run the server.
+      - Are you trying to run the app in standalone mode? Please enable VITE_APP_STANDALONE_MODE in .env and re-run the server.
       `;
 
 // labels
@@ -25,7 +25,7 @@ export const APP_NAME = "yMock";
 export const MESSAGE__SELECT_FROM_SIDEBAR = `Please select an item from the sidebar.`;
 
 // URLs
-export const APP_ROOT = `__${APP_NAME}`;
+export const APP_ROOT = "/"; //`__${APP_NAME}`;
 export const APP_HOME = isStandaloneMode ? "/" : `/${APP_ROOT}`;
 export const APP_SOURCE = "https://github.com/intesys/ymock/";
 

@@ -2,18 +2,18 @@
 Logs
 --------------------------------- */
 
-import { Box, Button, Code, Group, Title, useMantineTheme } from "@mantine/core";
+import {Box, Button, Code, Group, Title, useMantineTheme} from "@mantine/core";
 import * as React from "react";
-import { PropsWithChildren, useEffect, useState } from "react";
-import { ArrowAutofitDown, ArrowAutofitRight, Trash, WaveSawTool } from "tabler-icons-react";
-import { useWorkerContext } from "../hooks";
+import {PropsWithChildren, useEffect, useState} from "react";
+import {ArrowAutofitDown, ArrowAutofitRight, Trash, WaveSawTool} from "tabler-icons-react";
+import {useWorkerContext} from "../hooks";
 
 type OwnProps = {
   onClose: () => void;
 };
 
-export default function Logs({ onClose }: PropsWithChildren<OwnProps>): JSX.Element {
-  const { worker } = useWorkerContext();
+export default function Logs({onClose}: PropsWithChildren<OwnProps>): JSX.Element {
+  const {worker} = useWorkerContext();
   const [logs, setLogs] = useState("");
   const [detached, setDetached] = useState(true);
   const theme = useMantineTheme();
@@ -64,7 +64,7 @@ export default function Logs({ onClose }: PropsWithChildren<OwnProps>): JSX.Elem
             <WaveSawTool
               {...{
                 ...iconStyles,
-                style: { ...iconStyles.style, position: "relative", top: 4 },
+                style: {...iconStyles.style, position: "relative", top: 4},
               }}
             />
             Logs
@@ -85,13 +85,13 @@ export default function Logs({ onClose }: PropsWithChildren<OwnProps>): JSX.Elem
       </Box>
 
       <div className="log-container">
-        <Code block sx={() => ({ height: "100%", overflowY: "auto" })}>
+        <Code block sx={() => ({height: "100%", overflowY: "auto"})}>
           {logs}
         </Code>
       </div>
 
       <div className="log-controls">
-        <Button variant={"light"} size={"xs"} onClick={() => setLogs("")} sx={() => ({ marginRight: 10 })}>
+        <Button variant={"light"} size={"xs"} onClick={() => setLogs("")} sx={() => ({marginRight: 10})}>
           <Trash {...iconStyles} />
           Clear logs
         </Button>

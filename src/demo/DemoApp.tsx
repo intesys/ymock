@@ -1,27 +1,12 @@
 import { Button } from "@mantine/core";
-import { RestHandler, SetupWorkerApi } from "msw";
+import { RestHandler, rest } from "msw";
 import React, { FormEventHandler, useState } from "react";
 import Launcher from "../components/Launcher";
 import { APP_NAME, isDevMode, isHostedMode } from "../constants";
+import { worker } from "./mocks/browser";
+import { handlers } from "./mocks/handlers";
 
-/*
- * Not really required since this is a demo app,
- * but in a real-life scenario the worker should
- * only run (once) in dev mode.
- * */
-let worker: SetupWorkerApi;
-let rest: any; // TODO
-let handlers: RestHandler[];
-
-if (isDevMode) {
-  worker = require("./mocks/browser")?.worker;
-  rest = require("msw")?.rest;
-  handlers = require("./mocks/handlers")?.handlers;
-
-  worker?.start?.();
-}
-
-export default function Demo() {
+export default function DemoApp() {
   const [response, setResponse] = useState<string>("");
   const [request, setRequest] = useState<string>("");
 

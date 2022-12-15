@@ -2,18 +2,18 @@
 Launcher
 --------------------------------- */
 
-import { Alert, Button, useMantineTheme } from "@mantine/core";
-import { CSSObject } from "@mantine/styles/lib/tss";
+import {Alert, Button, useMantineTheme} from "@mantine/core";
+import {CSSObject} from "@mantine/styles/lib/tss";
 import * as React from "react";
-import { useRef, useState } from "react";
-import { APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR } from "../constants";
-import { MSWglobalExports } from "../types";
+import {useRef, useState} from "react";
+import {APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR} from "../constants";
+import {MSWglobalExports} from "../types";
 
 type OwnProps = {
   msw: MSWglobalExports;
 };
 
-export default function Launcher({ msw }: OwnProps): JSX.Element {
+export default function Launcher({msw}: OwnProps): JSX.Element {
   const [launched, setLaunched] = useState(false);
   const theme = useMantineTheme();
   const windowRef = useRef<Window | null>(null);
@@ -79,7 +79,7 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
       {!launched ? (
         <Button radius="xl" size="md" styles={buttonStyles} onClick={handleNewWindowClick}>
           🚀
-          <span style={{ marginLeft: 8 }}>Launch yMock</span>
+          <span style={{marginLeft: 8}}>Launch yMock</span>
         </Button>
       ) : (
         <Button
@@ -89,13 +89,13 @@ export default function Launcher({ msw }: OwnProps): JSX.Element {
             root: {
               ...buttonStyles.root,
               backgroundColor: theme.colors.gray[8],
-              "&:hover": { backgroundColor: theme.colors.gray[7] },
+              "&:hover": {backgroundColor: theme.colors.gray[7]},
             },
           }}
           onClick={handleCloseWindowClick}
         >
-          <span style={{ fontSize: 22, marginTop: -4 }}>&times;</span>
-          <span style={{ marginLeft: 6 }}>Close yMock</span>
+          <span style={{fontSize: 22, marginTop: -4}}>&times;</span>
+          <span style={{marginLeft: 6}}>Close yMock</span>
         </Button>
       )}
 

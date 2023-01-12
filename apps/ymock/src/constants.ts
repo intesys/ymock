@@ -5,7 +5,7 @@ constants
 // env
 import { ColorScheme } from "@mantine/core";
 
-export const isDevMode = process.env.NODE_ENV === "development";
+export const isDevMode = import.meta.env.DEV;
 export const isStandaloneMode = true; // TODO
 export const isHostedMode = !isStandaloneMode;
 

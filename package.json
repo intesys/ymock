@@ -9,7 +9,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev --filter=!ymock-docs"
+    "dev": "turbo run dev --filter=!ymock-docs",
+    "build": "turbo build --filter=ymock"
   },
   "eslintConfig": {
     "extends": [

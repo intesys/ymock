@@ -17,13 +17,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Sidebar from "./Sidebar";
-import {
-  APP_HOME,
-  APP_NAME,
-  APP_ROOT,
-  isDevMode,
-  isStandaloneMode,
-} from "../constants";
+import { APP_HOME, APP_NAME, isDevMode } from "../constants";
 import {
   Link,
   NavLink,
@@ -87,8 +81,7 @@ export default function Layout(): JSX.Element {
 
   useEffect(() => {
     // Redirect to `/mocks` since there's no real homepage ATM
-    if (location.pathname === (isStandaloneMode ? "/" : "/" + APP_ROOT))
-      navigate("mocks");
+    if (location.pathname === "/") navigate("mocks");
   }, [location]);
 
   const breadcrumbItems = location.pathname.split("/").map((part, i) => {

@@ -3,11 +3,7 @@ Routes
 --------------------------------- */
 
 import * as React from "react";
-import {
-  BrowserRouter,
-  Route,
-  Routes as RoutesComponent,
-} from "react-router-dom";
+import { HashRouter, Route, Routes as RoutesComponent } from "react-router-dom";
 import Layout from "./components/Layout";
 import Mocks from "./routes/Mocks";
 import Settings from "./routes/Settings";
@@ -19,7 +15,7 @@ import BlankSlate from "./components/BlankSlate";
 
 export default function Routes({}): JSX.Element {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <RoutesComponent>
         <Route path={"/"} element={<Layout />}>
           <Route path="mocks" element={<Mocks />}>
@@ -36,6 +32,6 @@ export default function Routes({}): JSX.Element {
         <Route path="*" element={<NotFound />} />
         <Route path="error" element={<Error />} />
       </RoutesComponent>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

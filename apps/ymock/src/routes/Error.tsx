@@ -17,7 +17,6 @@ import {
   ERROR__GLOBAL_FATAL_ERROR,
   EXAMPLE_TYPE,
   isDevMode,
-  isHostedMode,
 } from "../constants";
 import { ErrorTypes } from "../types";
 
@@ -53,17 +52,6 @@ export default function Error({
                 <Code block>{EXAMPLE_TYPE}</Code>
               </Text>
             </Box>
-
-            {isHostedMode && (
-              <Box mt={"xl"}>
-                <Text mt={"lg"}>
-                  💡 Did you mean to launch the app in hosted mode?{" "}
-                  <Text variant="link" component="a" href={`/`}>
-                    Visit the demo page.
-                  </Text>
-                </Text>
-              </Box>
-            )}
           </>
         );
       }

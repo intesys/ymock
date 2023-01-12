@@ -7,7 +7,6 @@ import { ColorScheme } from "@mantine/core";
 
 export const isDevMode = import.meta.env.DEV;
 export const isStandaloneMode = true; // TODO
-export const isHostedMode = !isStandaloneMode;
 
 // errors
 export const ERROR__LAUNCHER_FATAL_ERROR = `Fatal Error: Please ensure your app is passing a \`msw\` object to the \`Launcher\` component.`;

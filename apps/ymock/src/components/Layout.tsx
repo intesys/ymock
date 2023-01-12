@@ -17,7 +17,13 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Sidebar from "./Sidebar";
-import { APP_HOME, APP_NAME, APP_ROOT, isStandaloneMode } from "../constants";
+import {
+  APP_HOME,
+  APP_NAME,
+  APP_ROOT,
+  isDevMode,
+  isStandaloneMode,
+} from "../constants";
 import {
   Link,
   NavLink,
@@ -30,26 +36,16 @@ import { Settings as SettingsIcon, ThreeDCubeSphere } from "tabler-icons-react";
 import Error from "../routes/Error";
 import { MSWglobalExports } from "../types";
 
-let msw: MSWglobalExports;
-
 /*
  * This app's use case is to manage a `msw`
  * instance launched by a host app.
- *
- * @see: README.md:23 (Hosted mode)
- * @see: README.md:30 (Standalone mode)
- *
  * */
 
-(async function () {
-  if (isStandaloneMode) {
-    const {
-      default: { rest, worker, handlers },
-    } = (await import("../mocks/msw.js")) ?? {};
+let msw: MSWglobalExports;
 
-    msw = { rest, worker, handlers };
-  }
-})();
+if (isDevMode) {
+  msw = (await import(`../mocks/mock-msw`))?.default as any;
+}
 
 type SidebarItemAndSetter = {
   sidebarItem: Record<string, unknown> | undefined;

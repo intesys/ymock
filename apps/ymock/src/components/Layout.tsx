@@ -17,7 +17,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Sidebar from "./Sidebar";
-import { APP_HOME, APP_NAME, isDevMode } from "../constants";
+import { APP_NAME, isDevMode } from "../constants";
 import {
   Link,
   NavLink,
@@ -131,7 +131,7 @@ export default function Layout(): JSX.Element {
                       color: theme.colors.gray[1],
                       textDecoration: "none",
                     }}
-                    to={APP_HOME}
+                    to={"/"}
                   >
                     <Group spacing={"xs"}>
                       <ThreeDCubeSphere

@@ -2,9 +2,9 @@
 constants
 --------------------------------- */
 
-// env
 import { ColorScheme } from "@mantine/core";
 
+// env
 export const isDevMode = import.meta.env.DEV;
 export const isStandaloneMode = true; // TODO
 
@@ -26,7 +26,6 @@ export const MESSAGE__SELECT_FROM_SIDEBAR = `Please select an item from the side
 
 // URLs
 export const APP_ROOT = `/${APP_DIR}/index.html#/`;
-export const APP_HOME = isStandaloneMode ? "/" : `/${APP_ROOT}`;
 export const APP_SOURCE = "https://github.com/intesys/ymock/";
 
 // values

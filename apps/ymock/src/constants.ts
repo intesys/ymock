@@ -22,10 +22,11 @@ export const ERROR__GLOBAL_FATAL_ERROR = `Fatal Error: Please ensure your app is
 
 // labels
 export const APP_NAME = "yMock";
+export const APP_DIR = "__ymock";
 export const MESSAGE__SELECT_FROM_SIDEBAR = `Please select an item from the sidebar.`;
 
 // URLs
-export const APP_ROOT = `__${APP_NAME}`;
+export const APP_ROOT = `/${APP_DIR}/index.html#/`;
 export const APP_HOME = isStandaloneMode ? "/" : `/${APP_ROOT}`;
 export const APP_SOURCE = "https://github.com/intesys/ymock/";
 

@@ -9,7 +9,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import Routes from "./Routes";
+import Routes from "./routes";
 import { DEFAULT_THEME } from "./constants";
 
 function App() {

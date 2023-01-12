@@ -4,14 +4,14 @@ Routes
 
 import * as React from "react";
 import { HashRouter, Route, Routes as RoutesComponent } from "react-router-dom";
-import Layout from "./components/Layout";
-import Mocks from "./routes/Mocks";
-import Settings from "./routes/Settings";
-import NotFound from "./components/NotFound";
-import Setting from "./routes/Setting";
-import Mock from "./routes/Mock";
-import Error from "./routes/Error";
-import BlankSlate from "./components/BlankSlate";
+import Layout from "../components/Layout";
+import Mocks from "./Mocks";
+import Settings from "./Settings";
+import NotFound from "../components/NotFound";
+import Setting from "./Setting";
+import Mock from "./Mock";
+import Error from "./Error";
+import BlankSlate from "../components/BlankSlate";
 
 export default function Routes({}): JSX.Element {
   return (

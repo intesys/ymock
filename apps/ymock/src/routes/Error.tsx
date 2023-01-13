@@ -14,9 +14,9 @@ import {
   Text,
 } from "@mantine/core";
 import {
+  DEV_MODE,
   ERROR__GLOBAL_FATAL_ERROR,
   EXAMPLE_TYPE,
-  isDevMode,
 } from "../constants";
 import { ErrorTypes } from "../types";
 
@@ -31,7 +31,7 @@ export default function Error({
     switch (err) {
       case "FATAL_ERROR":
       default: {
-        if (isDevMode) {
+        if (DEV_MODE) {
           console.error(ERROR__GLOBAL_FATAL_ERROR);
         }
 

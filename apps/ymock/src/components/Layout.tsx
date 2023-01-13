@@ -17,7 +17,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Sidebar from "./Sidebar";
-import { APP_NAME, isDevMode } from "../constants";
+import { APP_NAME, DEV_MODE } from "../constants";
 import {
   Link,
   NavLink,
@@ -37,7 +37,7 @@ import { MSWglobalExports } from "../types";
 
 let msw: MSWglobalExports;
 
-if (isDevMode) {
+if (DEV_MODE) {
   msw = (await import(`../mocks/mock-msw`))?.default as any;
 }
 

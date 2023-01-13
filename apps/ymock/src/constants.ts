@@ -5,8 +5,7 @@ constants
 import { ColorScheme } from "@mantine/core";
 
 // env
-export const isDevMode = import.meta.env.DEV;
-export const isStandaloneMode = true; // TODO
+export const DEV_MODE = import.meta.env.DEV;
 
 // errors
 export const ERROR__LAUNCHER_FATAL_ERROR = `Fatal Error: Please ensure your app is passing a \`msw\` object to the \`Launcher\` component.`;

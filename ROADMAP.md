@@ -61,7 +61,7 @@ Stuff that works, but could work better; tooling, code quality, and DX-related t
 
 - [ ] Migrate contexts to global state
 - [ ] Implement <https://turbo.build/repo/docs/getting-started/create-new#understanding-tsconfig> in monorepo
-- Implement <https://turbo.build/repo/docs/getting-started/create-new#understanding-tsconfig> in monorepo
+- [ ] Implement <https://turbo.build/repo/docs/getting-started/create-new#understanding-eslint-config-custom> in monorepo
 - [ ] Integrate TS fixes from <https://github.com/intesys/ymock/tree/feature/upgrade-vitejs>
 - [x] Migrate to Vite
 - [x] Refactor main route like settings (dynamic sub-routes with Outlet)

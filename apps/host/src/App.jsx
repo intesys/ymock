@@ -1,26 +1,19 @@
+/* ---------------------------------
+Host app (vite)
+--------------------------------- */
+
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import { DEV_MODE } from "./constants.js";
 
-// TODO make these imports conditional!
-// based on the env; they should reflect
-// a real-life scenario where the user
-// won't import msw or ymock unless the
-// env is not production.
-import { rest } from "msw";
-import { worker } from "./mocks/browser";
-import { handlers } from "./mocks/handlers";
-import Launcher from "ymock";
-
-const notProd = true; // TODO
-
-/*
- * Not really required since this is a demo app,
- * but in a real-life scenario the worker should
- * only run (once) in dev mode.
- * */
-// let worker;
-// let rest;
-// let handlers;
+// Initialization based on the env;
+// this should reflect a real-life scenario
+// where the user won't import msw or ymock
+// unless the env is not production.
+const { rest } = DEV_MODE ? await import("msw") : undefined;
+const { worker } = DEV_MODE ? await import("./mocks/browser") : undefined;
+const { handlers } = DEV_MODE ? await import("./mocks/handlers") : undefined;
+const Launcher = DEV_MODE ? (await import("ymock")).default : undefined;
 
 export default function App() {
   const [response, setResponse] = useState("");
@@ -118,7 +111,7 @@ export default function App() {
         </section>
 
         {/* yMock Launcher */}
-        {notProd ? (
+        {DEV_MODE ? (
           <Launcher
             msw={{
               worker,

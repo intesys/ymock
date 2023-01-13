@@ -2,14 +2,13 @@
   "name": "@intesys/ymock",
   "version": "0.1.0",
   "private": true,
-  "source": "src/index.html",
   "workspaces": [
     "apps/*",
     "docs",
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev --filter=!ymock-docs",
+    "dev": "turbo dev --filter=!ymock-docs",
     "build": "turbo build --filter=ymock"
   },
   "eslintConfig": {
@@ -20,6 +19,6 @@
   },
   "devDependencies": {
     "prettier": "^2.8.0",
-    "turbo": "^1.6.3"
+    "turbo": "^1.7.0"
   }
 }

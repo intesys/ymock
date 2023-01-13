@@ -30,7 +30,7 @@ import { RestHandler } from "msw";
 import PageHeader from "../components/PageHeader";
 import BlankSlate from "../components/BlankSlate";
 import { useLocation } from "react-router";
-import { stripBasePath } from "ymock-shared/src";
+import { stripBasePath } from "ymock-shared";
 
 export default function Mock(): JSX.Element {
   const [enabled, setEnabled] = useState(true);

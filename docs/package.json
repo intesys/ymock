@@ -1,3 +1,4 @@
 {
-  "name": "ymock-docs"
+  "name": "ymock-docs",
+  "main": "./index.ts"
 }

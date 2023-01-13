@@ -14,7 +14,7 @@ It is worth pointing out that, by using the service worker, the interception occ
 
 - It presents a graphic interface that favors development experience;
 - It uses a service worker to intercept API calls in the network layer;
-- It lists the URLs registered by MSW to be intercepeted;
+- It lists the URLs registered by MSW to be intercepted;
 - It displays and allows the user to override the mocked response;
 - It allows the user to start/stop the worker as a whole or in each URL individually.
 
@@ -90,9 +90,9 @@ the host app could be literally any app run by the end user.
 To realistically simulate this behavior, the monorepo contains a `host` app that
 `import`s `ymock` as a dependency. The `host` behaves as a completely independent app.
 
-![Demo app with launcher](.preview/scrn-03.png)
-
 To see yMock in action, click the "Launch yMock" launcher button.
+
+![Host app & yMock side by side](.preview/scrn-07.png)
 
 When you need to develop yMock _without_ binding it to the host app (for example,
 you may want to rapidly iterate on the UI), just visit `ymock`'s dev server

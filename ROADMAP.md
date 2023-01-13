@@ -10,9 +10,9 @@ Foundational tasks that define the essence of the app and its inner workings.
 This task list should ideally be completed and not receive any new tasks
 once the app reaches a MVP state.
 
-- [ ] Define & implement a way to seamlessly install and use the library as a dependency in an existing project
+- [x] Define & implement a way to seamlessly install and use the library as a dependency in an existing project
   - [x] In order to handle the relationship between yMock and the Demo App, without contaminating each other's codebases with conditionals and such, convert the package to a monorepo with [TurboRepo](https://turbo.build/repo/)
-    - [ ] Fix worker initialization
+    - [x] Fix worker initialization
     - [x] Fix yMock routing
     - [x] Fix unit tests
   - [x] Run yMock from its own directory in the host app's server (see: <https://github.com/intesys/ymock/tree/feature/upgrade-vitejs>)
@@ -21,7 +21,8 @@ once the app reaches a MVP state.
   - [x] Find a way to develop the client in stand-alone mode with a mock worker
     - [x] Remove all occurrences of hosted/stand-alone mode, etc
   - [ ] Create an automated process (like the msw init script) to install yMock's build into a subdir in the host project's public dir
-  - [ ] Update README to reflect the new implementation
+  - [x] Update README to reflect the new implementation
+  - [ ] Create at least another host app that is not built with vite to check that everything still works as expected
 
 ### Features
 
@@ -56,11 +57,12 @@ Routine maintenance tasks or the odd (hot)fix.
 
 ### Optimizations/Refactors
 
-Stuff that works, but could work better; tooling and DX-related tasks.
+Stuff that works, but could work better; tooling, code quality, and DX-related tasks.
 
 - [ ] Migrate contexts to global state
 - [ ] Implement <https://turbo.build/repo/docs/getting-started/create-new#understanding-tsconfig> in monorepo
 - Implement <https://turbo.build/repo/docs/getting-started/create-new#understanding-tsconfig> in monorepo
+- [ ] Integrate TS fixes from <https://github.com/intesys/ymock/tree/feature/upgrade-vitejs>
 - [x] Migrate to Vite
 - [x] Refactor main route like settings (dynamic sub-routes with Outlet)
 - [x] Refactor Body component as generic component

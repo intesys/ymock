@@ -29,9 +29,9 @@ once the app reaches a MVP state.
 ask yourself: "will the end user see or use the result of this task?"
 
 - [ ] Implement UI animations
-- [ ] Finalize Settings (sidebar objects, data structure)
+- [ ] Finalize Settings section (sidebar objects, data structure)
 - [ ] Implement company theme
-- [ ] Implement data store (see: <https://github.com/intesys/ytestbook/issues/3>)
+- [ ] Implement data store for data persistence/exporting (see: <https://github.com/intesys/ytestbook/issues/3>)
 - [x] Add breadcrumb to navbar
 - [x] Enable colorScheme in settings
 - [x] The app should run `msw init` instead of copying the init script to the dist folder
@@ -56,7 +56,7 @@ Routine maintenance tasks.
 
 ### Optimizations/Refactors
 
-Stuff that works, but could work better.
+Stuff that works, but could work better; tooling and DX-related tasks.
 
 - [ ] Migrate contexts to global state
 - [x] Migrate to Vite

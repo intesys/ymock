@@ -1,5 +1,5 @@
 /* ---------------------------------
-index
+workspace/ymock
 --------------------------------- */
 
-export { default } from "./components/Launcher";
+export { default } from "./src/components/Launcher";

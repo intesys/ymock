@@ -28,13 +28,15 @@ This project is a monorepo, managed with [TurboRepo](https://turbo.build/); here
 
 ```
 ymock
-  |
-  |__ apps
-        |__ host
-        |__ ymock
-      docs
+  │
+  └── apps
+        ├── host
+        │
+        └── ymock
       packages
-        |__ shared
+        │
+        └── shared
+      docs
 ```
 
 - `apps`, `packages`: conventional monorepo dirs

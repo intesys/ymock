@@ -56,7 +56,7 @@ export default function App() {
           margin: "0 auto",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>yMock Demo App</h1>
+        <h1 style={{ textAlign: "center" }}>yMock Host App</h1>
 
         <section
           style={{

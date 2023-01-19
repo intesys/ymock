@@ -6,10 +6,14 @@
       "persistent": true
     },
     "build": {
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
     },
     "lint": {
       "outputs": []
+    },
+    "ymock-host#dev": {
+      "dependsOn": ["ymock#build"]
     }
   }
 }

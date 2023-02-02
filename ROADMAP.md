@@ -20,7 +20,7 @@ once the app reaches a MVP state.
     - [x] Switch to hash routing
   - [x] Find a way to develop the client in stand-alone mode with a mock worker
     - [x] Remove all occurrences of hosted/stand-alone mode, etc
-  - [ ] Create an automated process (like the msw init script) to install yMock's build into a subdir in the host project's public dir
+  - [x] Create an automated process (like the msw init script) to install yMock's build into a subdir in the host project's public dir
   - [x] Update README to reflect the new implementation
   - [ ] Create at least another host app that is not built with vite to check that everything still works as expected
 
@@ -29,9 +29,9 @@ once the app reaches a MVP state.
 "Stories" or features, that are user-facing in nature;
 ask yourself: "will the end user see or use the result of this task?"
 
+- [ ] Implement company theme
 - [ ] Implement UI animations
 - [ ] Finalize Settings section (sidebar objects, data structure)
-- [ ] Implement company theme
 - [ ] Implement data store for data persistence/exporting (see: <https://github.com/intesys/ytestbook/issues/3>)
 - [x] Add breadcrumb to navbar
 - [x] Enable colorScheme in settings

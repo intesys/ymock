@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A full-featured management GUI for MSW",
   "type": "module",
+  "engines": {
+    "node": ">=14"
+  },
   "main": "./index.ts",
   "homepage": "https://github.com/intesys/ymock",
   "repository": {

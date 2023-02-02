@@ -48,8 +48,8 @@ const { REPO_MODE } = process.env;
   const { workerDirectory: publicDir } = packageJson.msw;
   const HOST_PUBLIC_DIR = resolve(parentPackageCwd, publicDir);
 
-  // > When executing the "postinstall" script, the "process.cwd"
-  // > equals the package directory
+  // > When executing the "postinstall" script,
+  // >  the "process.cwd" equals the package directory
   const YMOCK_DIST_DIR = resolve(process.cwd(), "dist");
 
   console.log("Installing yMock…");

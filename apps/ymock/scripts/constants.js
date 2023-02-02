@@ -2,6 +2,8 @@
 constants
 --------------------------------- */
 
+export const YMOCK_SUPPORT_DIR_NAME = "__ymock";
+
 export const template = (filename) => `
       <!DOCTYPE html>
       <html lang="en">

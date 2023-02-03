@@ -2,7 +2,17 @@
   "name": "ymock-launcher",
   "version": "0.0.0",
   "type": "module",
-  "module": "index.ts",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/intesys/ymock"

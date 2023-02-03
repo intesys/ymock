@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Launcher from "./Launcher";
+import { Launcher } from "./Launcher";
 import mockMsw from "./mocks/mock-msw";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

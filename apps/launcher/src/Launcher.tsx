@@ -12,7 +12,7 @@ type OwnProps = {
   msw: any;
 };
 
-export default function Launcher({ msw }: OwnProps): JSX.Element {
+export function Launcher({ msw }: OwnProps): JSX.Element {
   const [launched, setLaunched] = useState(false);
   const theme = useMantineTheme();
   const windowRef = useRef<Window | null>(null);

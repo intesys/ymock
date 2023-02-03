@@ -25,6 +25,8 @@ once the app reaches a MVP state.
   - [ ] Create at least another host app that is not built with vite to check that everything still works as expected
 - [ ] Define how the module(s) will be packaged and test a real-life installation
   - [x] Unbundle "Launcher" into its own workspace
+    - [ ] Write build script for the Launcher workspace, setup package.json
+    - [ ] Write build script for the yMock workspace, setup package.json
 
 ### Features
 

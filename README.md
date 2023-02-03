@@ -31,10 +31,9 @@ ymock
   │
   └── apps
         ├── host
-        │
+        ├── launcher
         └── ymock
       packages
-        │
         └── shared
       docs
 ```
@@ -42,7 +41,9 @@ ymock
 - `apps`, `packages`: conventional monorepo dirs
 - `host` workspace: the host app (read more later)
 - `ymock` workspace: you guessed it
+- `launcher` workspace: yMock's launcher UI
 - `docs` workspace: documentation site (WIP)
+- `website` workspace: product website (WIP)
 - `shared` workspace: libraries, utilities, etc
 
 ### Development

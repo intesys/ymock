@@ -11,7 +11,10 @@
     "name": "Intesys SRL",
     "url": "https://www.intesys.it/"
   },
-  "scripts": {},
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
   "dependencies": {
     "@mantine/core": "^4.2.12",
     "react": "^18.2.0",

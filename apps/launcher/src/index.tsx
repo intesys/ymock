@@ -4,13 +4,12 @@ Launcher
 
 import * as React from "react";
 import { useRef, useState } from "react";
-import { MSWglobalExports } from "../types";
-import { APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR } from "../constants";
+import { APP_ROOT, ERROR__LAUNCHER_FATAL_ERROR } from "./constants";
 import { Alert, Button, useMantineTheme } from "@mantine/core";
 import { CSSObject } from "@mantine/styles/lib/tss";
 
 type OwnProps = {
-  msw: MSWglobalExports;
+  msw: any;
 };
 
 export default function Launcher({ msw }: OwnProps): JSX.Element {

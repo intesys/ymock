@@ -6,7 +6,6 @@
   "engines": {
     "node": ">=14"
   },
-  "main": "./index.ts",
   "homepage": "https://github.com/intesys/ymock",
   "repository": {
     "type": "git",

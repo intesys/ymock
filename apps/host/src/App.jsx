@@ -13,7 +13,9 @@ import { DEV_MODE } from "./constants.js";
 const { rest } = DEV_MODE ? await import("msw") : undefined;
 const { worker } = DEV_MODE ? await import("./mocks/browser") : undefined;
 const { handlers } = DEV_MODE ? await import("./mocks/handlers") : undefined;
-const Launcher = DEV_MODE ? (await import("ymock")).default : undefined;
+const Launcher = DEV_MODE
+  ? (await import("ymock-launcher")).default
+  : undefined;
 
 export default function App() {
   const [response, setResponse] = useState("");

@@ -5,10 +5,11 @@
   "workspaces": [
     "apps/*",
     "docs",
+    "website",
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo dev --filter=!ymock-docs",
+    "dev": "turbo dev --filter=!ymock-docs --filter=!ymock-website",
     "build": "turbo build --filter=ymock"
   },
   "eslintConfig": {

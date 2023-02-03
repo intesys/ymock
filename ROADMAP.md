@@ -24,7 +24,7 @@ once the app reaches a MVP state.
   - [x] Update README to reflect the new implementation
   - [ ] Create at least another host app that is not built with vite to check that everything still works as expected
 - [ ] Define how the module(s) will be packaged and test a real-life installation
-  - [ ] Unbundle "Launcher" into its own workspace
+  - [x] Unbundle "Launcher" into its own workspace
 
 ### Features
 
@@ -68,6 +68,12 @@ Stuff that works, but could work better; tooling, code quality, and DX-related t
 - [x] Migrate to Vite
 - [x] Refactor main route like settings (dynamic sub-routes with Outlet)
 - [x] Refactor Body component as generic component
+
+### Contributions
+
+PR integrations, etc.
+
+- [ ] Evaluate <https://github.com/intesys/ymock/pull/14>
 
 ---
 

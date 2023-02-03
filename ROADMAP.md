@@ -23,6 +23,8 @@ once the app reaches a MVP state.
   - [x] Create an automated process (like the msw init script) to install yMock's build into a subdir in the host project's public dir
   - [x] Update README to reflect the new implementation
   - [ ] Create at least another host app that is not built with vite to check that everything still works as expected
+- [ ] Define how the module(s) will be packaged and test a real-life installation
+  - [ ] Unbundle "Launcher" into its own workspace
 
 ### Features
 

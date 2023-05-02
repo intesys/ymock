@@ -10,10 +10,10 @@ import { DEV_MODE } from "./constants.js";
 // this should reflect a real-life scenario
 // where the user won't import msw or ymock
 // unless the env is not production.
-const { rest } = DEV_MODE ? await import("msw") : undefined;
-const { worker } = DEV_MODE ? await import("./mocks/browser") : undefined;
-const { handlers } = DEV_MODE ? await import("./mocks/handlers") : undefined;
-const { Launcher } = DEV_MODE ? await import("ymock-launcher") : undefined;
+const { rest } = DEV_MODE ? await import("msw") : {};
+const { worker } = DEV_MODE ? await import("./mocks/browser") : {};
+const { handlers } = DEV_MODE ? await import("./mocks/handlers") : {};
+const { Launcher } = DEV_MODE ? await import("ymock-launcher") : {};
 
 export default function App() {
   const [response, setResponse] = useState("");
@@ -111,7 +111,7 @@ export default function App() {
         </section>
 
         {/* yMock Launcher */}
-        {DEV_MODE ? (
+        {Launcher ? (
           <Launcher
             msw={{
               worker,

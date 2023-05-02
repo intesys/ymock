@@ -64,8 +64,13 @@ const { REPO_MODE } = process.env;
     console.log("Finding yMock's dist dir… Done.");
 
     // Create yMock's support folder into the user's public dir;
-    mkdirSync(`${HOST_PUBLIC_DIR}/${YMOCK_SUPPORT_DIR_NAME}`);
-    mkdirSync(`${HOST_PUBLIC_DIR}/${YMOCK_SUPPORT_DIR_NAME}/assets`);
+    mkdirSync(`${HOST_PUBLIC_DIR}/${YMOCK_SUPPORT_DIR_NAME}/assets`, {
+      // https://nodejs.org/api/fs.html#fsmkdirpath-options-callback
+      // a recursive property indicating whether parent directories should be created.
+      // Calling fs.mkdir() when path is a directory that exists results in an error
+      // only when recursive is false.
+      recursive: true,
+    });
     console.log("Creating yMock's support folder… Done.");
 
     // Dynamically get the bundle file's name from node_modules

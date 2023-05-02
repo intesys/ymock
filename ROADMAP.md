@@ -47,9 +47,9 @@ ask yourself: "will the end user see or use the result of this task?"
 
 Stuff that needs fixing.
 
-- [ ] yMock's postinstall script no longer works when handled by turbo in the context of the dev script
 - [ ] Fix light theme
 - [ ] Fix TS issues
+- [x] yMock's postinstall script no longer works when handled by turbo in the context of the dev script
 - [x] The `/demo` route should be hidden in production
 - [x] Fix sidebar mapping in standalone mode
 - [x] There's something not 100% working with the `__ymock` basepath

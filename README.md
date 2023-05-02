@@ -36,6 +36,7 @@ ymock
       packages
         └── shared
       docs
+      website
 ```
 
 - `apps`, `packages`: conventional monorepo dirs

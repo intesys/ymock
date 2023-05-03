@@ -23,7 +23,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "clean": "rimraf ./dist/*"
   },
   "dependencies": {
     "@mantine/core": "^4.2.12",

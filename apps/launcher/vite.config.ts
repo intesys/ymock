@@ -1,15 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import path, { resolve } from "path";
+import watchAndRun from "vite-plugin-watch-and-run";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+
+    // @ts-ignore
+    watchAndRun([
+      {
+        name: "rebuild",
+        watchKind: ["add", "change", "unlink"],
+        watch: path.resolve("src/**/*.*"),
+        run: "npm run build",
+      },
+    ]),
+  ],
   build: {
     lib: {
       // https://vitejs.dev/guide/build.html#library-mode
       entry: resolve(__dirname, "index.ts"),
-      name: "yMock Launcher",
+      name: "yMockLauncher",
       fileName: "index",
     },
     rollupOptions: {

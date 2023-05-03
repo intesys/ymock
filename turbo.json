@@ -12,6 +12,9 @@
     "lint": {
       "outputs": []
     },
+    "clean": {
+      "outputs": []
+    },
     "ymock-host#dev": {
       "dependsOn": ["ymock-client#build", "ymock-launcher#build"]
     }

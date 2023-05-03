@@ -13,7 +13,7 @@
       "outputs": []
     },
     "ymock-host#dev": {
-      "dependsOn": ["ymock#build", "ymock-launcher#build"]
+      "dependsOn": ["ymock-client#build", "ymock-launcher#build"]
     }
   }
 }

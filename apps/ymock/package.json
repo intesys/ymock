@@ -1,5 +1,5 @@
 {
-  "name": "ymock",
+  "name": "ymock-client",
   "version": "0.0.0",
   "description": "A full-featured management GUI for MSW",
   "type": "module",

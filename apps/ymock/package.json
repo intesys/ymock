@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A full-featured management GUI for MSW",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=14"
   },
@@ -17,10 +20,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run postinstall:repo",
-    "preview": "vite preview",
+    "build": "vite build && cross-env REPO_MODE=true node scripts/postinstall.js",
+    "build:watch": "vite build --watch",
+    "clean": "rimraf ./dist/*",
     "postinstall": "node scripts/postinstall.js",
-    "postinstall:repo": "REPO_MODE=true node scripts/postinstall.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.5",

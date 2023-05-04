@@ -23,10 +23,12 @@ once the app reaches a MVP state.
   - [x] Create an automated process (like the msw init script) to install yMock's build into a subdir in the host project's public dir
   - [x] Update README to reflect the new implementation
   - [ ] Create at least another host app that is not built with vite to check that everything still works as expected
-- [ ] Define how the module(s) will be packaged and test a real-life installation
-  - [x] Unbundle "Launcher" into its own workspace
-    - [x] Write build script for the Launcher workspace, setup package.json
-    - [ ] Write build script for the yMock workspace, setup package.json
+  - [x] Setup a dev workflow that:
+    - [x] Runs client, launcher & host on their own dev server, in parallel
+    - [x] Builds launcher & client _before_ running dev on the host app
+    - [x] Imports launcher into host as an actual npm dependency, referencing the dist assets
+    - [x] Copies the client build into host, reproducing how it should work in the context of the end user's project
+    - [x] Rebuilds launcher & client on any dev change, and copies client into host
 
 ### Features
 
@@ -47,12 +49,27 @@ ask yourself: "will the end user see or use the result of this task?"
 
 Stuff that needs fixing.
 
+- [ ] Un-break broken functionality (regressions due to an unfinished refactor)
+  - [ ] Ability to individually toggle mocks
+  - [ ] Mock overrides should appear in UI when submitted
+  - [ ] Global VS local state
+  - …
 - [ ] Fix light theme
 - [ ] Fix TS issues
 - [x] yMock's postinstall script no longer works when handled by turbo in the context of the dev script
 - [x] The `/demo` route should be hidden in production
 - [x] Fix sidebar mapping in standalone mode
 - [x] There's something not 100% working with the `__ymock` basepath
+
+### Distribution
+
+What we need to do to distribute the app on the npm registry.
+
+- [ ] Define how the module(s) will be packaged
+  - [x] Unbundle "Launcher" into its own workspace
+    - [x] Write build script for the Launcher workspace, setup package.json
+  - [ ] Write build script for the yMock workspace, setup package.json
+- [ ] Test a real-life installation
 
 ### Maintenance
 

@@ -67,7 +67,7 @@ export const WorkerContext = React.createContext<MSWglobalExports>({
 });
 
 export default function Layout(): JSX.Element {
-  const { worker, rest, handlers } = msw ?? window?.msw ?? {};
+  const { worker, rest, handlers } = window?.msw ?? msw ?? {};
   const fatalError = [worker, rest, handlers].some((truthy) => !truthy);
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarItem, setSidebarItem] = useState<

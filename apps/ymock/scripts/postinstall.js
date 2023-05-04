@@ -52,16 +52,16 @@ const { REPO_MODE } = process.env;
   // >  the "process.cwd" equals the package directory
   const YMOCK_DIST_DIR = resolve(process.cwd(), "dist");
 
-  console.log("Installing yMock…");
+  console.log("⏳ Installing yMock…");
 
   try {
     // Determine if the host public dir exists;
     await access(HOST_PUBLIC_DIR, constants.F_OK);
-    console.log("Finding the host project's public dir… Done.");
+    console.log("✅ Finding the host project's public dir… Done.");
 
     await access(YMOCK_DIST_DIR, constants.F_OK);
     await access(`${YMOCK_DIST_DIR}/assets`, constants.F_OK);
-    console.log("Finding yMock's dist dir… Done.");
+    console.log("✅ Finding yMock's dist dir… Done.");
 
     // Create yMock's support folder into the user's public dir;
     mkdirSync(`${HOST_PUBLIC_DIR}/${YMOCK_SUPPORT_DIR_NAME}/assets`, {
@@ -71,14 +71,14 @@ const { REPO_MODE } = process.env;
       // only when recursive is false.
       recursive: true,
     });
-    console.log("Creating yMock's support folder… Done.");
+    console.log("✅ Creating yMock's support folder… Done.");
 
     // Dynamically get the bundle file's name from node_modules
     // If there are dotfiles, they'll come before the js file in the array.
     // TODO explicitly detect the file with js ext?
     const filename = readdirSync(`${YMOCK_DIST_DIR}/assets`).pop();
     // In case the dir was empty, `pop()` would return `undefined`
-    if (!filename) throw new Error("Cannot find yMock bundle.");
+    if (!filename) throw new Error("❌ Cannot find yMock bundle.");
 
     await Promise.all([
       copyFile(
@@ -86,7 +86,7 @@ const { REPO_MODE } = process.env;
         `${HOST_PUBLIC_DIR}/${YMOCK_SUPPORT_DIR_NAME}/assets/${filename}`
       ).then(() => {
         console.log(
-          "Copying yMock's bundle to the project's public dir… Done."
+          "✅ Copying yMock's bundle to the project's public dir… Done."
         );
       }),
       writeFile(
@@ -94,37 +94,40 @@ const { REPO_MODE } = process.env;
         template(filename)
       ).then(() => {
         console.log(
-          "Copying yMock's HTML template to the project's public dir… Done."
+          "✅ Copying yMock's HTML template to the project's public dir… Done."
         );
       }),
     ]);
 
-    console.log("yMock was successfully installed!");
+    console.log("🎉 yMock was successfully installed!");
   } catch (err) {
     switch (err.syscall) {
       case "access":
         console.error(
-          `Failed to install yMock: couldn't find required directory "${err.path}".`,
+          `❌ Failed to install yMock: couldn't find required directory "${err.path}".`,
           err
         );
         break;
 
       case "mkdir":
         console.error(
-          `Failed to install yMock: couldn't create required directory "${err.path}".`,
+          `❌ Failed to install yMock: couldn't create required directory "${err.path}".`,
           err
         );
         break;
 
       case "copyfile":
         console.error(
-          "Failed to install yMock: couldn't find yMock's bundle.",
+          "❌ Failed to install yMock: couldn't find yMock's bundle.",
           err
         );
         break;
 
       default:
-        console.error("Failed to install yMock. Additional error info: ", err);
+        console.error(
+          "❌ Failed to install yMock. Additional error info: ",
+          err
+        );
     }
   }
 })();

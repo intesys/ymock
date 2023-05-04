@@ -19,7 +19,14 @@ export default defineConfig({
         name: "rebuild",
         watchKind: ["add", "change", "unlink"],
         watch: path.resolve("src/**/*.*"),
-        run: "npm run clean && vite build && cross-env REPO_MODE=true npm run postinstall",
+        // `vite build` sets a mode"  production by default, but for some reason
+        // when we run this script the variable is set to development;
+        // this triggers the importing of a mock file which is intended
+        // for dev mode only;
+        // the file is then referenced in the bundled app, but not copied over
+        // to the __ymock dir, thus breaking the app.
+        // SO, we're forcing the production env var at the start of the script!
+        run: "npm run clean && cross-env NODE_ENV=production vite build && cross-env REPO_MODE=true npm run postinstall",
       },
     ]),
   ],

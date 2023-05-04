@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "dev": "turbo dev --filter=!ymock-docs --filter=!ymock-website",
-    "clean": "turbo clean --filter=ymock-client --filter=ymock-launcher --filter=ymock-host",
+    "clean": "turbo clean --no-cache --force --filter=ymock-client --filter=ymock-launcher --filter=ymock-host",
     "build": "turbo build --filter=ymock-client"
   },
   "eslintConfig": {

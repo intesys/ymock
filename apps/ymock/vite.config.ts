@@ -20,7 +20,7 @@ export default defineConfig({
         name: "rebuild",
         watchKind: ["add", "change", "unlink"],
         watch: path.resolve("src/**/*.*"),
-        run: "npm run clean && npm run build && cross-env REPO_MODE=true npm run postinstall",
+        run: "npm run clean && vite build && cross-env REPO_MODE=true npm run postinstall",
       },
     ]),
   ],

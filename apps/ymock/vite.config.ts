@@ -4,7 +4,6 @@ import watchAndRun from "vite-plugin-watch-and-run";
 import path from "path";
 
 // https://vitejs.dev/config/
-
 export default defineConfig({
   build: {
     // https://stackoverflow.com/questions/72618944/get-error-to-build-my-project-in-vite-top-level-await-is-not-available-in-the

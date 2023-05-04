@@ -75,8 +75,9 @@ const { REPO_MODE } = process.env;
 
     // Dynamically get the bundle file's name from node_modules
     // If there are dotfiles, they'll come before the js file in the array.
-    // TODO explicitly detect the file with js ext?
-    const filename = readdirSync(`${YMOCK_DIST_DIR}/assets`).pop();
+    const filename = readdirSync(`${YMOCK_DIST_DIR}/assets`).find((filename) =>
+      /^index-[a-z0-9]+\.js$/i.test(filename)
+    );
     // In case the dir was empty, `pop()` would return `undefined`
     if (!filename) throw new Error("❌ Cannot find yMock bundle.");
 

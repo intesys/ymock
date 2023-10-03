@@ -1,0 +1,163 @@
+@import url(./reset.scss);
+
+body {
+  background-color: #222;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  height: 100%;
+}
+
+#_ymock_root_ {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+
+  a:hover {
+    cursor: pointer;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  header {
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.5em;
+    padding: 0 16px;
+    border-bottom: 1px solid #444;
+    background: linear-gradient(#333, #111);
+  }
+
+  div.content-wrapper {
+    flex: 1;
+    display: flex;
+    height: 100%;
+  }
+
+  nav {
+    padding: 10px 0;
+    border-right: 1px solid #444;
+    overflow-y: auto;
+  }
+
+  main {
+    padding: 10px 20px;
+    flex-grow: 3;
+  }
+
+  .title {
+    font-size: 1.3em;
+    line-height: 2.5em;
+    padding: 0 16px;
+    border-bottom: 1px solid #444;
+  }
+
+  .api-list {
+    .search {
+      border: none;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 10px 0;
+      li {
+        a {
+          display: block;
+          font-size: 0.9em;
+          // line-height: 3em;
+          padding: 6px 16px;
+          &:hover {
+            background: #333;
+          }
+          span {
+            display: inline-block;
+            line-height: 2em;
+            &.method {
+              font-size: 0.9em;
+              font-weight: bold;
+              // border: 1px solid #444;
+              background: #111;
+              border-radius: 3px;
+              padding: 0 8px;
+            }
+            &.path {
+              padding-left: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .configure-response {
+    .title {
+    }
+
+    .request-info {
+      display: flex;
+      border-bottom: 1px solid #444;
+      border-left: 1px solid #444;
+      border-right: 1px solid #444;
+
+      div {
+        padding: 16px;
+      }
+
+      .method {
+        border-right: 1px solid #444;
+        font-weight: bold;
+        font-size: 0.9em;
+        background: #111;
+      }
+
+      .path {
+      }
+    }
+
+    .configure-form {
+      padding: 24px 0;
+    }
+  }
+
+  div.input {
+    padding-bottom: 16px;
+    label {
+      line-height: 2em;
+    }
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    border: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    padding: 12px 2%;
+    width: 95%;
+    &:focus {
+      background: #333;
+    }
+  }
+
+  select,
+  button {
+    width: 99%;
+  }
+
+  button {
+    cursor: pointer;
+    &:hover {
+      background: #333;
+    }
+    &.primary {
+      font-size: 1.1em;
+    }
+  }
+}

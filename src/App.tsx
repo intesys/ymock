@@ -1,26 +1,21 @@
-import { MantineProvider, createTheme } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
-import { MemoryRouter } from "react-router-dom";
-import { Navigation } from "./Navigation";
-import { theme } from "./config/yMock";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { ApiList } from "./components/ApiList";
+import { ConfigureResponse } from "./components/ConfigureResponse";
+import { Styles } from "./css/Styles";
 
-const yMockTheme = createTheme(theme);
-
-export function App() {
+export const App: React.FC = () => {
   return (
-    <MantineProvider
-      // defaultColorScheme="dark"
-      theme={yMockTheme}
-      withCssVariables={false}
-      // cssVariablesResolver={(theme) => {
-      //   console.log("cssVariablesResolver", theme);
-      //   return theme;
-      // }}
-    >
-      <Notifications />
-      <MemoryRouter>
-        <Navigation />
-      </MemoryRouter>
-    </MantineProvider>
+    <MemoryRouter>
+      <Styles />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<ApiList />} />
+          <Route path=":method">
+            <Route path="*" element={<ConfigureResponse />} />
+          </Route>
+        </Route>
+      </Routes>
+    </MemoryRouter>
   );
-}
+};

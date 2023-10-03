@@ -1,7 +1,7 @@
 import { DefaultBodyType, MockedRequest, RestHandler, SetupWorker } from "msw";
-import { addCss, getButton, scaffoldHtml } from "./lib/htmlElements";
-import { RenderFn, RenderFnParams } from "./types/ymock";
 import { WINDOW_HEIGHT, WINDOW_NAME, WINDOW_WIDTH } from "./config/yMock";
+import { getButton, scaffoldHtml } from "./lib/htmlElements";
+import { RenderFn, RenderFnParams } from "./types/ymock";
 
 export class YMock {
   private worker?: SetupWorker;
@@ -41,7 +41,6 @@ export class YMock {
 
     if (this.yMockWindow) {
       scaffoldHtml(this.yMockWindow);
-      addCss(this.yMockWindow);
       const root = this.renderFn(this.yMockWindow)({ worker: this.worker, handlers: this.handlers });
       this.yMockWindow.addEventListener("unload", (event) => {
         root.unmount();

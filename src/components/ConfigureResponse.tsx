@@ -28,7 +28,9 @@ export const ConfigureResponse: React.FC = () => {
 
   return (
     <>
-      {method} {path}
+      <div style={{ width: "100%", border: "1px solid #f00" }}>
+        {method} {path}
+      </div>
       <form onSubmit={form.onSubmit(setResponse)}>
         <Stack>
           <JsonInput

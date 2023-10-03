@@ -10,9 +10,9 @@ export default defineConfig({
       name: "ymock",
       fileName: "ymock"
     },
-    cssCodeSplit: false
+    cssCodeSplit: true
   },
   plugins: [
     react(),
-  ],
+  ]
 });

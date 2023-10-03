@@ -7,7 +7,7 @@ export const ApiList: React.FC = () => {
   const [handlerList, setHandlerList] = useState(handlers);
   const navigate = useNavigate();
 
-  const filterApi = (event: React.ChangeEventHandler<HTMLInputElement>) => {
+  const filterApi: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const searchFor = new RegExp(event.target.value);
     setHandlerList(
       handlers.filter((el) => searchFor.test(el.info.path as string))

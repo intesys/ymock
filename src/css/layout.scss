@@ -1,0 +1,53 @@
+@import "./variables";
+
+body {
+  background-color: $background;
+  color: $text-color;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  height: 100%;
+}
+
+#_ymock_root_ {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+
+  a:hover {
+    cursor: pointer;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  div.content-wrapper {
+    flex: 1;
+    display: flex;
+    height: 100%;
+  }
+
+  header {
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.5em;
+    padding: 0 16px;
+    border-bottom: 1px solid $border-color;
+    background: $header-background;
+  }
+
+  nav {
+    padding: 10px 0;
+    border-right: 1px solid $border-color;
+    overflow-y: auto;
+  }
+
+  main {
+    padding: 10px 20px;
+    flex-grow: 3;
+  }
+}

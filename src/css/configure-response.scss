@@ -1,0 +1,33 @@
+@import "./variables";
+
+#_ymock_root_ {
+  .configure-response {
+    .title {
+    }
+
+    .request-info {
+      display: flex;
+      border-bottom: 1px solid $border-color;
+      border-left: 1px solid $border-color;
+      border-right: 1px solid $border-color;
+
+      div {
+        padding: 16px;
+      }
+
+      .method {
+        border-right: 1px solid $border-color;
+        font-weight: bold;
+        font-size: 0.9em;
+        background: $mark-color;
+      }
+
+      .path {
+      }
+    }
+
+    .configure-form {
+      padding: 24px 0;
+    }
+  }
+}

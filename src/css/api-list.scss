@@ -1,0 +1,44 @@
+@import "./variables";
+
+#_ymock_root_ {
+  .api-list {
+    input.search {
+      box-sizing: border-box;
+      border: none;
+      padding: 10px 20px;
+      width: 100%;
+      outline: none;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 10px 0;
+      li {
+        a {
+          display: block;
+          font-size: 0.9em;
+          // line-height: 3em;
+          padding: 6px 16px;
+          &:hover {
+            background: $highlight-color;
+          }
+          span {
+            display: inline-block;
+            line-height: 2em;
+            &.method {
+              font-size: 0.9em;
+              font-weight: bold;
+              // border: 1px solid #444;
+              background: $mark-color;
+              border-radius: 3px;
+              padding: 0 8px;
+            }
+            &.path {
+              padding-left: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

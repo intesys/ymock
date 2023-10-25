@@ -6,16 +6,20 @@ import { Form, FormValues } from "./form/Form";
 
 type Method = "all" | "post" | "get" | "put" | "patch" | "options" | "delete";
 
+type Params = {
+  method: Method;
+} & Record<string, string>;
+
 export const ConfigureResponse: React.FC = () => {
-  const { method, "*": path } = useParams();
+  const { method, "*": path } = useParams<Params>();
   const { worker } = useContext(MSWContext);
 
   const setResponse = (data: FormValues) => {
-    const _method = method?.toLowerCase() || "get";
+    const _method: Method = (method?.toLowerCase() as Method) ?? "get";
 
     worker.use(
       rest[_method](`/${path}`, (req, res, ctx) => {
-        return res(ctx.json(data.response));
+        return res(ctx.json(data.body));
       })
     );
   };
@@ -30,8 +34,17 @@ export const ConfigureResponse: React.FC = () => {
       <div className="configure-form">
         <Form onSubmit={setResponse}>
           <div className="input">
-            <label>Override response</label>
-            <textarea name="response" placeholder="{}" />
+            <label>Response type</label>
+            <select name="responseType">
+              <option value="application/json">application/json</option>
+              <option value="text/html">text/html</option>
+              <option value="text/css">text/css</option>
+              <option value="custom">Other</option>
+            </select>
+          </div>
+          <div className="input">
+            <label>Body</label>
+            <textarea name="body" placeholder="{}" />
           </div>
           <button type="submit" className="primary">
             Set response

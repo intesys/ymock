@@ -36,6 +36,11 @@
     width: 100%;
   }
 
+  select {
+    // appearance: none;
+    cursor: pointer;
+  }
+
   button {
     cursor: pointer;
     &:hover {

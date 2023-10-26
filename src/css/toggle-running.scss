@@ -1,0 +1,30 @@
+@import "./variables";
+
+#_ymock_root_ {
+  .toggle-running {
+    display: flex;
+    align-items: center;
+
+    label {
+      padding: 0 5px;
+    }
+
+    &.running {
+      button {
+        &:hover,
+        &:active {
+          color: $error-color;
+        }
+      }
+    }
+
+    &.stopped {
+      button {
+        &:hover,
+        &:active {
+          color: $ok-color;
+        }
+      }
+    }
+  }
+}

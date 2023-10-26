@@ -26,10 +26,10 @@
           font-size: 0.9em;
           // line-height: 3em;
           padding: 6px 16px;
-          transition: transform 0.2s;
+          // transition: transform 0.2s;
           &:hover {
             background: $highlight-color;
-            transform: translate(5px);
+            // transform: translate(5px);
           }
           span {
             display: inline-block;

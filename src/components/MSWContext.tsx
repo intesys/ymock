@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { RenderFnParams } from "../types/ymock";
-import { SetupWorker } from "msw";
+import { SetupWorker } from "msw/lib/browser";
 
 export const MSWContext = React.createContext<RenderFnParams>({
   worker: null as unknown as SetupWorker,

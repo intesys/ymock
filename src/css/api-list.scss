@@ -2,6 +2,13 @@
 
 #_ymock_root_ {
   .api-list {
+    .title {
+      font-size: 1.3em;
+      line-height: 2.5em;
+      padding: 0 16px;
+      border-bottom: 1px solid $border-color;
+    }
+
     input.search {
       box-sizing: border-box;
       border: none;
@@ -19,8 +26,10 @@
           font-size: 0.9em;
           // line-height: 3em;
           padding: 6px 16px;
+          transition: transform 0.2s;
           &:hover {
             background: $highlight-color;
+            transform: translate(5px);
           }
           span {
             display: inline-block;

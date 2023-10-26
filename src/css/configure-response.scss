@@ -3,6 +3,10 @@
 #_ymock_root_ {
   .configure-response {
     .title {
+      font-size: 1.3em;
+      line-height: 2.5em;
+      padding: 0 16px;
+      border-bottom: 1px solid $border-color;
     }
 
     .request-info {

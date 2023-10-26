@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { ApiList } from "./ApiList";
+import { Header } from "./Header";
 
 export const Layout: React.FC = () => {
   return (
     <div className="wrapper">
       <header>
-        <div>yMock dashboard</div>
+        <Header />
       </header>
       <div className="content-wrapper">
         <nav>

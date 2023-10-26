@@ -1,13 +1,6 @@
 @import "./variables";
 
 #_ymock_root_ {
-  .title {
-    font-size: 1.3em;
-    line-height: 2.5em;
-    padding: 0 16px;
-    border-bottom: 1px solid $border-color;
-  }
-
   div.input {
     padding-bottom: 16px;
     label {

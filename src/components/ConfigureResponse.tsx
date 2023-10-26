@@ -1,10 +1,9 @@
-import { rest } from "msw";
 import { useContext } from "react";
 import { useParams } from "react-router";
+import { mock } from "../lib/mock";
+import { Method } from "../types/method";
 import { MSWContext } from "./MSWContext";
-import { Form, FormValues } from "./form/Form";
-
-type Method = "all" | "post" | "get" | "put" | "patch" | "options" | "delete";
+import { Form } from "./form/Form";
 
 type Params = {
   method: Method;
@@ -14,15 +13,7 @@ export const ConfigureResponse: React.FC = () => {
   const { method, "*": path } = useParams<Params>();
   const { worker } = useContext(MSWContext);
 
-  const setResponse = (data: FormValues) => {
-    const _method: Method = (method?.toLowerCase() as Method) ?? "get";
-
-    worker.use(
-      rest[_method](`/${path}`, (req, res, ctx) => {
-        return res(ctx.json(data.body));
-      })
-    );
-  };
+  const setResponse = mock(worker)(method, path);
 
   return (
     <div className="configure-response" key={`${method}${path}`}>
@@ -36,10 +27,14 @@ export const ConfigureResponse: React.FC = () => {
           <div className="input">
             <label>Response type</label>
             <select name="responseType">
-              <option value="application/json">application/json</option>
-              <option value="text/html">text/html</option>
-              <option value="text/css">text/css</option>
-              <option value="custom">Other</option>
+              <option value="json">json</option>
+              <option value="redirect">redirect</option>
+              <option value="text">text</option>
+              <option value="xml">xml</option>
+              <option value="formData">form data</option>
+              <option value="arrayBuffer">array buffer</option>
+              <option value="error">network error</option>
+              <option value="other">Other</option>
             </select>
           </div>
           <div className="input">

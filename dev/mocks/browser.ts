@@ -1,4 +1,4 @@
-import { SetupWorker, setupWorker } from "msw";
+import { SetupWorker, setupWorker } from "msw/browser";
 import { handlers } from "./handlers";
 
 // This configures a Service Worker with the given request handlers.

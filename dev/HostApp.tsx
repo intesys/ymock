@@ -14,12 +14,23 @@ import {
 import "@mantine/core/styles.css";
 import { useForm } from "@mantine/form";
 import { IconClick } from "@tabler/icons-react";
-import { DefaultBodyType, MockedRequest, RestHandler } from "msw";
+import { HttpHandler, Path } from "msw";
+import { HttpHandlerInfo } from "msw/lib/core/handlers/HttpHandler";
 import { useEffect, useState } from "react";
 import { RenderFnParams } from "../src/types/ymock";
 
 type HandlerProp = {
-  handler?: RestHandler<MockedRequest<DefaultBodyType>>;
+  handler?: HttpHandler;
+};
+
+type FormValues = {
+  url?: Path;
+  method?: HttpHandlerInfo["method"];
+  mode?: string;
+  cache?: string;
+  headers?: Record<string, string>;
+  referrerPolicy?: string;
+  body?: string;
 };
 
 const CurrentHandler: React.FC<HandlerProp> = ({ handler }) =>
@@ -32,17 +43,17 @@ const CurrentHandler: React.FC<HandlerProp> = ({ handler }) =>
 const RequestForm: React.FC<
   HandlerProp & { setResponse: React.Dispatch<any> }
 > = ({ handler, setResponse }) => {
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: {
       url: handler?.info.path,
       method: handler?.info.method,
       // mode: "no-cors",
       // cache: "no-cache",
-      Headers: {
-        "Content-Type": "application/json",
+      headers: {
+        // "Content-Type": "application/json",
       },
       // referrerPolicy: "no-referrer",
-      body: "",
+      // body: "",
     },
   });
 
@@ -51,15 +62,23 @@ const RequestForm: React.FC<
     form.setFieldValue("method", handler?.info.method);
   }, [handler]);
 
-  const send = async (values: typeof form.values) => {
+  const send = async (values: FormValues) => {
     try {
       const { url, ...options } = values;
+      if (!options.method) {
+        throw new Error("Method not set");
+      }
+      if (["GET" as HttpHandlerInfo["method"]].includes(options.method)) {
+        delete options.body;
+        console.log(options);
+      }
       const response = await fetch(url as string, options as RequestInit);
       console.log(response);
       const data = await response.json();
       setResponse(data);
     } catch (err) {
-      setResponse(err.message);
+      // @ts-ignore
+      setResponse(err?.message);
     }
   };
 
@@ -70,6 +89,7 @@ const RequestForm: React.FC<
       return <Box>Select an api on the right</Box>;
     case "POST":
     case "PUT":
+    case "PATCH":
       return (
         <form style={{ width: "100%" }} onSubmit={form.onSubmit(send)}>
           <Stack>
@@ -86,25 +106,26 @@ const RequestForm: React.FC<
         </form>
       );
     case "GET":
+    case "DELETE":
     default:
       return (
-        <Stack>
-          <Button>Send</Button>
-        </Stack>
+        <form style={{ width: "100%" }} onSubmit={form.onSubmit(send)}>
+          <Stack>
+            <Button type="submit">Send</Button>
+          </Stack>
+        </form>
       );
   }
 };
 
-const Response: React.FC<any> = ({ data }) => data && <Code>{data}</Code>;
+const Response: React.FC<any> = ({ data }) =>
+  data && <Code>{data.toString()}</Code>;
 
 export const HostApp: React.FC<RenderFnParams> = ({ worker, handlers }) => {
-  const [currentHandler, setCurrentHandler] =
-    useState<RestHandler<MockedRequest<DefaultBodyType>>>();
+  const [currentHandler, setCurrentHandler] = useState<HttpHandler>();
   const [response, setResponse] = useState<any>();
 
-  const changeHandler = (
-    handler: RestHandler<MockedRequest<DefaultBodyType>>
-  ) => {
+  const changeHandler = (handler: HttpHandler) => {
     setCurrentHandler(handler);
     setResponse(null);
   };

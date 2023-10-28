@@ -1,17 +1,16 @@
+import { http } from "msw";
 import { SetupWorker } from "msw/lib/browser";
 import { FormValues } from "../components/form/Form";
 import { Method } from "../types/method";
-import { HttpResponse, http } from "msw";
+import { ResponseHandler } from "../types/responseHandler";
+import { jsonResponseHandler } from "./responseHandlers/jsonResponseHandler";
 
-export const mock = (worker: SetupWorker) => (method: Method = 'get', path: string = '/') => (data: FormValues) => {
+export const mock = (worker: SetupWorker) => (method: Method = 'get', path: string = '/') => (responseHandler: ResponseHandler = jsonResponseHandler) => (data: FormValues) => {
   const _method: Method = (method?.toLowerCase() as Method) ?? "get";
 
-  // TODO: implement different response types
-  const { responseType, body } = data;
+  const { body } = data;
 
   worker.use(
-    http[_method](`/${path}`, () => {
-      return HttpResponse.json(body);
-    })
+    http[_method](`/${path}`, responseHandler(body))
   );
 };

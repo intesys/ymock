@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { MSWContext } from "./MSWContext";
 
-export const ApiList: React.FC = () => {
+export const Navigation: React.FC = () => {
   const { handlers } = useContext(MSWContext);
   const [handlerList, setHandlerList] = useState(handlers);
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export const ApiList: React.FC = () => {
   };
 
   return (
-    <div className="api-list">
+    <div className="navigation">
       <div className="title">Select an api</div>
       <input
         className="search"

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { ApiList } from "./ApiList";
+import { Navigation } from "./Navigation";
 import { Header } from "./Header";
 
 export const Layout: React.FC = () => {
@@ -10,7 +10,7 @@ export const Layout: React.FC = () => {
       </header>
       <div className="content-wrapper">
         <nav>
-          <ApiList />
+          <Navigation />
         </nav>
         <main>
           <Outlet />

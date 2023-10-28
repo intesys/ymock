@@ -1,7 +1,7 @@
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { SetMock } from "./components/SetMock";
+import { Main } from "./components/Main";
 import { Layout } from "./components/Layout";
-import { PleaseSelectApi } from "./components/PleaseSelectApi";
+import { Welcome } from "./components/Welcome";
 import { Styles } from "./css/Styles";
 
 export const App: React.FC = () => {
@@ -10,9 +10,9 @@ export const App: React.FC = () => {
       <Styles />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<PleaseSelectApi />} />
+          <Route index element={<Welcome />} />
           <Route path=":method">
-            <Route path="*" element={<SetMock />} />
+            <Route path="*" element={<Main />} />
           </Route>
         </Route>
       </Routes>

@@ -14,7 +14,7 @@ export const JsonInput: React.FC = () => {
     try {
       setError(undefined);
       const parsed = JSON.parse(body);
-      const formattedValue = JSON.stringify(parsed, null, 2);
+      const formattedValue = JSON.stringify(parsed, undefined, 2);
       setBody(formattedValue);
     } catch (e) {
       console.warn(e);
@@ -45,7 +45,7 @@ export const JsonInput: React.FC = () => {
         ref={textarea}
       />
       {error ? <div className="error">{error}</div> : null}
-      <button onClick={formatJson}>Format JSON</button>
+      <button onClick={formatJson}>Check and format</button>
     </>
   );
 };

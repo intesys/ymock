@@ -1,22 +1,17 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { mock } from "../../lib/mock";
 import { passthroughResponseHandler } from "../../lib/responseHandlers/passthroughResponseHandler";
 import { MSWContext } from "../MSWContext";
-import { Params } from "../Main";
+import { MainParams } from "../Main";
+import { Welcome } from "../Welcome";
 import { Checkbox } from "../form/Checkbox";
-import { Form } from "../form/Form";
-import { JsonInput } from "../form/JsonInput";
+import { MockForm } from "./MockForm";
 
 export const ManageMock: React.FC = () => {
-  const { method, "*": path } = useParams<Params>();
+  const { method, "*": path } = useParams<MainParams>();
   const { worker } = useContext(MSWContext);
   const [enabled, setEnabled] = useState(true);
-
-  const setResponse = useMemo(
-    () => mock(worker)(method, path),
-    [worker, method, path]
-  );
 
   useEffect(() => {
     if (!enabled) {
@@ -24,6 +19,11 @@ export const ManageMock: React.FC = () => {
       mock(worker)(method, path)(passthroughResponseHandler)({});
     }
   }, [enabled]);
+
+  if (!method || !path) {
+    console.warn("Invalid route: even method and path must be set");
+    return <Welcome />;
+  }
 
   return (
     <div className="manage-mock">
@@ -41,27 +41,7 @@ export const ManageMock: React.FC = () => {
             onChange={setEnabled}
           />
         </div>
-        {enabled && (
-          <Form onSubmit={setResponse()}>
-            <div className="input">
-              <label htmlFor="responseType">Response type</label>
-              <select name="responseType">
-                <option value="json">json</option>
-                <option value="text">plain text</option>
-                <option value="xml">xml</option>
-                <option value="formData">form data</option>
-                <option value="redirect">redirect</option>
-              </select>
-            </div>
-            <div className="input">
-              <label>Body</label>
-              <JsonInput />
-            </div>
-            <button type="submit" className="primary">
-              Set response
-            </button>
-          </Form>
-        )}
+        {enabled && <MockForm {...{ method, path }} />}
       </div>
     </div>
   );

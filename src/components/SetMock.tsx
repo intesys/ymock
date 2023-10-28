@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { mock } from "../lib/mock";
 import { Method } from "../types/method";
 import { MSWContext } from "./MSWContext";
 import { Form } from "./form/Form";
+import { JsonInput } from "./form/JsonInput";
+import { Checkbox } from "./form/Checkbox";
 
 type Params = {
   method: Method;
@@ -12,8 +14,15 @@ type Params = {
 export const SetMock: React.FC = () => {
   const { method, "*": path } = useParams<Params>();
   const { worker } = useContext(MSWContext);
+  const [enabled, setEnabled] = useState(true);
 
   const setResponse = mock(worker)(method, path);
+
+  useEffect(() => {
+    if (!enabled) {
+      // passwthrough
+    }
+  }, [enabled]);
 
   return (
     <div className="configure-response" key={`${method}${path}`}>
@@ -25,25 +34,34 @@ export const SetMock: React.FC = () => {
       <div className="configure-form">
         <Form onSubmit={setResponse}>
           <div className="input">
-            <label>Response type</label>
-            <select name="responseType">
-              <option value="json">json</option>
-              <option value="redirect">redirect</option>
-              <option value="text">text</option>
-              <option value="xml">xml</option>
-              <option value="formData">form data</option>
-              <option value="arrayBuffer">array buffer</option>
-              <option value="error">network error</option>
-              <option value="other">Other</option>
-            </select>
+            <Checkbox
+              name="enabled"
+              label="Enable"
+              defaultChecked={enabled}
+              onChange={setEnabled}
+            />
           </div>
-          <div className="input">
-            <label>Body</label>
-            <textarea name="body" placeholder="{}" />
-          </div>
-          <button type="submit" className="primary">
-            Set response
-          </button>
+          {enabled && (
+            <>
+              <div className="input">
+                <label htmlFor="responseType">Response type</label>
+                <select name="responseType">
+                  <option value="json">json</option>
+                  <option value="text">plain text</option>
+                  <option value="xml">xml</option>
+                  <option value="formData">form data</option>
+                  <option value="redirect">redirect</option>
+                </select>
+              </div>
+              <div className="input">
+                <label>Body</label>
+                <JsonInput />
+              </div>
+              <button type="submit" className="primary">
+                Set response
+              </button>
+            </>
+          )}
         </Form>
       </div>
     </div>

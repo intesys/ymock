@@ -118,8 +118,23 @@ const RequestForm: React.FC<
   }
 };
 
-const Response: React.FC<any> = ({ data }) =>
-  data && <Code>{data.toString()}</Code>;
+const Response: React.FC<any> = ({ data }) => {
+  try {
+    let stringData;
+    switch (typeof data) {
+      case "string":
+      case "boolean":
+      case "number":
+        stringData = data;
+        break;
+      case "object":
+        stringData = JSON.stringify(data, null, 2);
+    }
+    return data && <Code>{data.toString()}</Code>;
+  } catch (e) {
+    console.warn(e);
+  }
+};
 
 export const HostApp: React.FC<RenderFnParams> = ({ worker, handlers }) => {
   const [currentHandler, setCurrentHandler] = useState<HttpHandler>();

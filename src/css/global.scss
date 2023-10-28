@@ -23,6 +23,15 @@
     }
   }
 
+  textarea {
+    white-space: pre;
+    scrollbar-color: $border-color;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   select,
   button {
     box-sizing: border-box;
@@ -42,5 +51,25 @@
     &.primary {
       font-size: 1.1em;
     }
+  }
+
+  .input-checkbox {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    &.checked {
+      color: $ok-color;
+    }
+    label {
+      cursor: pointer;
+    }
+  }
+
+  div.error {
+    font-size: 0.8em;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px dotted $error-color;
   }
 }

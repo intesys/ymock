@@ -51,6 +51,20 @@
     &.primary {
       font-size: 1.1em;
     }
+    &.small {
+      font-size: 0.8em;
+    }
+    &.icon {
+      background: none;
+      border: none;
+      width: auto;
+      height: auto;
+      padding: 5px;
+      &:hover {
+        background: none;
+        color: $highlight-text-color;
+      }
+    }
   }
 
   .input-checkbox {

@@ -1,3 +1,4 @@
+import { IconChecks } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
 
 export const JsonInput: React.FC = () => {
@@ -36,7 +37,7 @@ export const JsonInput: React.FC = () => {
   }, [body]);
 
   return (
-    <>
+    <div className="input-json">
       <textarea
         name="body"
         placeholder="{}"
@@ -45,7 +46,9 @@ export const JsonInput: React.FC = () => {
         ref={textarea}
       />
       {error ? <div className="error">{error}</div> : null}
-      <button onClick={formatJson}>Check and format</button>
-    </>
+      <button onClick={formatJson} className="icon format">
+        <IconChecks />
+      </button>
+    </div>
   );
 };

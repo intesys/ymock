@@ -9,7 +9,7 @@ type Params = {
   method: Method;
 } & Record<string, string>;
 
-export const ConfigureResponse: React.FC = () => {
+export const SetMock: React.FC = () => {
   const { method, "*": path } = useParams<Params>();
   const { worker } = useContext(MSWContext);
 

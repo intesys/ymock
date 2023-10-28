@@ -5,6 +5,9 @@ import { Method } from "../types/method";
 import { ResponseHandler } from "../types/responseHandler";
 import { jsonResponseHandler } from "./responseHandlers/jsonResponseHandler";
 
+/**
+ * TODO: document
+ */
 export const mock = (worker: SetupWorker) => (method: Method = 'get', path: string = '/') => (responseHandler: ResponseHandler = jsonResponseHandler) => (data: FormValues) => {
   const _method: Method = (method?.toLowerCase() as Method) ?? "get";
 

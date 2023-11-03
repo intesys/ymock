@@ -35,13 +35,12 @@ export const Checkbox: React.FC<Checkbox> = ({
       <input
         type="checkbox"
         name={name}
-        defaultChecked={defaultChecked}
         checked={value}
         onChange={toggle}
         style={{ display: "none" }}
       />
       {value ? <IconCheck /> : <IconSquare />}
-      <label htmlFor={name}>{value ? "Mock enabled" : "Mock disabled"}</label>
+      <label htmlFor={name}>{label}</label>
     </div>
   );
 };

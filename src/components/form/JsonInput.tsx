@@ -1,22 +1,23 @@
 import { IconChecks } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEventHandler, useRef, useState } from "react";
+import { ResizableTextarea } from "./ResizableTextarea";
 
 export const JsonInput: React.FC = () => {
   const [body, setBody] = useState("{}");
   const [error, setError] = useState<string | undefined>();
+  const [verified, setVerified] = useState(false);
   const textarea = useRef<HTMLTextAreaElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setBody(e.target.value);
     setError(undefined);
+    setVerified(false);
   };
 
   const formatJson = () => {
+    setVerified(true);
     try {
-      setError(undefined);
-      const parsed = JSON.parse(body);
-      const formattedValue = JSON.stringify(parsed, undefined, 2);
-      setBody(formattedValue);
+      JSON.parse(body);
     } catch (e) {
       console.warn(e);
       // @ts-ignore
@@ -24,25 +25,20 @@ export const JsonInput: React.FC = () => {
     }
   };
 
-  const resizeTextArea = () => {
-    if (!textarea.current) {
-      return;
+  const isError = () => {
+    if (!verified) {
+      return "";
     }
-    textarea.current.style.height = "auto";
-    textarea.current.style.height = textarea.current?.scrollHeight + "px";
+    return error ? "has-errors" : "no-errors";
   };
 
-  useEffect(() => {
-    resizeTextArea();
-  }, [body]);
-
   return (
-    <div className="input-json">
-      <textarea
+    <div className={`input-json ${isError()}`}>
+      <ResizableTextarea
         name="body"
         placeholder="{}"
         value={body}
-        onChange={handleChange}
+        onInput={handleChange}
         ref={textarea}
       />
       {error ? <div className="error">{error}</div> : null}

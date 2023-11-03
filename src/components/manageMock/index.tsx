@@ -11,14 +11,14 @@ import { MockForm } from "./MockForm";
 export const ManageMock: React.FC = () => {
   const { method, "*": path } = useParams<MainParams>();
   const { worker } = useContext(MSWContext);
-  const [enabled, setEnabled] = useState(true);
+  const [passthrough, setPassthrough] = useState(false);
 
   useEffect(() => {
-    if (!enabled) {
+    if (passthrough) {
       // passwthrough
       mock(worker)(method, path)(passthroughResponseHandler)({});
     }
-  }, [enabled]);
+  }, [passthrough]);
 
   if (!method || !path) {
     console.warn("Invalid route: even method and path must be set");
@@ -35,13 +35,13 @@ export const ManageMock: React.FC = () => {
       <div className="configure-form">
         <div className="input">
           <Checkbox
-            name="enabled"
-            label="Enable"
-            defaultChecked={enabled}
-            onChange={setEnabled}
+            name="passthrough"
+            label="Passthrough"
+            defaultChecked={passthrough}
+            onChange={setPassthrough}
           />
         </div>
-        {enabled && <MockForm {...{ method, path }} />}
+        {!passthrough && <MockForm {...{ method, path }} />}
       </div>
     </div>
   );

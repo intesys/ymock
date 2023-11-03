@@ -1,3 +1,5 @@
+@import "./variables";
+
 #_ymock_root_ {
   .input-json {
     position: relative;
@@ -5,6 +7,14 @@
       position: absolute;
       top: -32px;
       right: 0;
+    }
+
+    &.no-errors button.format {
+      color: $ok-color;
+    }
+
+    &.has-errors button.format {
+      color: $error-color;
     }
   }
 }
